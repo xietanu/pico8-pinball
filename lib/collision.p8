@@ -1,0 +1,71 @@
+function check_collision(_pin,_obj)
+ if point_collides_box(_pin.origin,_obj) then
+  _obj:check_collision(_pin)
+ end
+end
+
+
+function lines_cross(_l1_1,_l1_2,_l2_1,_l2_2)
+ local _a1,_b1,_c1=calc_inf_line_abc(_l1_1,_l1_2)
+ local _a2,_b2,_c2=calc_inf_line_abc(_l2_1,_l2_2)
+ local _d1 = (_a1*_l2_1.x)+(_b1*_l2_1.y)+_c1
+ local _d2 = (_a1*_l2_2.x)+(_b1*_l2_2.y)+_c1
+
+ if sign(_d1)==sign(_d2) then
+  return false
+ end
+ 
+ local _d1 = (_a2*_l1_1.x)+(_b2*_l1_1.y)+_c2
+ local _d2 = (_a2*_l1_2.x)+(_b2*_l1_2.y)+_c2
+
+ if sign(_d1)==sign(_d2) then
+  return false
+ end
+ 
+ return true
+end
+
+function calc_inf_line_abc(_l1,_l2)
+ local _a=_l2.y-_l1.y
+ local _b=_l1.x-_l2.x
+ local _c=(_l2.x*_l1.y)-(_l1.x*_l2.y)
+ return _a,_b,_c
+end
+
+function check_collision_with_collider(_obj,_pin)
+ local _crossed_line = pin_entered_poly(_pin,_obj)
+ if _crossed_line != nil then
+  add_to_long(score,_crossed_line.p or _obj.p or 0)
+  rollback_pinball_pos(_pin)
+  bounce_off_line(_pin,_crossed_line)
+  return true
+ end
+end
+
+function pin_entered_poly(_pin,_obj)
+ local _pnts,_origin=_obj.collider,_obj.origin
+ local _n_pnts=#_pnts
+ if not _obj.complete then
+  _n_pnts-=1
+ end
+	for i=1,_n_pnts do
+		local j=i%#_pnts+1
+		if lines_cross(
+    _pin.origin,
+    _pin:get_last_pos(),
+				add_vectors(_pnts[i],_origin),
+				add_vectors(_pnts[j],_origin)
+			) then
+   local output= vector_between(
+    _pnts[j],
+    _pnts[i]
+   )
+   output.p=_pnts[i].p
+   output.ref_spd=_pnts[i].ref_spd
+   output.only_ref=_pnts[i].only_ref
+   return output
+		end
+	end
+ return nil
+end
+
