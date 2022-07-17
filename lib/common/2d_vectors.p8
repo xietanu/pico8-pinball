@@ -5,6 +5,12 @@ function vec(_x,_y)
  -- _y: The y coordinate
  return {x=_x, y=_y}
 
+function copy_vec(_v)
+ -- Create a copy of a vector
+ -- args:
+ -- _v: The vector to copy
+ return vec(v.x, v.y)
+
 function normalize(_v)
 --Normalize a vector
 --Makes magniture = 1
