@@ -3,32 +3,32 @@ function init_lights()
  refuel_lights={
   elements={
   create_light(
-   {x=39,y=84},
-   {x=41,y=84},
+   vec(39,84),
+   vec(41,84),
    4,10,
    draw_line_light
   ),
   create_light(
-   {x=39,y=82},
-   {x=41,y=82},
+   vec(39,82),
+   vec(41,82),
    4,10,
    draw_line_light
   ),
   create_light(
-   {x=39,y=80},
-   {x=41,y=80},
+   vec(39,80),
+   vec(41,80),
    4,10,
    draw_line_light
   ),
   create_light(
-   {x=39,y=78},
-   {x=41,y=78},
+   vec(39,78),
+   vec(41,78),
    4,10,
    draw_line_light
   ),
   create_light(
-   {x=39,y=76},
-   {x=41,y=76},
+   vec(39,76),
+   vec(41,76),
    4,10,
    pass
   ),
