@@ -3,13 +3,11 @@ function init_flippers()
  flippers={
   create_flipper(
    vec(29.5,118.5),
-   0,
    ⬅️,
    false
   ),
   create_flipper(
    vec(50.5,118.5),
-   0.5,
    ➡️,
    true
   )
@@ -35,12 +33,12 @@ function create_flipper(
  if _flip_x then
   _spr_off.x=-9
   _flip*=-1
-  _base_angle=0
+  _base_angle=0.5
  end
  local _f = {
   origin=_origin,
   simple_collider=create_box_collider(
-   7+5*_flip,-6,
+   -7+5*_flip,-6,
    7+5*_flip,6
   ),
   collider_base={
@@ -116,8 +114,7 @@ function check_collision_with_flipper(_f,_pin)
  -- _f (table): the flipper
  -- _pin (table): pinball
  --  colliding with flipper.
- if point_collides_poly(
-  _pin.origin,_f) then
+ if point_collides_poly(_pin.origin,_f) then
   
   local _flp_spd = _f.moving*dist_between_vectors(
    _f.origin,_pin.origin
