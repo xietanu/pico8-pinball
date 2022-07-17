@@ -10,7 +10,7 @@ function copy_vec(_v)
  -- Create a copy of a vector
  -- args:
  -- _v: The vector to copy
- return vec(v.x, v.y)
+ return vec(_v.x, _v.y)
 end
 
 function normalize(_v)
