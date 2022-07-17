@@ -15,11 +15,11 @@ function init_poly_bumpers()
     {x=51,y=95},
     {
      {x=4,y=-1},
-     {x=6,y=2},
+     {x=6,y=1},
      {x=6,y=11},
      {x=1,y=14},
      {x=-1,y=13,ref_spd=1.25,p=250},
-     {x=2,y=2}
+     {x=2,y=1}
     },
     1,
     1,2
@@ -28,11 +28,11 @@ function init_poly_bumpers()
    create_poly_bumper(
     {x=21,y=95},
     {
-     {x=5,y=2,ref_spd=1.25,p=1000},
+     {x=5,y=1,ref_spd=1.25,p=1000},
      {x=8,y=13},
      {x=6,y=14},
      {x=1,y=11},
-     {x=1,y=2},
+     {x=1,y=1},
      {x=3,y=-1}
     },
     1,
