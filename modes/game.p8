@@ -18,7 +18,9 @@ function init_game()
  init_captures()
  init_lights()
 
- collision_regions=gen_collision_regions(static_colliders,0,0,79,127,16)
+ collision_regions=gen_collision_regions(
+  static_colliders,0,0,79,127,16
+ )
 
  score=init_long(3)
 
@@ -28,15 +30,6 @@ function init_game()
  multiplier=2
 
  draw_outlines=false
- -- cls()
- -- for i = 1,#collision_regions do
- --  for j = 1,#collision_regions[i] do
- --   row=collision_regions[i]
- --   print(#row[j]..",",i*8,j*8)
- --  end
- -- end
-
- -- stop()
 end
 
 function update_game()

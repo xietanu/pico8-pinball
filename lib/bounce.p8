@@ -2,10 +2,12 @@ function calc_reflection_vector(
  _v,
  _l
 )
---Args:
--- _p_v (vector): velocity
+-- calculate a reflection
+-- vector.
+-- args:
+-- _v (vector): velocity
 --   vector of object.
--- _l_v (vector): vector to 
+-- _l (vector): vector to 
 --   bounce off of.
 	
 	local _d=dot_product(

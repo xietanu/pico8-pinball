@@ -1,4 +1,5 @@
 function init_walls()
+ -- initialize outer walls
  local narrow_wall_col={
   {x=0,y=-1},
   {x=1,y=0},
@@ -11,32 +12,32 @@ function init_walls()
   init_wall(
    narrow_wall_col,
    true,
-   {x=25,y=21}
+   vec(25,21)
   ),
   init_wall(
    narrow_wall_col,
    true,
-   {x=31,y=17}
+   vec(31,17)
   ),
   init_wall(
    narrow_wall_col,
    true,
-   {x=37,y=16}
+   vec(37,16)
   ),
   init_wall(
    narrow_wall_col,
    true,
-   {x=43,y=16}
+   vec(43,16)
   ),
   init_wall(
    narrow_wall_col,
    true,
-   {x=49,y=17}
+   vec(49,17)
   ),
   init_wall(
    narrow_wall_col,
    true,
-   {x=55,y=21}
+   vec(55,21)
   ),
   init_wall(
    {
@@ -205,7 +206,17 @@ function init_wall(
  _complete,
  _origin
 )
-_origin=_origin or {x=0,y=0}
+ -- create a wall
+ -- args:
+ -- _collider (table): list of
+ --  vertices defining outer edge
+ -- _complete (bool): if the
+ --  points form a complete
+ --  polygon or just a line
+ -- _origin (vector): anchor
+ --  point for the wall.
+ --  defaults to (0,0)
+_origin=_origin or vec(0,0)
 return {
   draw=draw_wall,
   origin=_origin,

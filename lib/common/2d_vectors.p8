@@ -1,3 +1,18 @@
+function vec(_x,_y)
+ -- Create a vector object
+ -- args:
+ -- _x: The x coordinate
+ -- _y: The y coordinate
+ return {x=_x, y=_y}
+end
+
+function copy_vec(_v)
+ -- Create a copy of a vector
+ -- args:
+ -- _v: The vector to copy
+ return vec(v.x, v.y)
+end
+
 function normalize(_v)
 --Normalize a vector
 --Makes magniture = 1

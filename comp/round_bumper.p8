@@ -1,9 +1,10 @@
 function init_round_bumpers()
+ -- initialise circular bumpers
  r_bumpers={
-  create_round_bumper({x=40,y=30},16),
-  create_round_bumper({x=51,y=35},64),
-  create_round_bumper({x=29,y=35},48),
-  create_round_bumper({x=51,y=52},32)
+  create_round_bumper(vec(40,30),16),
+  create_round_bumper(vec(51,35),64),
+  create_round_bumper(vec(29,35),48),
+  create_round_bumper(vec(51,52),32)
  }
  for _rb in all(r_bumpers) do
   add(static_colliders,_rb)
@@ -11,7 +12,14 @@ function init_round_bumpers()
  end
 end
 
-function create_round_bumper(_origin,_spr_i)
+function create_round_bumper(
+ _origin,
+ _spr_i
+)
+ -- create a round bumper
+ -- args:
+ -- _origin (vector): centre point
+ -- _spr_i (int): sprite index
  return {
   origin=_origin,
   simple_collider={
@@ -28,6 +36,8 @@ function create_round_bumper(_origin,_spr_i)
 end
 
 function check_collision_with_r_bumper(_b,_pin)
+ -- check for collision with the
+ -- bumper
  if dist_between_vectors(_b.origin, _pin.origin)<=_b.r then
   add_to_long(score,_b.p)
   local normalized_perp_vec = normalize(subtract_vectors(_pin.origin,_b.origin))

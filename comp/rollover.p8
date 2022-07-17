@@ -1,4 +1,5 @@
 function init_rollovers()
+ -- initialize rollovers
  top_rollovers={
   elements={
    create_rollover(28,19),
@@ -38,6 +39,12 @@ function init_rollovers()
 end
 
 function create_rollover(_x,_y,_action)
+ -- create a rollover
+ -- args:
+ -- _x (int): x coord of centre
+ -- _y (int): y coord of top
+ -- _action (function): action
+ --  to trigger when activated
  return {
   origin={x=_x,y=_y},
   simple_collider={x1=-2,y1=0,x2=2,y2=3},
@@ -56,6 +63,11 @@ function create_rollover(_x,_y,_action)
 end
 
 function set_light(_r,_lit)
+ -- set light status for a
+ -- rollover
+ -- args:
+ -- _r (table): the rollover
+ -- _lit (bool): status to set
  _r.lit=_lit
  if _lit then
   _r.spr_i=_r.lit_spr
@@ -65,6 +77,10 @@ function set_light(_r,_lit)
 end
 
 function check_collision_with_rollover(_r)
+ -- action to trigger when box
+ -- collider is triggered
+ -- args:
+ -- the rollover
  if _r.reset_timer > 0 then
   return
  end
@@ -77,10 +93,13 @@ function check_collision_with_rollover(_r)
 end
 
 function update_rollover(_r)
+ -- reduce timer each frame
  _r.reset_timer=max(0,_r.reset_timer-1)
 end
 
 function rollovers_all_lit(_rg)
+ -- action for when rollover
+ -- group's lights all lit.
  add_to_long(score,150,1)
  for _r in all(_rg.elements) do
   set_light(_r,false)
