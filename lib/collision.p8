@@ -4,6 +4,15 @@ function check_collision(_pin,_obj)
  end
 end
 
+function create_box_collider(_x1,_y1,_x2,_y2)
+ -- create a simple box collider
+ -- args:
+ -- _x1: x coord of top left
+ -- _y1: y coord of top left
+ -- _x2: x coord of bottom right
+ -- _y2: y coord of bottom right
+ return {x1=_x1, y1=_y1,x2=_x2, y2=_y2}
+end
 
 function lines_cross(_l1_1,_l1_2,_l2_1,_l2_2)
  local _a1,_b1,_c1=calc_inf_line_abc(_l1_1,_l1_2)
