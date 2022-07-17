@@ -1,3 +1,10 @@
+function vec(_x,_y)
+ -- Create a vector object
+ -- args:
+ -- _x: The x coordinate
+ -- _y: The y coordinate
+ return {x=_x, y=_y}
+
 function normalize(_v)
 --Normalize a vector
 --Makes magniture = 1
