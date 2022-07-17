@@ -1,4 +1,5 @@
 function init_targets()
+ -- initialize targets
  local left_col={
     {x=0,y=-1},
     {x=3,y=0},
@@ -8,19 +9,19 @@ function init_targets()
  left_targets={
   elements={
    create_target(
-    {x=12,y=76},
+    vec(12,76),
     left_col,
     5,
     21
    ),
    create_target(
-    {x=14,y=68},
+    vec(14,68),
     left_col,
     5,
     21
    ),
    create_target(
-    {x=16,y=60},
+    vec(16,60),
     left_col,
     5,
     21
@@ -28,8 +29,8 @@ function init_targets()
    
   },
   update=update_elem_group,
-   all_lit_action=rollovers_all_lit,
-   flash=0
+  all_lit_action=rollovers_all_lit,
+  flash=0
  }
  for _t in all(left_targets.elements) do
   add(static_colliders,_t)
@@ -44,6 +45,15 @@ function create_target(
  _unlit_spr,
  _lit_spr
 )
+ -- create a target
+ -- args:
+ -- _origin (vector): anchor point
+ -- _collider (table): list of
+ --  vertices defining outside
+ -- _unlit_spr (int): sprite
+ --  index for unlit sprite
+ -- _lit_spr (int): sprite
+ --  index for lit sprite
  return {
   origin=_origin,
   simple_collider=gen_simple_collider(_collider),
@@ -61,6 +71,8 @@ function create_target(
 end
 
 function check_collision_with_target(_obj,_pin)
+ -- action to take if pinball
+ -- hits the target
  if check_collision_with_collider(_obj,_pin) then
   if _obj.lit then
    add_to_long(score,200)

@@ -1,26 +1,25 @@
 function init_pinball()
+ -- itinitialise the pinball
  pinballs={
   create_pinball(30,80)
  }
 end
 
 function create_pinball(_x,_y)
+ -- create a pinball
+ -- args:
+ -- _x (int): x position
+ -- _y (int): y position
+ local _pos=vec(_x,_y)
  return {
-   origin={
-    x=_x,y=_y,
-   },
-   prev={
-    {
-     x=_x,y=_y,
-    }
-   },
-   spd={
-    x=0,y=0
-   },
-   acc={
-    x=0,y=0
-   },
-   simple_collider={x1=-1.5,x2=1.5,y1=-1.5,y2=1.5},
+   origin=_pos,
+   prev={copy_vec(_pos)},
+   spd=vec(0,0),
+   acc=vec(0,0),
+   simple_collider=create_box_collider(
+    -1.5,-1.5,
+    1.5,1.5
+   ),
    check_collision=check_collision_with_pinball,
    captured=false,
    trackers={},
@@ -105,12 +104,10 @@ function check_collision_with_pinball(_pin1,_pin2)
    _pin1.spd,
    normalized_perp_vec
   )
-  -- _pin1.spd = add_vectors(_pin1.spd,multiply_vector(normalized_perp_vec,0.05))
   normalized_perp_vec=multiply_vector(normalized_perp_vec,-1)
   _pin2.spd = calc_reflection_vector(
    _pin2.spd,
    normalized_perp_vec
   )
-  -- _pin2.spd = add_vectors(_pin2.spd,multiply_vector(normalized_perp_vec,0.05))
  end
 end

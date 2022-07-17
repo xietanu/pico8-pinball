@@ -1,7 +1,9 @@
 function init_poly_bumpers()
+ -- create polyginal bumpers
  poly_bumpers={
+   -- spaceship
    create_poly_bumper(
-    {x=40,y=60},
+    vec(40,60),
     {
      {x=0,y=-4},
      {x=3,y=3},
@@ -14,8 +16,9 @@ function init_poly_bumpers()
     96,
     1,2,
     false,
-    {x=-3,y=-2}
+    vec(-3,-2)
    ),
+   -- left bumper
    create_poly_bumper(
     {x=51,y=95},
     {
@@ -29,6 +32,7 @@ function init_poly_bumpers()
     1,
     1,2
    ),
+   -- right bumper
    create_poly_bumper(
     {x=21,y=95},
     {
@@ -43,6 +47,7 @@ function init_poly_bumpers()
     1,2,
     true
    ),
+   -- left gutter pin
    create_poly_bumper(
     {x=64,y=120},
     {
@@ -51,6 +56,7 @@ function init_poly_bumpers()
     },
     4
    ),
+   -- right gutter pin
    create_poly_bumper(
     {x=13,y=120},
     {
@@ -74,8 +80,26 @@ function create_poly_bumper(
  _flip_x,
  _spr_off
 )
+ -- create a polyginal bumper
+ -- args:
+ -- _origin (vector): anchor
+ --  point for the bumper.
+ -- _collider (table): list of
+ --  vertices defining outside
+ -- _spr_i (int): sprite index
+ -- _spr_w (int): width of
+ --  sprite (defaults to 1)
+ -- _spr_h (int): height of
+ --  sprite (defaults to 1)
+ -- _flip_x (bool): whether to
+ --  flip the sprite (defaults
+ --  to false)
+ -- _spr_off (vector): offset
+ --  from the origin to start
+ --  drawing the sprite.
+ --  defaults to (0,0)
  _spr_w,_spr_h=_spr_w or 1,_spr_h or 1
- _spr_off=_spr_off or {x=0,y=0}
+ _spr_off=_spr_off or vec(0,0)
  return {
   origin=_origin,
   simple_collider=gen_simple_collider(_collider),
