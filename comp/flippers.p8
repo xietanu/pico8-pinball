@@ -49,7 +49,7 @@ function create_flipper(
   angle=0,
   angle_max=0.09,
   angle_min=-0.09,
-  angle_inc=0.06,
+  angle_inc=0.055,
   button=_button,
   moving=0,
   bounce_frames=0,
