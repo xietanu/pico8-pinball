@@ -41,15 +41,9 @@ function create_flipper(
    -7+5*_flip,-6,
    7+5*_flip,6
   ),
-  collider_base={
-   {x=-2,y=-1},
-   {x=-1,y=-2},
-   {x=9.5,y=-1},
-   {x=10.5,y=0},
-   {x=9.5,y=1},
-   {x=-1,y=2},
-   {x=-2,y=1}
-  },
+  collider_base=gen_polygon(
+   "-2,-1,-1,-2,9.5,-1,10.5,0,9.5,1,-1,2,-2,1"
+  ),
   check_collision=check_collision_with_flipper,
   spr_off=_spr_off,
   angle=0,
