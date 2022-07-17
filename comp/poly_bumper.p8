@@ -4,15 +4,7 @@ function init_poly_bumpers()
    -- spaceship
    create_poly_bumper(
     vec(40,60),
-    {
-     {x=0,y=-4},
-     {x=3,y=3},
-     {x=4,y=15},
-     {x=1,y=12},
-     {x=-1,y=12},
-     {x=-4,y=15},
-     {x=-3,y=3},
-    },
+    gen_polygon("0,-4,3,3,4,15,1,12,-1,12,-4,15,-3,3"),
     96,
     1,2,
     false,
