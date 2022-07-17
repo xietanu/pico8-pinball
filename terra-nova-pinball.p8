@@ -40,6 +40,8 @@ __lua__
 #include lib/common/sign.p8
 #include lib/common/long_numbers.p8
 #include lib/common/get_frame.p8
+#include lib/common/gen_polygon.p8
+
 __gfx__
 000000000000800000000000770000700700000022000000cccccccccccccccccccccccccccccccccc777777777777777ccccccccccccccccccccccccccccccc
 000000000008280000000077700007650700000028800000cccccccccccccccccccccccccccc777777000000000000000777777ccccccccccccccccccccccccc
