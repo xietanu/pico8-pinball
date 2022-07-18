@@ -12,7 +12,7 @@ __lua__
 --modes
 #include modes/game.p8
 #include modes/title.p8
-#include modes/title_to_menu.p8
+#include modes/menu.p8
 
 --components
 #include comp/flippers.p8

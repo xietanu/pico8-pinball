@@ -30,7 +30,8 @@ function init_menu()
 end
 
 function update_menu()
- off_y=max(-30,-(f-f_base))
+ off_y=max(-28,-(f-f_base))
+
  stars=rotate_pnts(stars,vec(64,150+off_y/2.5),-0.00025)
 
  selected_option=mod(
@@ -57,7 +58,7 @@ function draw_menu()
 
  for i=1,#options do
   local _o=options[i]
-  local _y = _o.base_y+(30+off_y)*(i+1)
+  local _y = _o.base_y+(28+off_y)*(i+1)
   if selected_option == i then
    print(chr(23),25.5+sin(f/60),_y,8)
    print_shadow(_o.text,32,_y,7,8)
@@ -69,19 +70,19 @@ function draw_menu()
  sspr(
   16,44,
   11,11,
-  51,222+off_y*4
+  51,214+off_y*4
  )
  sspr(
   16,44,
   11,11,
-  66,222+off_y*4,
+  66,214+off_y*4,
   11,11,
   true
  )
- print_shadow(pad_con.ls,52,236+off_y*4,pad_con.lc,1)
- print_shadow(pad_con.rs,68,236+off_y*4,pad_con.rc,1)
+ print_shadow(pad_con.ls,52,228+off_y*4,pad_con.lc,1)
+ print_shadow(pad_con.rs,68,228+off_y*4,pad_con.rc,1)
  if selected_option == 3 then
-  print(chr(22),40.5+sin(f/60),230.5+off_y*4+cos(f/143),7)
-  print(chr(23),84.5+sin(f/60),230.5+off_y*4+cos(f/143),7)
+  print(chr(22),40.5+sin(f/60),222.5+off_y*4+cos(f/143),7)
+  print(chr(23),84.5+sin(f/60),222.5+off_y*4+cos(f/143),7)
  end
 end
