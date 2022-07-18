@@ -43,7 +43,7 @@ function init_poly_bumpers()
    create_poly_bumper(
     {x=64,y=120},
     {
-     {x=0,y=0,ref_spd=1.9,only_ref=true},
+     {x=0,y=0,ref_spd=2.1,only_ref=true},
      {x=2,y=0}
     },
     4
@@ -52,7 +52,7 @@ function init_poly_bumpers()
    create_poly_bumper(
     {x=13,y=120},
     {
-     {x=0,y=0,ref_spd=1.9,only_ref=true},
+     {x=0,y=0,ref_spd=2.1,only_ref=true},
      {x=2,y=0}
     },
     4
