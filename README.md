@@ -7,7 +7,8 @@ Explore a distant, alien world in this Pico-8 pinball table.
 **Pre-Alpha**: Terra Nova pinball is currently under active development, is missing major features and is likely to change frequently.
 
 ## Controls
-- ⬅️/➡️: Control the left/right flippers respectively.
+- ⬅️/➡️: Controls the left/right flippers respectively (default, can be changed in the menu).
+Debug (only works with default controls):
 - 🅾️: Add a new pinball to the table.
 - ❎: Show/hide the colliders
 
