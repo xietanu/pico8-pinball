@@ -33,12 +33,14 @@ function init_game()
 end
 
 function update_game()
- if btnp(❎) then
-  draw_outlines=not draw_outlines
- end
+ if pc_option==1 then
+  if btnp(❎) then
+   draw_outlines=not draw_outlines
+  end
 
- if btnp(🅾️) then
-  add(pinballs,create_pinball(30,80))
+  if btnp(🅾️) then
+   add(pinballs,create_pinball(30,80))
+  end
  end
 
  dt=1
