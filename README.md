@@ -8,7 +8,8 @@ Explore a distant, alien world in this Pico-8 pinball table.
 
 ## Controls
 - ⬅️/➡️: Controls the left/right flippers respectively (default, can be changed in the menu).
-Debug (only works with default controls):
+
+**Debug (only works with default controls):**
 - 🅾️: Add a new pinball to the table.
 - ❎: Show/hide the colliders
 
