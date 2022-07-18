@@ -3,12 +3,12 @@ function init_flippers()
  flippers={
   create_flipper(
    vec(29.5,118.5),
-   ⬅️,
+   pad_con.l,
    false
   ),
   create_flipper(
    vec(50.5,118.5),
-   ➡️,
+   pad_con.r,
    true
   )
  }

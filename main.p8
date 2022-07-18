@@ -1,6 +1,37 @@
 function _init()
  f=0
 
+ version="0.1.0a"
+
+ paddle_controls={
+  {
+   l=⬅️,
+   r=➡️,
+   ls="⬅️",
+   rs="➡️",
+   lc=12,
+   rc=12
+  },
+  {
+   l=🅾️,
+   r=❎,
+   ls="🅾️",
+   rs="❎",
+   lc=9,
+   rc=8
+  },
+  {
+   l=🅾️,
+   r=➡️,
+   ls="🅾️",
+   rs="➡️",
+   lc=9,
+   rc=12
+  }
+ }
+
+ pc_option=1
+
  modes={
   game={
    init=init_game,
@@ -11,6 +42,11 @@ function _init()
    init=init_title,
    update=update_title,
    draw=draw_title
+  },
+  menu={
+   init=init_menu,
+   update=update_menu,
+   draw=draw_menu
   }
  }
  mode = modes.title
