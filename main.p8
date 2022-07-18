@@ -6,9 +6,14 @@ function _init()
    init=init_game,
    update=update_game,
    draw=draw_game
+  },
+  title={
+   init=init_title,
+   update=update_title,
+   draw=draw_title
   }
  }
- mode = modes.game
+ mode = modes.title
  mode.init()
 end
 
