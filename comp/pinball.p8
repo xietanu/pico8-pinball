@@ -29,8 +29,8 @@ end
 
 function update_pinball_spd_acc(_pin)
  local _acc,_spd=_pin.acc,_pin.spd
- _acc.x=-0.0075*_spd.x
- _acc.y=-0.0075*_spd.y+0.04
+ _acc.x=-0.006*_spd.x
+ _acc.y=-0.006*_spd.y+0.03
  _spd.x+=_acc.x
  _spd.y+=_acc.y
 
