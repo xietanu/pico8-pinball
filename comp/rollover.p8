@@ -9,7 +9,7 @@ function init_rollovers()
    create_rollover(52,19)
   },
   update=update_elem_group,
-  all_lit_action=rollovers_all_lit,
+  all_lit_action=increase_multi,
   rotatable=true,
   flash=0
  }
@@ -85,8 +85,8 @@ function check_collision_with_rollover(_r)
   return
  end
  set_light(_r,true)
- _r.reset_timer=60
- add_to_long(score,12500)
+ _r.reset_timer=20
+ increase_score(12500)
  if _r.action != nil then
    _r.action()
  end
@@ -100,8 +100,13 @@ end
 function rollovers_all_lit(_rg)
  -- action for when rollover
  -- group's lights all lit.
- add_to_long(score,150,1)
+ increase_score(150,1)
  for _r in all(_rg.elements) do
   set_light(_r,false)
  end
+end
+
+function increase_multi(_rg)
+ multiplier=min(4,multiplier+1)
+ rollovers_all_lit(_rg)
 end

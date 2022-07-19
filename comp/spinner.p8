@@ -30,6 +30,6 @@ function update_spinner(_s)
  if _s.to_score > 0 then
   local scr_change = min(_s.to_score,max(25,flr(_s.to_score*0.02)))
   _s.to_score-=scr_change
-  add_to_long(score,scr_change*multiplier)
+  increase_score(scr_change)
  end
 end

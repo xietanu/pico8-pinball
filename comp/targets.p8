@@ -72,9 +72,9 @@ function check_collision_with_target(_obj,_pin)
  -- hits the target
  if check_collision_with_collider(_obj,_pin) then
   if _obj.lit then
-   add_to_long(score,200)
+   increase_score(200)
   else
-   add_to_long(score,500)
+   increase_score(500)
    _obj.lit=true
    _obj.spr_i=_obj.lit_spr
   end

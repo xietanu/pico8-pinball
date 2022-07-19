@@ -27,7 +27,7 @@ function init_game()
  tracker_cols={5,13}
  hits=0
 
- multiplier=2
+ multiplier=1
 
  draw_outlines=false
 end

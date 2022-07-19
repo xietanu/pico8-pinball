@@ -34,6 +34,8 @@ __lua__
 #include lib/pos_are_equal.p8
 #include lib/gen_simple_collider.p8
 #include lib/gen_collision_regions.p8
+#include lib/increase_score.p8
+
 -- common
 #include lib/common/2d_vectors.p8
 #include lib/common/mod_base_1.p8
