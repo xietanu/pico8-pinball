@@ -93,10 +93,7 @@ function check_collision_with_capture(
  _cap.timer=90
  _cap.reset_timer = 30
  _cap.bonus_timer = 0
- add_to_long(
-  score,
-  _cap.p*multiplier
- )
+ increase_score(_cap.p)
  if _cap.action != nil then
   _cap:action()
  end
@@ -168,9 +165,8 @@ function empty_fuel_action(_cap)
   _cnt+=tonum(_l.lit)
   _l.lit = false
  end
- add_to_long(
-  score,
-  _pnts[_cnt]*multiplier,
+ increase_score(
+  _pnts[_cnt],
   max(0,min(1,_cnt-3))
  )
 end

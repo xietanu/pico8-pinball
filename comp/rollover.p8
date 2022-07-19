@@ -85,8 +85,8 @@ function check_collision_with_rollover(_r)
   return
  end
  set_light(_r,true)
- _r.reset_timer=60
- add_to_long(score,12500)
+ _r.reset_timer=20
+ increase_score(12500)
  if _r.action != nil then
    _r.action()
  end
@@ -100,7 +100,7 @@ end
 function rollovers_all_lit(_rg)
  -- action for when rollover
  -- group's lights all lit.
- add_to_long(score,150,1)
+ increase_score(150,1)
  for _r in all(_rg.elements) do
   set_light(_r,false)
  end

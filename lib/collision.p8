@@ -44,7 +44,7 @@ end
 function check_collision_with_collider(_obj,_pin)
  local _crossed_line = pin_entered_poly(_pin,_obj)
  if _crossed_line != nil then
-  add_to_long(score,_crossed_line.p or _obj.p or 0)
+  increase_score(_crossed_line.p or _obj.p or 0)
   rollback_pinball_pos(_pin)
   bounce_off_line(_pin,_crossed_line)
   return true

@@ -39,7 +39,7 @@ function check_collision_with_r_bumper(_b,_pin)
  -- check for collision with the
  -- bumper
  if dist_between_vectors(_b.origin, _pin.origin)<=_b.r then
-  add_to_long(score,_b.p)
+  increase_score(_b.p)
   local normalized_perp_vec = normalize(subtract_vectors(_pin.origin,_b.origin))
   rollback_pinball_pos(_pin)
   _pin.spd = calc_reflection_vector(
