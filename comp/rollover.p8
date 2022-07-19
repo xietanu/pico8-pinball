@@ -9,7 +9,7 @@ function init_rollovers()
    create_rollover(52,19)
   },
   update=update_elem_group,
-  all_lit_action=rollovers_all_lit,
+  all_lit_action=increase_multi,
   rotatable=true,
   flash=0
  }
@@ -104,4 +104,9 @@ function rollovers_all_lit(_rg)
  for _r in all(_rg.elements) do
   set_light(_r,false)
  end
+end
+
+function increase_multi(_rg)
+ multiplier=min(4,multiplier+1)
+ rollovers_all_lit(_rg)
 end
