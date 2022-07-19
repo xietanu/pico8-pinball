@@ -18,7 +18,7 @@ function init_poly_bumpers()
      {x=6,y=1},
      {x=6,y=11},
      {x=1,y=14},
-     {x=-1,y=13,ref_spd=1.25,p=250},
+     {x=-1,y=13,ref_spd=1,p=250},
      {x=2,y=1}
     },
     1,
@@ -28,7 +28,7 @@ function init_poly_bumpers()
    create_poly_bumper(
     {x=21,y=95},
     {
-     {x=5,y=1,ref_spd=1.25,p=1000},
+     {x=5,y=1,ref_spd=1,p=250},
      {x=8,y=13},
      {x=6,y=14},
      {x=1,y=11},
@@ -43,7 +43,7 @@ function init_poly_bumpers()
    create_poly_bumper(
     {x=64,y=120},
     {
-     {x=0,y=0,ref_spd=2.25,only_ref=true},
+     {x=0,y=0,ref_spd=2.1,only_ref=true},
      {x=2,y=0}
     },
     4
@@ -52,7 +52,7 @@ function init_poly_bumpers()
    create_poly_bumper(
     {x=13,y=120},
     {
-     {x=0,y=0,ref_spd=2.25,only_ref=true},
+     {x=0,y=0,ref_spd=2.1,only_ref=true},
      {x=2,y=0}
     },
     4

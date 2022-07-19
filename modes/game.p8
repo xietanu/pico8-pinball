@@ -118,6 +118,10 @@ function draw_game()
  
  local _multi_y=115-multiplier*6
  rectfill(9,_multi_y-1,10,_multi_y,10)
+
+circ(124,124,2,10)
+pset(124.5+sin(f/(16*60))*2.5,124.5+cos(f/(16*60))*2.5,8)
+
 end
 
 function pass()

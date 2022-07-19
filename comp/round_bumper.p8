@@ -28,7 +28,7 @@ function create_round_bumper(
   spr_off={x=-4,y=-4},
   spr_i=_spr_i,
   r=4.5,
-  ref_spd=0.5,
+  ref_spd=0.375,
   p=500,
   draw=draw_spr,
   check_collision=check_collision_with_r_bumper
