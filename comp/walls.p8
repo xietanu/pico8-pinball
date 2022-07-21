@@ -3,6 +3,11 @@ function init_walls()
  local narrow_wall_col=gen_polygon(
   "0,-1,1,0,1,3,0,4,-1,3,-1,0"
  )
+
+ launch_block=init_wall(
+  gen_polygon("75,27,72,34")
+ )
+
  walls={
   init_wall(
    narrow_wall_col,
@@ -47,18 +52,15 @@ function init_walls()
   ),
   init_wall(
    gen_polygon("49,128,64,113")
-
   ),
   init_wall(
    gen_polygon("63,85,66,88,66,119,65,121,64,119,64,113")
-
   ),
   init_wall(
    gen_polygon("50,45,50,49,62,61,68,57,69,58,63,70,67,81,63,85")
   ),
   init_wall(
-   gen_polygon("75,27,72,34,67,39,50,45")
-
+   gen_polygon("72,34,67,39,50,45")
   ),
   init_wall(
    gen_polygon("36,1,43,1,54,2,64,7,71,14,75,22,75,27")

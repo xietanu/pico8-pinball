@@ -47,6 +47,11 @@ function _init()
    init=init_menu,
    update=update_menu,
    draw=draw_menu
+  },
+  launch={
+   init=init_launch,
+   update=update_launch,
+   draw=draw_launch
   }
  }
  mode = modes.title

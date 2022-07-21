@@ -1,10 +1,3 @@
-function init_pinball()
- -- itinitialise the pinball
- pinballs={
-  create_pinball(30,80)
- }
-end
-
 function create_pinball(_x,_y)
  -- create a pinball
  -- args:
@@ -54,12 +47,15 @@ function update_pinball_pos(_pin,_dt)
  _pos.x+=_spd.x/_dt
  _pos.y+=_spd.y/_dt
 
- if _pin.origin.y > 127 then
+ if _pin.origin.y > 140 then
   del(pinballs,_pin)
  else
   local _col_region = collision_regions[flr(_pin.origin.x/16)+1][flr(_pin.origin.y/16)+1]
   for _sc in all(_col_region) do
    check_collision(_pin,_sc)
+  end
+  for _a in all(always_colliders) do
+   check_collision(_pin,_a)
   end
   for _f in all(flippers) do
    check_collision(_pin,_f)

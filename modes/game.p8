@@ -1,10 +1,11 @@
 function init_game()
  init_flippers()
- init_pinball()
 
  msg="test"
 
+ pinballs={}
  static_colliders={}
+ always_colliders={}
  static_over={}
  static_under={}
  to_update={}
@@ -17,6 +18,8 @@ function init_game()
  init_rollovers()
  init_captures()
  init_lights()
+ init_launcher()
+ init_launch_triggers()
 
  collision_regions=gen_collision_regions(
   static_colliders,0,0,79,127,16
@@ -38,9 +41,9 @@ function update_game()
    draw_outlines=not draw_outlines
   end
 
-  if btnp(🅾️) then
-   add(pinballs,create_pinball(30,80))
-  end
+  -- if btnp(🅾️) then
+  --  add(pinballs,create_pinball(30,80))
+  -- end
  end
 
  dt=1
@@ -119,9 +122,13 @@ function draw_game()
  local _multi_y=115-multiplier*6
  rectfill(9,_multi_y-1,10,_multi_y,10)
 
-circ(124,124,2,10)
-pset(124.5+sin(f/(16*60))*2.5,124.5+cos(f/(16*60))*2.5,8)
+ circ(124,124,2,10)
+ pset(124.5+sin(f/(16*60))*2.5,124.5+cos(f/(16*60))*2.5,8)
 
+ if #pinballs==0 then
+  mode=modes.launch
+  mode.init()
+ end
 end
 
 function pass()
