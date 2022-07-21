@@ -1,8 +1,19 @@
 function init_targets()
  -- initialize targets
+ skillshot_target=create_target(
+   vec(42,7),
+   gen_polygon("-1,0,2.5,0,2.5,2,-1,4"),
+   69,85
+  )
+ skillshot_target.reset_timer=0
+ skillshot_target.update=update_skillshot_target
+ skillshot_target.check_collision=check_collision_with_skillshot
+ add(static_colliders,skillshot_target)
+ add(static_over,skillshot_target)
+ add(to_update,skillshot_target)
  local left_col=gen_polygon(
-    "0,-1,3,0,2,5,-1,5"
-   )
+  "0,-1,3,0,2,5,-1,5"
+ )
  left_targets={
   elements={
    create_target(
@@ -77,6 +88,24 @@ function check_collision_with_target(_obj,_pin)
    increase_score(500)
    _obj.lit=true
    _obj.spr_i=_obj.lit_spr
+  end
+ end
+end
+
+function update_skillshot_target(_t)
+ _t.reset_timer=max(0,_t.reset_timer-1)
+ if _t.reset_timer%30>15 then
+  _t.spr_i=_t.lit_spr
+ else
+  _t.spr_i=_t.unlit_spr
+ end
+end
+
+function check_collision_with_skillshot(_t,_pin)
+ if check_collision_with_collider(_t,_pin) then
+  if _t.reset_timer > 0 then
+   increase_score(200,1)
+   _t.reset_timer=0
   end
  end
 end
