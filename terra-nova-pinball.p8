@@ -13,6 +13,7 @@ __lua__
 #include modes/game.p8
 #include modes/title.p8
 #include modes/menu.p8
+#include modes/launch.p8
 
 --components
 #include comp/flippers.p8
@@ -26,6 +27,8 @@ __lua__
 #include comp/elem_group.p8
 #include comp/capture.p8
 #include comp/light.p8
+#include comp/launcher.p8
+#include comp/trigger_area.p8
 
 --lib
 #include lib/bounce.p8
