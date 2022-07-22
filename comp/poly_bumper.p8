@@ -12,28 +12,28 @@ function init_poly_bumpers()
    ),
    -- left bumper
    create_poly_bumper(
-    {x=51,y=95},
+    vec(51,95),
     {
-     {x=4,y=-1},
-     {x=6,y=1},
-     {x=6,y=11},
-     {x=1,y=14},
-     {x=-1,y=13,ref_spd=1,p=250},
-     {x=2,y=1}
+     vec(4,-1),
+     vec(6,1),
+     vec(6,11),
+     vec(1,14),
+     vec(-1,13,1,250),
+     vec(2,1)
     },
     1,
     1,2
    ),
    -- right bumper
    create_poly_bumper(
-    {x=21,y=95},
+    vec(21,95),
     {
-     {x=5,y=1,ref_spd=1,p=250},
-     {x=8,y=13},
-     {x=6,y=14},
-     {x=1,y=11},
-     {x=1,y=1},
-     {x=3,y=-1}
+     vec(5,1,1,250),
+     vec(8,13),
+     vec(6,14),
+     vec(1,11),
+     vec(1,1),
+     vec(3,-1)
     },
     1,
     1,2,
@@ -41,19 +41,19 @@ function init_poly_bumpers()
    ),
    -- left gutter pin
    create_poly_bumper(
-    {x=64,y=120},
+    vec(64,120),
     {
-     {x=0,y=0,ref_spd=2.1,only_ref=true},
-     {x=2,y=0}
+     vec(0,0,2.1,0,true),
+     vec(2,0)
     },
     4
    ),
    -- right gutter pin
    create_poly_bumper(
-    {x=13,y=120},
+    vec(13,120),
     {
-     {x=0,y=0,ref_spd=2.1,only_ref=true},
-     {x=2,y=0}
+     vec(0,0,2.1,0,true),
+     vec(2,0)
     },
     4
    )
@@ -73,23 +73,6 @@ function create_poly_bumper(
  _spr_off
 )
  -- create a polyginal bumper
- -- args:
- -- _origin (vector): anchor
- --  point for the bumper.
- -- _collider (table): list of
- --  vertices defining outside
- -- _spr_i (int): sprite index
- -- _spr_w (int): width of
- --  sprite (defaults to 1)
- -- _spr_h (int): height of
- --  sprite (defaults to 1)
- -- _flip_x (bool): whether to
- --  flip the sprite (defaults
- --  to false)
- -- _spr_off (vector): offset
- --  from the origin to start
- --  drawing the sprite.
- --  defaults to (0,0)
  _spr_w,_spr_h=_spr_w or 1,_spr_h or 1
  _spr_off=_spr_off or vec(0,0)
  return {

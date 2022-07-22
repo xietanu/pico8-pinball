@@ -62,13 +62,10 @@ function pin_entered_poly(_pin,_obj)
 		if lines_cross(
     _pin.origin,
     _pin:get_last_pos(),
-				add_vectors(_pnts[i],_origin),
-				add_vectors(_pnts[j],_origin)
+				_pnts[i]:plus(_origin),
+			 _pnts[j]:plus(_origin)
 			) then
-   local output= vector_between(
-    _pnts[j],
-    _pnts[i]
-   )
+   local output=_pnts[i]:minus(_pnts[j])
    output.p=_pnts[i].p
    output.ref_spd=_pnts[i].ref_spd
    output.only_ref=_pnts[i].only_ref

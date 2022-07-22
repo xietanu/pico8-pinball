@@ -20,13 +20,6 @@ function create_flipper(
  _flip_x
 )
  -- create a flipper
- -- args:
- -- _origin (vector): rotation 
- --  point of the flipper.
- -- _button (char | int): button
- --  to activate
- -- _flip_x (bool): whether to
- --  flip along x axis.
  local _flip=1
  local _base_angle=0
  local _spr_off=vec(-1,-5)
@@ -113,13 +106,11 @@ function check_collision_with_flipper(_f,_pin)
   local _flp_spd = _f.moving*dist_between_vectors(
    _f.origin,_pin.origin
    )*sin(_f.angle_inc)
-  local _flp_spd_vec = {
-   x=-_f.flip*_flp_spd*sin(_f.angle),
-   y=_flp_spd*cos(_f.angle)
-  }
-  _pin.spd=add_vectors(
-   _pin.spd,_flp_spd_vec
+  local _flp_spd_vec = vec(
+   -_f.flip*_flp_spd*sin(_f.angle),
+   _flp_spd*cos(_f.angle)
   )
+  _pin.spd=_pin.spd:plus(_flp_spd_vec)
   
   local _crossed_line = pin_entered_poly(
    _pin,_f
@@ -156,7 +147,7 @@ function update_flipper_collider(_f)
  end
 	_f.collider=rotate_pnts(
 		_f.collider_base,
-		{x=0,y=0},
+		vec(0,0),
 		_ang
 	)
 end
