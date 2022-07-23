@@ -54,17 +54,6 @@ function create_light(
  _draw
 )
  -- create light object
- -- args:
- -- _origin (vector): origin of
- --  light on the board.
- -- _config (any): Additional
- --  data to help draw the light
- -- _off_col (int): Colour of
- --  the light when off.
- -- _lit_col (int): Colour of
- --  light when on.
- -- returns:
- -- table: the light
  return {
   origin=_origin,
   config=_config,
@@ -110,4 +99,5 @@ function refuel_lights_all_lit()
  -- refuel lights are lit.
  -- lights the refuel capture.
  captures[3].bonus_timer=-1
+ add(ongoing_msgs,refuel_msg)
 end

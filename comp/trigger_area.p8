@@ -34,6 +34,7 @@ function exit_launch_mode(_l)
  end
  mode=modes.game
  add(always_colliders,launch_block)
+ del(ongoing_msgs,launch_msg)
  skillshot_target.reset_timer=80
 end
 

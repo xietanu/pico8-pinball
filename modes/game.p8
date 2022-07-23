@@ -9,6 +9,13 @@ function init_game()
  static_over={}
  static_under={}
  to_update={}
+ msgs={}
+ ongoing_msgs={}
+ launch_msg={
+  "⬆️/⬇️:",
+  " set power",
+  "🅾️: launch"
+ }
 
  init_walls()
  init_round_bumpers()
@@ -86,6 +93,13 @@ function update_game()
   mode=modes.launch
   mode.init()
  end
+
+ if #msgs > 0 then
+  msgs[1].t-=1
+  if msgs[1].t <= 0 then
+   del(msgs,msgs[1])
+  end
+ end
 end
 
 function add_tracker(pinball)
@@ -97,8 +111,11 @@ end
 function draw_game()
  cls(0)
 
+ rectfill(81,0,127,127,1)
+ 
  rect(81,0,127,127,5)
- rectfill(83,4,125,10,0)
+ rectfill(82,4,126,10,0)
+ rectfill(82,18,126,42,0)
  print_long(score,84,5,5,10)
  print(msg,84,60,12)
 
@@ -122,6 +139,18 @@ function draw_game()
  
  local _multi_y=115-multiplier*6
  rectfill(9,_multi_y-1,10,_multi_y,10)
+
+ if #msgs > 0 then
+  local _m=msgs[1]
+  for i=1,#_m do
+   print(_m[i],83,12+i*8,get_frame({10,7,12,7},_m.t,15))
+  end
+ elseif #ongoing_msgs > 0 then
+  local _m=ongoing_msgs[#ongoing_msgs]
+  for i=1,#_m do
+   print(_m[i],83,12+i*8,10)
+  end
+ end
 
  circ(124,124,2,10)
  pset(124.5+sin(f/(16*60))*2.5,124.5+cos(f/(16*60))*2.5,8)
