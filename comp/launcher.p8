@@ -16,6 +16,6 @@ end
 function draw_launcher(_l)
  line(73,_l.origin.y+1,75,_l.origin.y+1,4)
  fillp(0b1111000011110000)
- rectfill(73,_l.origin.y+2,75,111,214)
+ rectfill(73,_l.origin.y+2,75,103,214)
  fillp()
 end

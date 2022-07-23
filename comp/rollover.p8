@@ -102,6 +102,9 @@ function rollovers_all_lit(_rg)
 end
 
 function increase_multi(_rg)
+ if multiplier<4 then
+  add(msgs,{"multiplier","increased!",t=120})
+ end
  multiplier=min(4,multiplier+1)
  rollovers_all_lit(_rg)
 end

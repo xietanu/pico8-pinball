@@ -4,6 +4,8 @@ __lua__
 function init_captures()
  -- initialise the capture
  -- elements on the board.
+ refuel_msg = {"rocket","fully","fueled!"}
+
  captures = {
   -- right capture
   create_capture(
@@ -88,8 +90,6 @@ end
 
 function update_capture(_cap)
  -- update capture each frame
- -- args:
- -- _cap (table): the capture
  if _cap.captured_pinball == nil then
   _cap.reset_timer=max(
    0,_cap.reset_timer-1
@@ -109,9 +109,6 @@ function update_capture(_cap)
 end
 
 function draw_capture(_cap)
- -- draw a capture
- -- args:
- -- _cap (table): the capture
  circfill(
   _cap.origin.x,
   _cap.origin.y,
@@ -138,8 +135,6 @@ end
 function empty_fuel_action(_cap)
  -- action for when fuel capture
  -- triggered.
- -- args:
- -- _cap (table): the capture
  local _cnt, _pnts = 1, {
   111,555,2800,14,70,350
  }
@@ -153,4 +148,12 @@ function empty_fuel_action(_cap)
   _pnts[_cnt],
   max(0,min(1,_cnt-3))
  )
+ del(ongoing_msgs,refuel_msg)
+ if _cnt==6 then
+  add(msgs,{"full refuel!",t=90})
+ elseif _cnt>1 then
+  add(msgs,{"partial","refuel",t=90})
+ else
+  add(msgs,{"no fuel","ready!",t=90})
+ end
 end

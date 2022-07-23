@@ -105,6 +105,7 @@ function check_collision_with_skillshot(_t,_pin)
  if check_collision_with_collider(_t,_pin) then
   if _t.reset_timer > 0 then
    increase_score(200,1)
+   add(msgs,{"skillshot!",t=90})
    _t.reset_timer=0
   end
  end
