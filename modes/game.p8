@@ -47,10 +47,10 @@ function update_game()
   if btnp(❎) then
    draw_outlines=not draw_outlines
   end
+ end
 
-  -- if btnp(🅾️) then
-  --  add(pinballs,create_pinball(30,80))
-  -- end
+ for _s in all(static_colliders) do
+  _s.c=6
  end
 
  dt=1
