@@ -81,7 +81,6 @@ function check_collision_with_capture(
  _cap.captured_pinball=_pin
  _cap.timer=90
  _cap.reset_timer = 30
- _cap.bonus_timer = 0
  increase_score(_cap.p)
  if _cap.action != nil then
   _cap:action()
@@ -99,12 +98,15 @@ function update_capture(_cap)
   end
   return
  end
+
  if _cap.timer <= 0 then
   _cap.captured_pinball.spd=_cap.output_vector:copy()
   _cap.captured_pinball.captured=false
   _cap.captured_pinball = nil
+  _cap.bonus_timer = 0
   return
  end
+
  _cap.timer -= 1
 end
 
@@ -139,7 +141,7 @@ function empty_fuel_action(_cap)
   111,555,2800,14,70,350
  }
  for _l in all(
-  refuel_lights.elements
+  refuel_lights
  ) do
   _cnt+=tonum(_l.lit)
   _l.lit = false

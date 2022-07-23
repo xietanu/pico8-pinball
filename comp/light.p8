@@ -1,7 +1,6 @@
 function init_lights()
  -- initialise decorative lights
  refuel_lights={
-  elements={
   create_light(
    vec(39,84),
    vec(41,84),
@@ -32,18 +31,12 @@ function init_lights()
    4,10,
    pass
   ),
-  },
-  update=update_elem_group,
-  all_lit_action=refuel_lights_all_lit,
-  flash=0,
-  not_reset=true
  }
  for _l in all(
-  refuel_lights.elements
+  refuel_lights
  ) do
   add(static_under,_l)
  end
- add(to_update,refuel_lights)
 end
 
 function create_light(
@@ -86,18 +79,15 @@ function light_refuel_lights()
  -- lighting of refuel lights.
  -- lights a light each time
  -- it's triggered.
- for _l in all(refuel_lights.elements) do
+ for i = 1,#refuel_lights do
+  local _l=refuel_lights[i]
   if not _l.lit then
    _l.lit = true
+   if i == 5 then
+    captures[3].bonus_timer=-1
+    add(ongoing_msgs,refuel_msg)
+   end
    return
   end
  end
-end
-
-function refuel_lights_all_lit()
- -- action for when all the
- -- refuel lights are lit.
- -- lights the refuel capture.
- captures[3].bonus_timer=-1
- add(ongoing_msgs,refuel_msg)
 end
