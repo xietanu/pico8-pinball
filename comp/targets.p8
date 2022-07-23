@@ -74,7 +74,7 @@ function create_target(
   unlit_spr=_unlit_spr,
   lit_spr=_lit_spr,
   spr_i=_unlit_spr,
-  spr_off={x=0,y=0}
+  spr_off=vec(0,0)
  }
 end
 

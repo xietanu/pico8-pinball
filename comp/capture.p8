@@ -38,19 +38,6 @@ function create_capture(
  _points,
  _action
 )
- -- create a capture element.
- -- args:
- -- _origin (vector): centre
- -- _eject_vector (vector):
- --  speed vector to apply to
- --  pinball when ejected.
- -- _points (int): points to
- --  score when captured.
- -- _action (function): function
- --  to trigger when captured
- --  (nil for none).
- -- returns:
- --  table: capture element.
  return {
   origin=_origin,
   simple_collider=create_box_collider(
@@ -113,10 +100,7 @@ function update_capture(_cap)
   return
  end
  if _cap.timer <= 0 then
-  _cap.captured_pinball.spd={
-   x=_cap.output_vector.x,
-   y=_cap.output_vector.y
-  }
+  _cap.captured_pinball.spd=_cap.output_vector:copy()
   _cap.captured_pinball.captured=false
   _cap.captured_pinball = nil
   return

@@ -1,7 +1,7 @@
 function init_spinners()
  -- create spinner
  spinner={
-  origin={x=35,y=4},
+  origin=vec(35,4),
   simple_collider={x1=-2,y1=-5,x2=2,y2=4},
   check_collision=check_collision_with_spinner,
   draw=draw_spinner,

@@ -1,26 +1,30 @@
-function vec(_x,_y)
+function vec(_x,_y,_ref_spd,_pnts,_only_ref)
  -- Create a vector object
- -- args:
- -- _x: The x coordinate
- -- _y: The y coordinate
- return {x=_x, y=_y}
+ return {
+  x=_x,
+  y=_y,
+  p=_pnts,
+  ref_spd=_ref_spd,
+  only_ref=_only_ref,
+  plus=add_vectors,
+  minus=subtract_vectors,
+  copy=copy_vec,
+  dot=dot_product,
+  magnitude=magnitude,
+  multiplied_by=multiply_vector,
+  normalize=normalize,
+  perpendicular=perpendicular
+ }
 end
 
 function copy_vec(_v)
  -- Create a copy of a vector
- -- args:
- -- _v: The vector to copy
- return vec(_v.x, _v.y)
+ return vec(_v.x, _v.y,_v.ref_spd,_v.p,_v.only_ref)
 end
 
 function normalize(_v)
---Normalize a vector
---Makes magniture = 1
-	local _mag=magnitude(_v)
-	return {
-  x=_v.x/_mag,
-  y=_v.y/_mag
- }
+--Makes magnitude = 1
+	return _v:multiplied_by(1/_v:magnitude())
 end
 
 function dot_product(_v1,_v2)
@@ -28,41 +32,20 @@ function dot_product(_v1,_v2)
 end
 
 function perpendicular(_v)
-	return {
-  x=-_v.y,
-  y=_v.x
- }
-end
-
-function vector_between(_p1,_p2)
---Returns the vector between 2
---points
-	return {
-		x=_p2.x-_p1.x,
-  y=_p2.y-_p1.y
-	}
+	return vec(-_v.y,_v.x)
 end
 
 function multiply_vector(_v,_mul)
 --Multiple a vector by a scalar.
-	return {
-  x=_v.x*_mul,
-  y=_v.y*_mul
- }
+	return vec(_v.x*_mul,_v.y*_mul)
 end
 
 function add_vectors(_v1,_v2)
-	return {
-		x=_v1.x+_v2.x,
-  y=_v1.y+_v2.y
-	}
+	return vec(_v1.x+_v2.x,_v1.y+_v2.y)
 end
 
 function subtract_vectors(_v1,_v2)
-	return {
-		x=_v1.x-_v2.x,
-  y=_v1.y-_v2.y
-	}
+	return vec(_v1.x-_v2.x,_v1.y-_v2.y)
 end
 
 function dist_between_vectors(_v1,_v2)

@@ -1,7 +1,7 @@
 function init_game()
  init_flippers()
 
- msg="test"
+ msg=""
 
  pinballs={}
  static_colliders={}
@@ -54,8 +54,6 @@ function update_game()
   dt=max(dt,update_pinball_spd_acc(pinball))
  end
 
- msg=dt
-
  for pinball in all(pinballs) do
   for _t in all(pinball.trackers) do
    _t.l-=0.5
@@ -84,7 +82,10 @@ function update_game()
   _obj:update()
  end
  
- 
+ if #pinballs==0 then
+  mode=modes.launch
+  mode.init()
+ end
 end
 
 function add_tracker(pinball)
@@ -99,7 +100,7 @@ function draw_game()
  rect(81,0,127,127,5)
  rectfill(83,4,125,10,0)
  print_long(score,84,5,5,10)
- -- print(msg,84,60,12)
+ print(msg,84,60,12)
 
  map()
 
@@ -125,10 +126,6 @@ function draw_game()
  circ(124,124,2,10)
  pset(124.5+sin(f/(16*60))*2.5,124.5+cos(f/(16*60))*2.5,8)
 
- if #pinballs==0 then
-  mode=modes.launch
-  mode.init()
- end
 end
 
 function pass()

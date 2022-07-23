@@ -2,37 +2,21 @@ function calc_reflection_vector(
  _v,
  _l
 )
--- calculate a reflection
--- vector.
--- args:
--- _v (vector): velocity
---   vector of object.
--- _l (vector): vector to 
---   bounce off of.
-	
-	local _d=dot_product(
-		_v,_l
-	)
-	
-	return subtract_vectors(
-			_v,multiply_vector(_l,2*_d)
-		)
+	return _v:minus(_l:multiplied_by(2*_v:dot(_l)))
 end
 
 function bounce_off_line(_pin,_l)
- local normalized_perp_vec = perpendicular(
-    multiply_vector(normalize(_l),0.9)
-   )
+ local normalized_perp_vec = perpendicular(normalize(_l):multiplied_by(0.9))
  if _l.only_ref then
-  _pin.spd=multiply_vector(normalized_perp_vec,_l.ref_spd)
+  _pin.spd=normalized_perp_vec:multiplied_by(_l.ref_spd)
  else
   _pin.spd = calc_reflection_vector(
     _pin.spd,
     normalized_perp_vec
   )
 
-  if _l.ref_spd != nil then
-   _pin.spd = add_vectors(_pin.spd,multiply_vector(normalized_perp_vec,_l.ref_spd))
+  if _l.ref_spd then
+   _pin.spd = _pin.spd:plus(normalized_perp_vec:multiplied_by(_l.ref_spd))
   end
  end
 end

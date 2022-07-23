@@ -8,7 +8,6 @@ function create_pinball(_x,_y)
    origin=_pos,
    prev={copy_vec(_pos)},
    spd=vec(0,0),
-   acc=vec(0,0),
    simple_collider=create_box_collider(
     -1.5,-1.5,
     1.5,1.5
@@ -21,14 +20,13 @@ function create_pinball(_x,_y)
 end
 
 function update_pinball_spd_acc(_pin)
- local _acc,_spd=_pin.acc,_pin.spd
- _acc.x=-0.006*_spd.x
- _acc.y=-0.006*_spd.y+0.03
- _spd.x+=_acc.x
- _spd.y+=_acc.y
+ _pin.spd=_pin.spd:plus(
+  _pin.spd:multiplied_by(-0.006)
+ )
+ _pin.spd.y+=0.03
 
  local _dt = ceil(
-  max(abs(_spd.x),abs(_spd.y))*2
+  _pin.spd:magnitude()*2
  )
 
  return _dt
@@ -39,17 +37,21 @@ function update_pinball_pos(_pin,_dt)
   return
  end
 
- local _pos,_spd=_pin.origin,_pin.spd
- add(_pin.prev,{x=_pos.x,y=_pos.y})
+ add(_pin.prev,_pin.origin:copy())
+
  while #(_pin.prev) > 30 do
   del(_pin.prev,_pin.prev[1])
  end
- _pos.x+=_spd.x/_dt
- _pos.y+=_spd.y/_dt
+
+ _pin.origin=_pin.origin:plus(
+  _pin.spd:multiplied_by(1/dt)
+ )
 
  if _pin.origin.y > 140 then
   del(pinballs,_pin)
  else
+  print(_pin.spd.x,1,1)
+  print(_pin.spd.y,1,9)
   local _col_region = collision_regions[flr(_pin.origin.x/16)+1][flr(_pin.origin.y/16)+1]
   for _sc in all(_col_region) do
    check_collision(_pin,_sc)
@@ -91,7 +93,7 @@ end
 
 function check_collision_with_pinball(_pin1,_pin2)
  if dist_between_vectors(_pin1.origin, _pin2.origin)<=3 then
-  local normalized_perp_vec = normalize(subtract_vectors(_pin1.origin,_pin2.origin))
+  local normalized_perp_vec = _pin1.origin:minus(_pin2.origin):normalize()
   while dist_between_vectors(_pin1.origin, _pin2.origin)<=3 do
    rollback_pinball_pos(_pin1)
    rollback_pinball_pos(_pin2)
@@ -100,7 +102,7 @@ function check_collision_with_pinball(_pin1,_pin2)
    _pin1.spd,
    normalized_perp_vec
   )
-  normalized_perp_vec=multiply_vector(normalized_perp_vec,-1)
+  normalized_perp_vec=normalized_perp_vec:multiplied_by(-1)
   _pin2.spd = calc_reflection_vector(
    _pin2.spd,
    normalized_perp_vec

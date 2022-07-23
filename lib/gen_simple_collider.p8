@@ -15,8 +15,6 @@ function gen_simple_collider(_col)
  _out.y1-=1
  _out.x2+=1
  _out.y2+=1
- msg=_out.x1..",".._out.y1..",".._out.x2..",".._out.y2
-
  return _out
  
 end

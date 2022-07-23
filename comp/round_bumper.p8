@@ -25,7 +25,7 @@ function create_round_bumper(
   simple_collider={
    x1=-5,y1=-5,x2=5,y2=5
   },
-  spr_off={x=-4,y=-4},
+  spr_off=vec(-4,-4),
   spr_i=_spr_i,
   r=4.5,
   ref_spd=0.375,
@@ -40,12 +40,12 @@ function check_collision_with_r_bumper(_b,_pin)
  -- bumper
  if dist_between_vectors(_b.origin, _pin.origin)<=_b.r then
   increase_score(_b.p)
-  local normalized_perp_vec = normalize(subtract_vectors(_pin.origin,_b.origin))
+  local normalized_perp_vec = _pin.origin:minus(_b.origin):normalize()
   rollback_pinball_pos(_pin)
   _pin.spd = calc_reflection_vector(
    _pin.spd,
    normalized_perp_vec
   )
-  _pin.spd = add_vectors(_pin.spd,multiply_vector(normalized_perp_vec,_b.ref_spd))
+  _pin.spd = _pin.spd:plus(normalized_perp_vec:multiplied_by(_b.ref_spd))
  end
 end

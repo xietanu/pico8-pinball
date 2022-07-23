@@ -40,20 +40,15 @@ end
 
 function create_rollover(_x,_y,_action)
  -- create a rollover
- -- args:
- -- _x (int): x coord of centre
- -- _y (int): y coord of top
- -- _action (function): action
- --  to trigger when activated
  return {
-  origin={x=_x,y=_y},
+  origin=vec(_x,_y),
   simple_collider={x1=-2,y1=0,x2=2,y2=3},
   draw=draw_spr,
   check_collision=check_collision_with_rollover,
   lit_spr=53,
   unlit_spr=37,
   spr_i=37,
-  spr_off={x=-1,y=0},
+  spr_off=vec(-1,0),
   lit=false,
   reset_timer=0,
   update=update_rollover,
