@@ -40,6 +40,8 @@ function init_game()
  multiplier=1
 
  draw_outlines=false
+ _pnt_hit=nil
+ hit_pnts={}
 end
 
 function update_game()
@@ -56,6 +58,7 @@ function update_game()
  dt=1
  for _f in all(flippers) do
   dt=max(dt,update_flipper(_f))
+  _f.hit=false
  end
  for pinball in all(pinballs) do
   dt=max(dt,update_pinball_spd_acc(pinball))
@@ -155,7 +158,16 @@ function draw_game()
  circ(124,124,2,10)
  pset(124.5+sin(f/(16*60))*2.5,124.5+cos(f/(16*60))*2.5,8)
 
+ if _pnt_hit != nil then
+  line(_pnt_hit.x,_pnt_hit.y,_pnt_hit2.x,_pnt_hit2.y,8)
+ end
+
+ for _h in all(hit_pnts) do
+  circfill(_h.x,_h.y,1,8)
+ end
 end
+
+
 
 function pass()
 end

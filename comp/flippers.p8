@@ -26,7 +26,6 @@ function create_flipper(
  if _flip_x then
   _spr_off.x=-9
   _flip*=-1
-  _base_angle=0.5
  end
  local _f = {
   origin=_origin,
@@ -48,7 +47,8 @@ function create_flipper(
   bounce_frames=0,
   c=12,
   flip_x=_flip_x,
-  flip=_flip
+  flip=_flip,
+  hit=false
  }
  _f.collider = _f.collider_base
  
@@ -97,43 +97,92 @@ end
 function check_collision_with_flipper(_f,_pin)
  -- check collision with line
  -- segments of flipper
- -- args:
- -- _f (table): the flipper
- -- _pin (table): pinball
- --  colliding with flipper.
- if point_collides_poly(_pin.origin,_f) then
-  
-  local _flp_spd = _f.moving*dist_between_vectors(
-   _f.origin,_pin.origin
-   )*sin(_f.angle_inc)
-  local _flp_spd_vec = vec(
-   -_f.flip*_flp_spd*sin(_f.angle),
-   _flp_spd*cos(_f.angle)
-  )
-  _pin.spd=_pin.spd:plus(_flp_spd_vec)
-  
-  local _crossed_line = pin_entered_poly(
-   _pin,_f
-  )
-  if _crossed_line != nil then
-   rollback_pinball_pos(_pin)
-   if _f.moving!=0 then
-    _f.angle=limit(
-     _f.angle-_f.moving*_f.angle_inc/dt,
-     _f.angle_min,
-     _f.angle_max
-    )
-   end
+ if _f.hit then
+  return
+ end
 
-   bounce_off_line(_pin,_crossed_line)
+ if point_collides_poly(_pin.origin,_f) then
+  -- _f.hit=true
+  local _flp_spd = dist_between_vectors(
+   _f.origin,_pin.origin
+   )*_f.moving*sin(-_f.angle_inc)
+   msg=_flp_spd
+
+   local _flp_spd_vec = vec(
+    -_f.flip*_flp_spd*sin(_f.angle),
+    _flp_spd*cos(_f.angle)
+   )
+
+   _pin.spd=_pin.spd:plus(_flp_spd_vec)
+
+  -- if _f.moving!=0 then
+  --  _f.angle=limit(
+  --   _f.angle-_f.moving*_f.angle_inc/dt,
+  --   _f.angle_min,
+  --   _f.angle_max
+  --  )
+  --  update_flipper_collider(_f)
+  -- end
+
+  local _ln=nil
+  local _dist=99
+  local _pin_pos=nil
+
+  local _col={}
+  for _pnt in all(_f.collider) do
+   add(_col,_pnt:plus(_f.origin))
+  end
+  for i=1,#_col do
+		 local j=i%#_col+1
+   local line_dir=_col[j]:minus(_col[i]):normalize()
+   local _pnt = _col[i]:plus(
+    line_dir:multiplied_by(
+     _pin.origin:minus(_col[i]):dot(line_dir)
+    )
+   )
+   local _d = dist_between_vectors(_pnt,_pin.origin)
+   if _d < _dist then
+    _dist=_d
+    _ln = line_dir
+    _pin_pos=_pnt
+   end
   end
 
-  update_flipper_collider(_f)
+  _pin.origin=_pin_pos
+
+  -- add(hit_pnts,_pnt_hit)
+
+  bounce_off_line(_pin,_ln)
+  
+  -- local _crossed_line = pin_entered_poly(
+  --  _pin,_f
+  -- )
+  -- if _crossed_line != nil then
+  --  
+
+  --  bounce_off_line(_pin,_crossed_line)
+  -- end
+
+  -- 
 
   update_pinball_pos(_pin,dt)
  end
 end
 
+-- function nearest_pnt(_pnt1,_pnt2,_pin)
+
+-- end
+
+-- //linePnt - point the line passes through
+-- //lineDir - unit vector in direction of line, either direction works
+-- //pnt - the point to find nearest on line for
+-- public static Vector3 NearestPointOnLine(Vector3 linePnt, Vector3 lineDir, Vector3 pnt)
+-- {
+--     lineDir.Normalize();//this needs to be a unit vector
+--     var v = pnt - linePnt;
+--     var d = Vector3.Dot(v, lineDir);
+--     return linePnt + lineDir * d;
+-- }
 
 function update_flipper_collider(_f)
  -- update the vertex points
