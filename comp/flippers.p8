@@ -101,36 +101,31 @@ function check_collision_with_flipper(_f,_pin)
  -- _f (table): the flipper
  -- _pin (table): pinball
  --  colliding with flipper.
+ if _f.moving==0 then
+  check_collision_with_collider(_f,_pin)
+  return
+ end
+
  if point_collides_poly(_pin.origin,_f) then
-  
-  local _flp_spd = _f.moving*dist_between_vectors(
+  local _flp_spd = 2*_f.moving*dist_between_vectors(
    _f.origin,_pin.origin
-   )*sin(_f.angle_inc)
+   )*sin(-_f.angle_inc)
   local _flp_spd_vec = vec(
-   -_f.flip*_flp_spd*sin(_f.angle),
-   _flp_spd*cos(_f.angle)
+   _f.flip*_flp_spd*sin(-_f.angle+0.025),
+   _flp_spd*cos(_f.angle-0.025)
+  )
+  rollback_pinball_pos(_pin)
+  _f.angle=limit(
+   _f.angle-_f.moving*_f.angle_inc/dt,
+   _f.angle_min,
+   _f.angle_max
   )
   _pin.spd=_pin.spd:plus(_flp_spd_vec)
-  
-  local _crossed_line = pin_entered_poly(
-   _pin,_f
-  )
-  if _crossed_line != nil then
-   rollback_pinball_pos(_pin)
-   if _f.moving!=0 then
-    _f.angle=limit(
-     _f.angle-_f.moving*_f.angle_inc/dt,
-     _f.angle_min,
-     _f.angle_max
-    )
-   end
-
-   bounce_off_line(_pin,_crossed_line)
-  end
-
   update_flipper_collider(_f)
-
+  _f.moving=0
   update_pinball_pos(_pin,dt)
+  impact_pnt=_pin.origin
+  dir_pnt=_pin.origin:plus(_pin.spd)
  end
 end
 

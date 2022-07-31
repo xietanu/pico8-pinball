@@ -1,4 +1,7 @@
 function init_game()
+ debug_flippers=false
+ draw_outlines=false
+
  init_flippers()
 
  msg=""
@@ -38,8 +41,9 @@ function init_game()
  hits=0
 
  multiplier=1
-
- draw_outlines=false
+ 
+ impact_pnt=nil
+ dir_pnt=nil
 end
 
 function update_game()
@@ -155,6 +159,11 @@ function draw_game()
  circ(124,124,2,10)
  pset(124.5+sin(f/(16*60))*2.5,124.5+cos(f/(16*60))*2.5,8)
 
+
+ if impact_pnt and debug_flippers then
+  circ(impact_pnt.x,impact_pnt.y,2,8)
+  line(impact_pnt.x,impact_pnt.y,dir_pnt.x,dir_pnt.y,10)
+ end
 end
 
 function pass()
