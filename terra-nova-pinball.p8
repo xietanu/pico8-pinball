@@ -2,6 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 36
 __lua__
 -- main
+#include cfg.p8
 #include main.p8
 
 --draw

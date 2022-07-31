@@ -42,7 +42,7 @@ function create_flipper(
   angle=0,
   angle_max=0.09,
   angle_min=-0.09,
-  angle_inc=0.07,
+  angle_inc=flipper_spd,
   button=_button,
   moving=0,
   bounce_frames=0,
@@ -57,8 +57,6 @@ end
 
 function update_flipper(_f)
  -- update flipper each frame
- -- args:
- -- _f (table): the flipper
  if btn(_f.button) then
 		if _f.angle<_f.angle_max then
 			_f.moving=1
@@ -72,18 +70,13 @@ function update_flipper(_f)
 			_f.moving=0
 		end
 	end
- return ceil(_f.moving*5)
+ return ceil(_f.moving*flipper_update_per_frame)
 end
 
 function update_flipper_pos(_f,_dt)
  -- update the position of the
  -- flipper each time the
  -- physics sim is updated
- -- args:
- -- _f (table): the flipper
- -- _dt (int): number of times 
- --  this frame the sim is
- --  updated.
  if _f.moving!=0 then
   _f.angle=limit(
    _f.angle+_f.moving*_f.angle_inc/_dt,
@@ -97,10 +90,6 @@ end
 function check_collision_with_flipper(_f,_pin)
  -- check collision with line
  -- segments of flipper
- -- args:
- -- _f (table): the flipper
- -- _pin (table): pinball
- --  colliding with flipper.
  if point_collides_poly(_pin.origin,_f) then
   
   local _flp_spd = _f.moving*dist_between_vectors(
@@ -139,8 +128,6 @@ function update_flipper_collider(_f)
  -- update the vertex points
  -- based on the angle of the
  -- flipper.
- -- args:
- -- _f (table): flipper
  local _ang=_f.angle
  if _f.flip_x then
   _ang=0.5-_ang

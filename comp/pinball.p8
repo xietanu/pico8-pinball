@@ -20,13 +20,11 @@ function create_pinball(_x,_y)
 end
 
 function update_pinball_spd_acc(_pin)
- _pin.spd=_pin.spd:plus(
-  _pin.spd:multiplied_by(-0.006)
- )
- _pin.spd.y+=0.03
+ _pin.spd=_pin.spd:multiplied_by(1-pinball_friction)
+ _pin.spd.y+=gravity_accel
 
  local _dt = ceil(
-  _pin.spd:magnitude()*2
+  _pin.spd:magnitude()*pinball_updates_per_pixel
  )
 
  return _dt
