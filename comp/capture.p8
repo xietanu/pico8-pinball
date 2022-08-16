@@ -11,13 +11,13 @@ function init_captures()
   create_capture(
    vec(68,58),
    vec(-1,1),
-   250
+   capture_points
   ),
   -- escape velocity capture
   create_capture(
    vec(9,53),
    vec(1,0),
-   250
+   capture_points
   ),
   -- rocket fuel capture
   create_capture(
