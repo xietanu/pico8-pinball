@@ -100,8 +100,8 @@ function check_collision_with_flipper(_f,_pin)
    _f.origin,_pin.origin
    )*sin(-_f.angle_inc)
   local _flp_spd_vec = vec(
-   _f.flip*_flp_spd*sin(-_f.angle+0.025),
-   _flp_spd*cos(_f.angle-0.025)
+   _f.flip*_flp_spd*sin(-_f.angle+flipper_angle_adjust),
+   _flp_spd*cos(_f.angle-flipper_angle_adjust)
   )
   rollback_pinball_pos(_pin)
   _f.angle=limit(
@@ -136,8 +136,6 @@ end
 
 function draw_flipper(_f)
  -- draw a flipper
- -- args:
- -- _f (table): flipper to draw
  local i=4-flr(
   4.99*(
    _f.angle-_f.angle_min

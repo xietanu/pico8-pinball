@@ -45,12 +45,14 @@ function create_rollover(_x,_y,_action)
   simple_collider={x1=-2,y1=0,x2=2,y2=3},
   draw=draw_spr,
   check_collision=check_collision_with_rollover,
-  lit_spr=53,
-  unlit_spr=37,
-  spr_i=37,
+  spr_coords=vec(37,0),
+  spr_w=3,
+  spr_h=8,
   spr_off=vec(-1,0),
   lit=false,
+  unlit_col=4,
   reset_timer=0,
+  hit=0,
   update=update_rollover,
   c=7,
   action=_action
@@ -74,14 +76,12 @@ end
 function check_collision_with_rollover(_r)
  -- action to trigger when box
  -- collider is triggered
- -- args:
- -- the rollover
  if _r.reset_timer > 0 then
   return
  end
  set_light(_r,true)
  _r.reset_timer=20
- increase_score(12500)
+ increase_score(rollover_points)
  if _r.action != nil then
    _r.action()
  end
@@ -95,7 +95,7 @@ end
 function rollovers_all_lit(_rg)
  -- action for when rollover
  -- group's lights all lit.
- increase_score(150,1)
+ increase_score(rollover_grp_points,1)
  for _r in all(_rg.elements) do
   set_light(_r,false)
  end
