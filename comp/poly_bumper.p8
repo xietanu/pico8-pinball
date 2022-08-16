@@ -1,15 +1,15 @@
 function init_poly_bumpers()
+ spaceship = create_poly_bumper(
+  vec(40,60),
+  gen_polygon("0,-4,3,3,4,15,1,12,-1,12,-4,15,-3,3"),
+  vec(8,16),
+  7,16
+ )
+ spaceship.spr_off = vec(-3,-2)
  -- create polyginal bumpers
  poly_bumpers={
    -- spaceship
-   create_poly_bumper(
-    vec(40,60),
-    gen_polygon("0,-4,3,3,4,15,1,12,-1,12,-4,15,-3,3"),
-    96,
-    1,2,
-    false,
-    vec(-3,-2)
-   ),
+   spaceship,
    -- left bumper
    create_poly_bumper(
     vec(51,95),
@@ -21,8 +21,10 @@ function init_poly_bumpers()
      vec(-1,13,1,250),
      vec(2,1)
     },
-    1,
-    1,2
+    vec(8,0),
+    8,16,
+    false,
+    vec(40,4)
    ),
    -- right bumper
    create_poly_bumper(
@@ -35,9 +37,10 @@ function init_poly_bumpers()
      vec(1,1),
      vec(3,-1)
     },
-    1,
-    1,2,
-    true
+    vec(8,0),
+    8,16,
+    true,
+    vec(40,4)
    ),
    -- left gutter pin
    create_poly_bumper(
@@ -46,7 +49,8 @@ function init_poly_bumpers()
      vec(0,0,2.1,0,true),
      vec(2,0)
     },
-    4
+    vec(43,0),
+    1,2
    ),
    -- right gutter pin
    create_poly_bumper(
@@ -55,7 +59,8 @@ function init_poly_bumpers()
      vec(0,0,2.1,0,true),
      vec(2,0)
     },
-    4
+    vec(43,0),
+    1,2
    )
  }
  for _pb in all(poly_bumpers) do
@@ -66,21 +71,21 @@ end
 
 function create_poly_bumper(
  _origin,_collider,
- _spr_i,
+ _spr,
  _spr_w,
  _spr_h,
  _flip_x,
- _spr_off
+ _spr_hit_coords
 )
  -- create a polyginal bumper
  _spr_w,_spr_h=_spr_w or 1,_spr_h or 1
- _spr_off=_spr_off or vec(0,0)
  return {
   origin=_origin,
   simple_collider=gen_simple_collider(_collider),
   collider=_collider,
-  spr_off=_spr_off,
-  spr_i=_spr_i,
+  spr_off=vec(0,0),
+  spr_coords=_spr,
+  hit_spr_coords=_spr_hit_coords,
   r=4,
   draw=draw_spr,
   check_collision=check_collision_with_collider,
@@ -88,6 +93,7 @@ function create_poly_bumper(
   spr_h=_spr_h,
   flip_x=_flip_x,
   complete=true,
+  hit=0,
   c=7
  }
 end

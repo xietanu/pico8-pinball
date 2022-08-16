@@ -1,10 +1,22 @@
 function init_round_bumpers()
  -- initialise circular bumpers
  r_bumpers={
-  create_round_bumper(vec(40,30),16),
-  create_round_bumper(vec(51,35),64),
-  create_round_bumper(vec(29,35),48),
-  create_round_bumper(vec(51,52),32)
+  create_round_bumper(
+   vec(40,30),
+   1
+  ),
+  create_round_bumper(
+   vec(51,35),
+   4
+  ),
+  create_round_bumper(
+   vec(29,35),
+   3
+  ),
+  create_round_bumper(
+   vec(51,52),
+   2
+  )
  }
  for _rb in all(r_bumpers) do
   add(static_colliders,_rb)
@@ -17,20 +29,20 @@ function create_round_bumper(
  _spr_i
 )
  -- create a round bumper
- -- args:
- -- _origin (vector): centre point
- -- _spr_i (int): sprite index
  return {
   origin=_origin,
   simple_collider={
    x1=-5,y1=-5,x2=5,y2=5
   },
   spr_off=vec(-4,-4),
-  spr_i=_spr_i,
+  spr_coords=vec(0,8*_spr_i),
   r=4.5,
   ref_spd=0.375,
   p=500,
   draw=draw_spr,
+  spr_w=8,
+  spr_h=8,
+  hit=0,
   check_collision=check_collision_with_r_bumper
  }
 end
@@ -40,6 +52,7 @@ function check_collision_with_r_bumper(_b,_pin)
  -- bumper
  if dist_between_vectors(_b.origin, _pin.origin)<=_b.r then
   increase_score(_b.p)
+  _b.hit = 8
   local normalized_perp_vec = _pin.origin:minus(_b.origin):normalize()
   rollback_pinball_pos(_pin)
   _pin.spd = calc_reflection_vector(
