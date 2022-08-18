@@ -87,14 +87,7 @@ function init_walls()
   init_wall(
    gen_polygon("50,118,64,106,64,93,63,92,61,94,61,106,48,117.5"),
    true
-  ),
-  init_wall(
-   gen_polygon("64,106,64,113")
-  ),
-  init_wall(
-   gen_polygon("15,106,15,113")
   )
-  
  }
  for wall in all(walls) do
   add(static_colliders,wall)

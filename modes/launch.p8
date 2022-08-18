@@ -33,7 +33,3 @@ function update_launch()
   end
  end
 end
-
-function draw_launch()
- modes.game.draw()
-end

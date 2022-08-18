@@ -51,7 +51,7 @@ function _init()
   launch={
    init=init_launch,
    update=update_launch,
-   draw=draw_launch
+   draw=draw_game
   }
  }
  mode = modes.title
