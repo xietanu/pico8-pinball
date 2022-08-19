@@ -37,15 +37,13 @@ function init_targets()
     3,5
    ),
   },
-  update=update_elem_group,
-  all_lit_action=left_targets_lit,
-  flash=0
+  all_lit_action=left_targets_lit
  }
  for _t in all(left_targets.elements) do
+  _t.group = left_targets
   add(static_colliders,_t)
   add(static_over,_t)
  end
- add(to_update,left_targets)
 
  right_targets={
   elements={
@@ -66,15 +64,13 @@ function init_targets()
     3,5
    )
   },
-  update=update_elem_group,
-  all_lit_action=right_targets_lit,
-  flash=0
+  all_lit_action=right_targets_lit
  }
  for _t in all(right_targets.elements) do
+  _t.group = right_targets
   add(static_colliders,_t)
   add(static_over,_t)
  end
- add(to_update,right_targets)
 end
 
 function create_target(
@@ -108,7 +104,9 @@ function check_collision_with_target(_obj,_pin)
  -- hits the target
  if check_collision_with_collider(_obj,_pin) then
   _obj.lit=true
-  _obj.hit = 7
+  if _obj.group then
+   group_elem_lit(_obj.group)
+  end
  end
 end
 

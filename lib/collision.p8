@@ -6,11 +6,6 @@ end
 
 function create_box_collider(_x1,_y1,_x2,_y2)
  -- create a simple box collider
- -- args:
- -- _x1: x coord of top left
- -- _y1: y coord of top left
- -- _x2: x coord of bottom right
- -- _y2: y coord of bottom right
  return {x1=_x1, y1=_y1,x2=_x2, y2=_y2}
 end
 
@@ -53,7 +48,6 @@ function check_collision_with_collider(_obj,_pin)
   end
   local _action = _crossed_line.action or _obj.action
   if _action!=nil then
-   add(msgs,{"hit pin",t=60})
    _action(_obj)
   end
   rollback_pinball_pos(_pin)

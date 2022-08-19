@@ -1,57 +1,53 @@
 function init_lights()
  -- initialise decorative lights
- drain_light_cofig = {
+ chevron_light_cofig = {
    spr_coords=vec(32,9),
    unlit_col=4,
    spr_w=3,
    spr_h=3,
-   hit=0,
-   lit=true
+   hit=0
   }
  left_drain_light = create_light(
   vec(13,108),
-  drain_light_cofig,
+  chevron_light_cofig,
   draw_spr
  )
+ left_drain_light.lit=true
  add(static_under,left_drain_light)
  right_drain_light = create_light(
   vec(64,108),
-  drain_light_cofig,
+  chevron_light_cofig,
   draw_spr
  )
+ right_drain_light.lit=true
  add(static_under,right_drain_light)
 
  refuel_lights={
   create_light(
-   vec(39,84),
-   vec(41,84),
-   draw_line_light,
-   4,10
+   vec(39,76),
+   chevron_light_cofig,
+   draw_spr
+  ),
+  create_light(
+   vec(39,79),
+   chevron_light_cofig,
+   draw_spr
   ),
   create_light(
    vec(39,82),
-   vec(41,82),
-   draw_line_light,
-   4,10
+   chevron_light_cofig,
+   draw_spr
   ),
   create_light(
-   vec(39,80),
-   vec(41,80),
-   draw_line_light,
-   4,10
+   vec(39,85),
+   chevron_light_cofig,
+   draw_spr
   ),
   create_light(
-   vec(39,78),
-   vec(41,78),
-   draw_line_light,
-   4,10
-  ),
-  create_light(
-   vec(39,76),
-   vec(41,76),
-   pass,
-   4,10
-  ),
+   vec(39,88),
+   chevron_light_cofig,
+   draw_spr
+  )
  }
  for _l in all(
   refuel_lights
@@ -112,7 +108,7 @@ function light_refuel_lights()
   if not _l.lit then
    _l.lit = true
    if i == 5 then
-    captures[3].bonus_timer=-1
+    flash(captures[3],-99,true)
     add(ongoing_msgs,refuel_msg)
    end
    return

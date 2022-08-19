@@ -7,6 +7,16 @@ function init_launch()
  add(ongoing_msgs,launch_msg)
  released=false
  del(always_colliders,launch_block)
+
+ for _l in all(refuel_lights) do
+  end_flash(_l,false)
+ end
+ disable_bonus(captures[2])
+ disable_bonus(captures[3])
+
+ reset_drain(left_drain)
+ reset_drain(right_drain)
+ multiplier = 1
 end
 
 function update_launch()

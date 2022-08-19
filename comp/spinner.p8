@@ -22,7 +22,9 @@ end
 function check_collision_with_spinner(_s,_pin)
  -- check collision with spinner
  _s.to_score = max(_s.to_score,flr(min(6.123,magnitude(_pin.spd))*5000))
- captures[2].bonus_timer=90
+ captures[2].bonus_enabled=true
+ flash(captures[2],-99,true)
+ add_to_queue(disable_bonus,90,{captures[2]})
 end
 
 function update_spinner(_s)
