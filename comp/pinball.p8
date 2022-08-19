@@ -47,6 +47,14 @@ function update_pinball_pos(_pin,_dt)
 
  if _pin.origin.y > 140 then
   del(pinballs,_pin)
+  if blastoff_mode then
+   local _cap = captures[2]
+   _cap.deactivated=true
+   add_to_queue(reactivate,30,{_cap})
+   _p = create_pinball(_cap.origin.x,_cap.origin.y)
+   add(pinballs,_p)
+   _p.spd=_cap.output_vector:copy()
+  end
  else
   print(_pin.spd.x,1,1)
   print(_pin.spd.y,1,9)
