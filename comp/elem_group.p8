@@ -1,29 +1,6 @@
 function update_elem_group(_grp)
  -- update element group each
  -- frame.
- -- args:
- -- _grp (table): the element
- --  group.
- if _grp.flash > 0 then
-  if _grp.not_reset then
-   return
-  end
-  _grp.flash -= 1
-  if _grp.flash == 0 then
-   for _r in all(_grp.elements) do
-    set_light(_r,false)
-   end
-  else
-   for _r in all(_grp.elements) do
-    set_light(
-     _r,
-     flr(_grp.flash/15)%2==0
-    )
-   end
-  end
-  return
- end
-
  if _grp.rotatable then
   if btnp(⬅️) then
    shift_light_left(_grp.elements)
@@ -32,13 +9,24 @@ function update_elem_group(_grp)
    shift_light_right(_grp.elements)
   end
  end
+end
 
+function group_elem_lit(_grp)
+ if _grp.deactivated then
+  return
+ end
  for _r in all(_grp.elements) do
   if not _r.lit then
    return
   end
  end
- _grp.flash = 60
+ for _r in all(_grp.elements) do
+  flash(_r,2,false)
+ end
+
+ _grp.deactivated = true
+ add_to_queue(reactivate,65,{_grp})
+
  _grp:all_lit_action()
 end
 

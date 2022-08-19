@@ -48,7 +48,8 @@ function create_flipper(
   bounce_frames=0,
   c=12,
   flip_x=_flip_x,
-  flip=_flip
+  flip=_flip,
+  complete=true
  }
  _f.collider = _f.collider_base
  

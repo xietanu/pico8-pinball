@@ -1,11 +1,11 @@
 function init_targets()
  -- initialize targets
  skillshot_target=create_target(
-   vec(42,7),
-   gen_polygon("-1,0,2.5,0,2.5,2,-1,4"),
-   vec(40,0),
-   2,4
-  )
+  vec(42,7),
+  gen_polygon("-1,0,2.5,0,2.5,2,-1,4"),
+  vec(40,0),
+  2,4
+ )
  skillshot_target.p=nil
  skillshot_target.reset_timer=0
  skillshot_target.update=update_skillshot_target
@@ -36,17 +36,41 @@ function init_targets()
     vec(32,0),
     3,5
    ),
-   
   },
-  update=update_elem_group,
-  all_lit_action=rollovers_all_lit,
-  flash=0
+  all_lit_action=left_targets_lit
  }
  for _t in all(left_targets.elements) do
+  _t.group = left_targets
   add(static_colliders,_t)
   add(static_over,_t)
  end
- add(to_update,left_targets)
+
+ right_targets={
+  elements={
+   create_target(
+    vec(56,55),
+    gen_polygon(
+     "-1,-1,1,-1,5,3,5,5,2,5,-1,2"
+    ),
+    vec(0,56),
+    5,5
+   ),
+   create_target(
+    vec(64,74),
+    gen_polygon(
+     "3,5,1.5,5,-0.5,1,1,-1"
+    ),
+    vec(42,18),
+    3,5
+   )
+  },
+  all_lit_action=right_targets_lit
+ }
+ for _t in all(right_targets.elements) do
+  _t.group = right_targets
+  add(static_colliders,_t)
+  add(static_over,_t)
+ end
 end
 
 function create_target(
@@ -56,7 +80,6 @@ function create_target(
  _spr_w,
  _spr_h
 )
- -- create a target
  return {
   origin=_origin,
   simple_collider=gen_simple_collider(_collider),
@@ -81,7 +104,9 @@ function check_collision_with_target(_obj,_pin)
  -- hits the target
  if check_collision_with_collider(_obj,_pin) then
   _obj.lit=true
-  _obj.hit = 7
+  if _obj.group then
+   group_elem_lit(_obj.group)
+  end
  end
 end
 
@@ -103,4 +128,14 @@ function check_collision_with_skillshot(_t,_pin)
    _t.hit = 7
   end
  end
+end
+
+function left_targets_lit(_g)
+ reset_drain(left_drain)
+ rollovers_all_lit(_g)
+end
+
+function right_targets_lit(_g)
+ reset_drain(right_drain)
+ rollovers_all_lit(_g)
 end

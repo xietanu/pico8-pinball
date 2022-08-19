@@ -30,7 +30,6 @@ function init_captures()
  for _r in all(captures) do
   add(static_under,_r)
   add(static_colliders,_r)
-  add(to_update,_r)
  end
 end
 
@@ -46,12 +45,8 @@ function create_capture(
    -1.5,-1.5,
    1.5,1.5
   ),
-  timer=0,
-  reset_timer=0,
-  bonus_timer=0,
   captured_pinball=nil,
   output_vector=_eject_vector,
-  update=update_capture,
   draw=draw_capture,
   check_collision=check_collision_with_capture,
   action=_action,
@@ -65,11 +60,8 @@ function check_collision_with_capture(
 )
  -- action to take when pinball
  -- collides with box collider.
- -- args:
- -- _cap (table): the capture
- -- _pin (table): the pinball
  if _cap.captured_pinball != nil or 
- _cap.reset_timer > 0 then
+ _cap.deactivated then
   return
  end
  _pin.captured=true
@@ -79,35 +71,22 @@ function check_collision_with_capture(
  )
  _pin.spd=vec(0,0)
  _cap.captured_pinball=_pin
- _cap.timer=90
- _cap.reset_timer = 30
+ _cap.deactivated=true
  increase_score(_cap.p)
  if _cap.action != nil then
   _cap:action()
  end
+ add_to_queue(eject_captured,90,{_cap})
 end
 
-function update_capture(_cap)
- -- update capture each frame
- if _cap.captured_pinball == nil then
-  _cap.reset_timer=max(
-   0,_cap.reset_timer-1
-  )
-  if _cap.bonus_timer > 0 then
-   _cap.bonus_timer-=1
-  end
-  return
- end
-
- if _cap.timer <= 0 then
-  _cap.captured_pinball.spd=_cap.output_vector:copy()
-  _cap.captured_pinball.captured=false
-  _cap.captured_pinball = nil
-  _cap.bonus_timer = 0
-  return
- end
-
- _cap.timer -= 1
+function eject_captured(_cap)
+ -- eject the ball
+ _cap.captured_pinball.spd=_cap.output_vector:copy()
+ _cap.captured_pinball.captured=false
+ _cap.captured_pinball = nil
+ _cap.bonus_timer = 0
+  add_to_queue(reactivate,30,{_cap})
+ disable_bonus(_cap)
 end
 
 function draw_capture(_cap)
@@ -117,14 +96,9 @@ function draw_capture(_cap)
   2,
   0
  )
- local _c = get_frame(
-  {4,10},
-  _cap.bonus_timer,
-  10
- )
- if _cap.captured_pinball != nil and 
- _cap.bonus_timer > 0 then
-  _c = 10
+ _c = 4
+ if _cap.lit then
+  _c=10
  end
  circ(
   _cap.origin.x,
@@ -143,18 +117,23 @@ function empty_fuel_action(_cap)
  for _l in all(
   refuel_lights
  ) do
-  _cnt+=tonum(_l.lit)
-  _l.lit = false
+  if _l.lit then
+   _cnt+=1
+   flash(_l,3,false)
+  end
  end
+ 
  increase_score(
   _pnts[_cnt],
   max(0,min(1,_cnt-3))
  )
  del(ongoing_msgs,refuel_msg)
  if _cnt==6 then
-  add(msgs,{"full refuel!",t=90})
+  add(msgs,{"blastoff!",t=90})
+  flash(_cap,3,false)
  elseif _cnt>1 then
   add(msgs,{"partial","refuel",t=90})
+  flash(_cap,3,false)
  else
   add(msgs,{"no fuel","ready!",t=90})
  end

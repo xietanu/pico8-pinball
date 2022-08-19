@@ -20,14 +20,16 @@ function init_game()
   "🅾️: launch"
  }
 
+ action_queue={}
+
  init_walls()
+ init_lights()
  init_round_bumpers()
  init_poly_bumpers()
  init_targets()
  init_spinners()
  init_rollovers()
  init_captures()
- init_lights()
  init_launcher()
  init_launch_triggers()
 
@@ -91,6 +93,14 @@ function update_game()
 
  for _obj in all(to_update) do
   _obj:update()
+ end
+
+ for _action in all(action_queue) do
+  _action.delay -= 1
+  if _action.delay <= 0 then
+   del(action_queue,_action)
+   _action.func(unpack(_action.args))
+  end
  end
  
  if #pinballs==0 then
