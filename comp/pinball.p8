@@ -8,6 +8,7 @@ function create_pinball(_x,_y)
    origin=_pos,
    prev={copy_vec(_pos)},
    spd=vec(0,0),
+   spd_mag=0,
    simple_collider=create_box_collider(
     -1.5,-1.5,
     1.5,1.5
@@ -22,9 +23,13 @@ end
 function update_pinball_spd_acc(_pin)
  _pin.spd=_pin.spd:multiplied_by(1-pinball_friction)
  _pin.spd.y+=gravity_accel
+ _pin.spd_mag=_pin.spd:magnitude()
 
- local _dt = ceil(
-  _pin.spd:magnitude()*pinball_updates_per_pixel
+ local _dt = min(
+  ceil(
+   _pin.spd_mag*pinball_updates_per_pixel
+  ),
+  max_spd*pinball_updates_per_pixel
  )
 
  return _dt
@@ -41,19 +46,20 @@ function update_pinball_pos(_pin,_dt)
   del(_pin.prev,_pin.prev[1])
  end
 
- _pin.origin=_pin.origin:plus(
-  _pin.spd:multiplied_by(1/dt)
- )
+ if _pin.spd_mag > _dt then
+  _pin.origin=_pin.origin:plus(
+   _pin.spd:normalize()
+  )
+ else
+  _pin.origin=_pin.origin:plus(
+   _pin.spd:multiplied_by(1/_dt)
+  )
+ end
 
  if _pin.origin.y > 140 then
   del(pinballs,_pin)
   if blastoff_mode then
-   local _cap = captures[2]
-   _cap.deactivated=true
-   add_to_queue(reactivate,30,{_cap})
-   _p = create_pinball(_cap.origin.x,_cap.origin.y)
-   add(pinballs,_p)
-   _p.spd=_cap.output_vector:copy()
+   add_blastoff_ball()
   end
  else
   print(_pin.spd.x,1,1)

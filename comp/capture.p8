@@ -160,12 +160,16 @@ function empty_fuel_action(_cap)
  end
 end
 
-function add_blastoff_ball(_cap)
- local _pin = create_pinball(_cap.origin.x,_cap.origin.y)
- add(pinballs,_pin)
- _pin.captured=true
- _cap.captured_pinball=_pin
- add_to_queue(eject_captured,30,{_cap})
+function add_blastoff_ball()
+ local _cap = captures[2]
+ if _cap.captured_pinball != nil then
+  add_to_queue(add_blastoff_ball,30)
+ end
+ _cap.deactivated=true
+ add_to_queue(reactivate,30,{_cap})
+ _p = create_pinball(_cap.origin.x,_cap.origin.y)
+ add(pinballs,_p)
+ _p.spd=_cap.output_vector:copy()
 end
 
 function end_blastoff_mode(_cap)
