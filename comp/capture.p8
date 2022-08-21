@@ -149,7 +149,7 @@ function empty_fuel_action(_cap)
   end
   add_to_queue(add_blastoff_ball,120,{})
   add_to_queue(add_blastoff_ball,180,{})
-  add_to_queue(end_blastoff_mode,2000,{})
+  add_to_queue(end_blastoff_mode,1400,{})
  elseif _cnt>1 then
   add(msgs,{"partial","refuel",t=90})
   flash(_cap,3,false)
