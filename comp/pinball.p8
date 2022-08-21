@@ -62,8 +62,6 @@ function update_pinball_pos(_pin,_dt)
    add_blastoff_ball()
   end
  else
-  print(_pin.spd.x,1,1)
-  print(_pin.spd.y,1,9)
   local _col_region = collision_regions[flr(_pin.origin.x/16)+1][flr(_pin.origin.y/16)+1]
   for _sc in all(_col_region) do
    check_collision(_pin,_sc)
@@ -107,8 +105,12 @@ function check_collision_with_pinball(_pin1,_pin2)
  if dist_between_vectors(_pin1.origin, _pin2.origin)<=3 then
   local normalized_perp_vec = _pin1.origin:minus(_pin2.origin):normalize()
   while dist_between_vectors(_pin1.origin, _pin2.origin)<=3 do
-   rollback_pinball_pos(_pin1)
-   rollback_pinball_pos(_pin2)
+   if not _pin1.captured then
+    rollback_pinball_pos(_pin1)
+   end
+   if not _pin2.captured then
+    rollback_pinball_pos(_pin2)
+   end
   end
   _pin1.spd = calc_reflection_vector(
    _pin1.spd,

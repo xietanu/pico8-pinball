@@ -14,6 +14,7 @@ function init_launch()
  disable_bonus(captures[2])
  disable_bonus(captures[3])
  end_blastoff_mode(captures[3])
+ del(ongoing_msgs,refuel_msg)
 
  reset_drain(left_drain)
  reset_drain(right_drain)

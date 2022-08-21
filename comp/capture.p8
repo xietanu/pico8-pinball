@@ -87,9 +87,7 @@ function eject_captured(_cap)
  _cap.captured_pinball = nil
  _cap.bonus_timer = 0
  disable_bonus(_cap)
- if _cap != captures[3] or not blastoff_mode then
-  add_to_queue(reactivate,30,{_cap})
- end
+ add_to_queue(reactivate,30,{_cap})
 end
 
 function draw_capture(_cap)
@@ -119,7 +117,7 @@ function empty_fuel_action(_cap)
  -- action for when fuel capture
  -- triggered.
  if blastoff_mode then
-  increase_score(5000)
+  increase_score(5,1)
   return
  end
  
@@ -149,9 +147,9 @@ function empty_fuel_action(_cap)
   ) do
    flash(_l,-99,false)
   end
-  add_to_queue(add_blastoff_ball,120,{_cap})
-  add_to_queue(add_blastoff_ball,180,{_cap})
-  add_to_queue(end_blastoff_mode,2000,{_cap})
+  add_to_queue(add_blastoff_ball,120,{})
+  add_to_queue(add_blastoff_ball,180,{})
+  add_to_queue(end_blastoff_mode,2000,{})
  elseif _cnt>1 then
   add(msgs,{"partial","refuel",t=90})
   flash(_cap,3,false)
@@ -162,8 +160,8 @@ end
 
 function add_blastoff_ball()
  local _cap = captures[2]
- if _cap.captured_pinball != nil then
-  add_to_queue(add_blastoff_ball,30)
+ if _cap.captured_pinball != nil or _cap.deactivated then
+  add_to_queue(add_blastoff_ball,30,{})
  end
  _cap.deactivated=true
  add_to_queue(reactivate,30,{_cap})
