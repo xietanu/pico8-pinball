@@ -5,7 +5,7 @@ function init_captures()
  -- initialise the capture
  -- elements on the board.
  refuel_msg = {"rocket","fully","fueled!"}
- blastoff_msg = {"blastoff!","multiball","2x bonus!"}
+ blastoff_msg = {"blast-off!","multiball!","2X bonus!"}
 
  captures = {
   -- right capture
