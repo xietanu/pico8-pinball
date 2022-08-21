@@ -150,13 +150,25 @@ function init_poly_bumpers()
     true,
     vec(55,21)
    ),
+   --lower left floating corner
    init_wall(
     gen_polygon("31,122,15,106,15,93,16,92,18,94,18,106,26,113,31,118"),
     true
    ),
+   --lower right floating corner
    init_wall(
     gen_polygon("48,122,64,106,64,93,63,92,61,94,61,106,53,113,48,118"),
     true
+   ),
+   -- inner curve top
+   init_wall(
+    gen_polygon(
+     "21,18,26,13,32,9,38,9,42,11,42,7,35,6,29,8,19,16"
+    )
+   ),
+   -- inner curve bottom
+   init_wall(
+    gen_polygon("21,18,18,24,18,32,21,44,18,41,15,32,15,23,19,16")
    )
  }
  for _pb in all(poly_bumpers) do
