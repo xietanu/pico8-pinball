@@ -123,6 +123,7 @@ function _draw()
   circ(p.x,p.y,1,8)
  end
  print(msg,82,2,8)
+ print(flr(cursor.x)..", "..flr(cursor.y),82,120,8)
 end
 
 function limit(v,mn,mx)
