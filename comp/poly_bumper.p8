@@ -8,6 +8,10 @@ function init_poly_bumpers()
  )
  spaceship.spr_off = vec(-3,-2)
 
+ launch_block=init_wall(
+  gen_polygon("75,27,72,34")
+ )
+
  left_drain_block = create_poly_bumper(
   vec(16,110),
   gen_polygon("-1,-4,-1,5"),
@@ -50,6 +54,10 @@ function init_poly_bumpers()
  )
  right_drain.light = right_drain_light
  right_drain.block = right_drain_block
+
+ local narrow_wall_col=gen_polygon(
+  "0,-1,1,0,1,3,0,4,-1,3,-1,0"
+ )
  
  poly_bumpers={
    -- spaceship
@@ -111,6 +119,56 @@ function init_poly_bumpers()
     false,
     nil,
     close_left_drain
+   ),
+   init_wall(
+    narrow_wall_col,
+    true,
+    vec(25,21)
+   ),
+   init_wall(
+    narrow_wall_col,
+    true,
+    vec(31,17)
+   ),
+   init_wall(
+    narrow_wall_col,
+    true,
+    vec(37,16)
+   ),
+   init_wall(
+    narrow_wall_col,
+    true,
+    vec(43,16)
+   ),
+   init_wall(
+    narrow_wall_col,
+    true,
+    vec(49,17)
+   ),
+   init_wall(
+    narrow_wall_col,
+    true,
+    vec(55,21)
+   ),
+   --lower left floating corner
+   init_wall(
+    gen_polygon("31,122,15,106,15,93,16,92,18,94,18,106,26,113,31,118"),
+    true
+   ),
+   --lower right floating corner
+   init_wall(
+    gen_polygon("48,122,64,106,64,93,63,92,61,94,61,106,53,113,48,118"),
+    true
+   ),
+   -- inner curve top
+   init_wall(
+    gen_polygon(
+     "21,18,26,13,32,9,38,9,42,11,42,7,35,6,29,8,19,16"
+    )
+   ),
+   -- inner curve bottom
+   init_wall(
+    gen_polygon("21,18,18,24,18,32,21,44,18,41,15,32,15,23,19,16")
    )
  }
  for _pb in all(poly_bumpers) do
