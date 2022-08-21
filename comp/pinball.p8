@@ -8,6 +8,7 @@ function create_pinball(_x,_y)
    origin=_pos,
    prev={copy_vec(_pos)},
    spd=vec(0,0),
+   spd_mag=0,
    simple_collider=create_box_collider(
     -1.5,-1.5,
     1.5,1.5
@@ -22,9 +23,13 @@ end
 function update_pinball_spd_acc(_pin)
  _pin.spd=_pin.spd:multiplied_by(1-pinball_friction)
  _pin.spd.y+=gravity_accel
+ _pin.spd_mag=_pin.spd:magnitude()
 
- local _dt = ceil(
-  _pin.spd:magnitude()*pinball_updates_per_pixel
+ local _dt = min(
+  ceil(
+   _pin.spd_mag*pinball_updates_per_pixel
+  ),
+  max_spd*pinball_updates_per_pixel
  )
 
  return _dt
@@ -41,15 +46,22 @@ function update_pinball_pos(_pin,_dt)
   del(_pin.prev,_pin.prev[1])
  end
 
- _pin.origin=_pin.origin:plus(
-  _pin.spd:multiplied_by(1/dt)
- )
+ if _pin.spd_mag > _dt then
+  _pin.origin=_pin.origin:plus(
+   _pin.spd:normalize()
+  )
+ else
+  _pin.origin=_pin.origin:plus(
+   _pin.spd:multiplied_by(1/_dt)
+  )
+ end
 
  if _pin.origin.y > 140 then
   del(pinballs,_pin)
+  if blastoff_mode then
+   add_blastoff_ball()
+  end
  else
-  print(_pin.spd.x,1,1)
-  print(_pin.spd.y,1,9)
   local _col_region = collision_regions[flr(_pin.origin.x/16)+1][flr(_pin.origin.y/16)+1]
   for _sc in all(_col_region) do
    check_collision(_pin,_sc)
@@ -93,8 +105,12 @@ function check_collision_with_pinball(_pin1,_pin2)
  if dist_between_vectors(_pin1.origin, _pin2.origin)<=3 then
   local normalized_perp_vec = _pin1.origin:minus(_pin2.origin):normalize()
   while dist_between_vectors(_pin1.origin, _pin2.origin)<=3 do
-   rollback_pinball_pos(_pin1)
-   rollback_pinball_pos(_pin2)
+   if not _pin1.captured then
+    rollback_pinball_pos(_pin1)
+   end
+   if not _pin2.captured then
+    rollback_pinball_pos(_pin2)
+   end
   end
   _pin1.spd = calc_reflection_vector(
    _pin1.spd,

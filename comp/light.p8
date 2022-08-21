@@ -42,11 +42,6 @@ function init_lights()
    vec(39,85),
    chevron_light_cofig,
    draw_spr
-  ),
-  create_light(
-   vec(39,88),
-   chevron_light_cofig,
-   draw_spr
   )
  }
  for _l in all(
@@ -103,11 +98,14 @@ function light_refuel_lights()
  -- lighting of refuel lights.
  -- lights a light each time
  -- it's triggered.
+ if blastoff_mode then
+  return
+ end
  for i = 1,#refuel_lights do
   local _l=refuel_lights[i]
   if not _l.lit then
    _l.lit = true
-   if i == 5 then
+   if i == 4 then
     flash(captures[3],-99,true)
     add(ongoing_msgs,refuel_msg)
    end

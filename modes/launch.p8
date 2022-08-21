@@ -13,6 +13,8 @@ function init_launch()
  end
  disable_bonus(captures[2])
  disable_bonus(captures[3])
+ end_blastoff_mode(captures[3])
+ del(ongoing_msgs,refuel_msg)
 
  reset_drain(left_drain)
  reset_drain(right_drain)
@@ -39,7 +41,7 @@ function update_launch()
   end
   if btnp(🅾️) or btnp(❎) then
    released=true
-   cur_pinball.spd.y=launcher.origin.y-80
+   cur_pinball.spd.y=(80-launcher.origin.y)/2
   end
  end
 end

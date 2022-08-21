@@ -5,6 +5,7 @@ function init_captures()
  -- initialise the capture
  -- elements on the board.
  refuel_msg = {"rocket","fully","fueled!"}
+ blastoff_msg = {"blast-off!","multiball!","2X bonus!"}
 
  captures = {
   -- right capture
@@ -85,16 +86,20 @@ function eject_captured(_cap)
  _cap.captured_pinball.captured=false
  _cap.captured_pinball = nil
  _cap.bonus_timer = 0
-  add_to_queue(reactivate,30,{_cap})
  disable_bonus(_cap)
+ add_to_queue(reactivate,30,{_cap})
 end
 
 function draw_capture(_cap)
+ local _bc = 0
+ if _cap.deactivated then
+  _bc = 5
+ end
  circfill(
   _cap.origin.x,
   _cap.origin.y,
   2,
-  0
+  _bc
  )
  _c = 4
  if _cap.lit then
@@ -111,6 +116,11 @@ end
 function empty_fuel_action(_cap)
  -- action for when fuel capture
  -- triggered.
+ if blastoff_mode then
+  increase_score(5,1)
+  return
+ end
+ 
  local _cnt, _pnts = 1, {
   111,555,2800,14,70,350
  }
@@ -128,13 +138,49 @@ function empty_fuel_action(_cap)
   max(0,min(1,_cnt-3))
  )
  del(ongoing_msgs,refuel_msg)
- if _cnt==6 then
-  add(msgs,{"blastoff!",t=90})
-  flash(_cap,3,false)
+ if _cnt==5 then
+  blastoff_mode = true
+  add(ongoing_msgs,blastoff_msg)
+  flash(_cap,-99,false)
+  for _l in all(
+   refuel_lights
+  ) do
+   flash(_l,-99,false)
+  end
+  add_to_queue(add_blastoff_ball,120,{})
+  add_to_queue(add_blastoff_ball,180,{})
+  add_to_queue(end_blastoff_mode,1400,{})
  elseif _cnt>1 then
   add(msgs,{"partial","refuel",t=90})
   flash(_cap,3,false)
  else
   add(msgs,{"no fuel","ready!",t=90})
+ end
+end
+
+function add_blastoff_ball()
+ local _cap = captures[2]
+ if _cap.captured_pinball != nil or _cap.deactivated then
+  add_to_queue(add_blastoff_ball,30,{})
+ end
+ _cap.deactivated=true
+ add_to_queue(reactivate,30,{_cap})
+ _p = create_pinball(_cap.origin.x,_cap.origin.y)
+ add(pinballs,_p)
+ _p.spd=_cap.output_vector:copy()
+end
+
+function end_blastoff_mode(_cap)
+ if not blastoff_mode then
+  return
+ end
+ blastoff_mode = false
+ reactivate(_cap)
+ del(ongoing_msgs,blastoff_msg)
+ end_flash(_cap,false)
+ for _l in all(
+  refuel_lights
+ ) do
+  end_flash(_l,false)
  end
 end
