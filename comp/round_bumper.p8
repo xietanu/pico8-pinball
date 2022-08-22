@@ -2,19 +2,19 @@ function init_round_bumpers()
  -- initialise circular bumpers
  r_bumpers={
   create_round_bumper(
-   vec(40,30),
+   vec(42,28),
    1
   ),
   create_round_bumper(
-   vec(51,35),
+   vec(51,34),
    4
   ),
   create_round_bumper(
-   vec(29,35),
+   vec(29,30),
    3
   ),
   create_round_bumper(
-   vec(51,52),
+   vec(37,38),
    2
   )
  }

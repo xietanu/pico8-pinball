@@ -1,7 +1,14 @@
 function init_lights()
  -- initialise decorative lights
- chevron_light_cofig = {
+ chevron_light_config = {
    spr_coords=vec(32,9),
+   unlit_col=4,
+   spr_w=3,
+   spr_h=3,
+   hit=0
+  }
+ h_chevron_light_config = {
+   spr_coords=vec(35,9),
    unlit_col=4,
    spr_w=3,
    spr_h=3,
@@ -9,14 +16,14 @@ function init_lights()
   }
  left_drain_light = create_light(
   vec(13,108),
-  chevron_light_cofig,
+  chevron_light_config,
   draw_spr
  )
  left_drain_light.lit=true
  add(static_under,left_drain_light)
  right_drain_light = create_light(
   vec(64,108),
-  chevron_light_cofig,
+  chevron_light_config,
   draw_spr
  )
  right_drain_light.lit=true
@@ -24,23 +31,23 @@ function init_lights()
 
  refuel_lights={
   create_light(
-   vec(39,76),
-   chevron_light_cofig,
+   vec(47,57),
+   h_chevron_light_config,
    draw_spr
   ),
   create_light(
-   vec(39,79),
-   chevron_light_cofig,
+   vec(50,57),
+   h_chevron_light_config,
    draw_spr
   ),
   create_light(
-   vec(39,82),
-   chevron_light_cofig,
+   vec(53,57),
+   h_chevron_light_config,
    draw_spr
   ),
   create_light(
-   vec(39,85),
-   chevron_light_cofig,
+   vec(56,57),
+   h_chevron_light_config,
    draw_spr
   )
  }

@@ -1,7 +1,7 @@
 function init_targets()
  -- initialize targets
  skillshot_target=create_target(
-  vec(42,7),
+  vec(24,13),
   gen_polygon("-1,0,2.5,0,2.5,2,-1,4"),
   vec(40,0),
   2,4
@@ -25,13 +25,13 @@ function init_targets()
     3,5
    ),
    create_target(
-    vec(14,68),
+    vec(13,70),
     left_col,
     vec(32,0),
     3,5
    ),
    create_target(
-    vec(16,60),
+    vec(14,63),
     left_col,
     vec(32,0),
     3,5
@@ -48,12 +48,12 @@ function init_targets()
  right_targets={
   elements={
    create_target(
-    vec(56,55),
+    vec(55,50),
     gen_polygon(
-     "-1,-1,1,-1,5,3,5,5,2,5,-1,2"
+     "3,5,1.5,5,-0.5,1,1,-1"
     ),
-    vec(0,56),
-    5,5
+    vec(42,18),
+    3,5
    ),
    create_target(
     vec(64,74),
@@ -113,9 +113,9 @@ end
 function update_skillshot_target(_t)
  _t.reset_timer=max(0,_t.reset_timer-1)
  if _t.reset_timer%30>15 then
-  _t.spr_i=_t.lit_spr
+  _t.lit=true
  else
-  _t.spr_i=_t.unlit_spr
+  _t.lit=false
  end
 end
 

@@ -41,7 +41,7 @@ function update_launch()
   end
   if btnp(🅾️) or btnp(❎) then
    released=true
-   cur_pinball.spd.y=(80-launcher.origin.y)/2
+   cur_pinball.spd.y=-sqrt((launcher.origin.y-80))
   end
  end
 end

@@ -2,11 +2,11 @@ function init_rollovers()
  -- initialize rollovers
  top_rollovers={
   elements={
-   create_rollover(28,19),
-   create_rollover(34,17),
-   create_rollover(40,16),
-   create_rollover(46,17),
-   create_rollover(52,19)
+   create_rollover(28,15),
+   create_rollover(34,15),
+   create_rollover(40,15),
+   create_rollover(46,15),
+   create_rollover(52,15)
   },
   update=update_elem_group,
   all_lit_action=increase_multi,

@@ -16,14 +16,14 @@ function init_captures()
   ),
   -- escape velocity capture
   create_capture(
-   vec(9,53),
+   vec(11,58),
    vec(1,0),
    capture_points
   ),
   -- rocket fuel capture
   create_capture(
-   vec(40,74),
-   vec(0.2,0.5),
+   vec(45,58),
+   vec(0.5,0.2),
    0,
    empty_fuel_action
   )
