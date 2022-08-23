@@ -46,3 +46,12 @@ function print_long(
 		_n+=1
 	end
 end
+
+function is_bigger_long(a,b)
+ for i=3,1,-1 do
+  if a[i]>b[i] then return true
+  elseif a[i]<b[i] then return false
+  end
+ end
+ return false
+end

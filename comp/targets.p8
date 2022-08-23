@@ -2,7 +2,7 @@ function init_targets()
  -- initialize targets
  skillshot_target=create_target(
   vec(24,13),
-  gen_polygon("-1,0,2.5,0,2.5,2,-1,4"),
+  gen_polygon("-1,-0.5,2.5,0.5,2.5,4,-1,4"),
   vec(40,0),
   2,4
  )

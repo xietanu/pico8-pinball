@@ -4,14 +4,16 @@ function init_title()
 end
 
 function update_title()
- stars=rotate_pnts(stars,vec(64,150),-0.0005)
+ rotate_stars()
  if btnp(⬇️) or btnp(❎) or btnp(🅾️) then
-  if mode == modes.logo then
-   f=20
-  end
+  if (mode == modes.logo) f=20
   mode=modes.menu
   mode.init()
  end
+end
+
+function rotate_stars(_angle)
+ stars=rotate_pnts(stars,vec(64,150+off_y/2.5),_angle or -0.0005)
 end
 
 function draw_title()
@@ -22,38 +24,38 @@ function draw_title()
  end
 end
 
-function even_circ(_x,_y,_r,_c)
- for i=0,1 do
-  for j=0,1 do
-   circfill(
-    _x+i,
-    _y+j,
-    _r,
-    _c
-   )
-  end
- end
-end
+-- function even_circ(_x,_y,_r,_c)
+--  for i=0,1 do
+--   for j=0,1 do
+--    circfill(
+--     _x+i,
+--     _y+j,
+--     _r,
+--     _c
+--    )
+--   end
+--  end
+-- end
 
 function draw_title_foreground(_y_off)
- even_circ(63,63+_y_off,24,1)
- even_circ(63,63+_y_off,23,12)
+ -- even_circ(63,63+_y_off,24,1)
+ -- even_circ(63,63+_y_off,23,12)
 
  if f==25 then
   sfx(16)
  end
- if f>30 and f<88 then
-  base_angle=(f-30)/120
-   for angle=0,0.07,0.001 do
-   line(
-    64-sin(-0.125-angle-base_angle)*23.5,
-    64-cos(-0.125-angle-base_angle)*23.5+_y_off,
-    64-sin(-0.125+angle+base_angle)*23.5,
-    64-cos(-0.125+angle+base_angle)*23.5+_y_off,
-    7
-   )
-  end
- end
+ -- if f>30 and f<88 then
+ --  base_angle=(f-30)/120
+ --   for angle=0,0.07,0.001 do
+ --   line(
+ --    64-sin(-0.125-angle-base_angle)*23.5,
+ --    64-cos(-0.125-angle-base_angle)*23.5+_y_off,
+ --    64-sin(-0.125+angle+base_angle)*23.5,
+ --    64-cos(-0.125+angle+base_angle)*23.5+_y_off,
+ --    7
+ --   )
+ --  end
+ -- end
 
  spr(160,40,40+_y_off,6,6)
 

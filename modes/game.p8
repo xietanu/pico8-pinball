@@ -1,5 +1,6 @@
 function init_game()
  show_stars = false
+ got_highscore = 0
  balls=3
 
  msg=""

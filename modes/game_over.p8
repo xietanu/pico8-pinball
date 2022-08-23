@@ -21,6 +21,17 @@ function init_game_over()
  }
 
  selected_option = 1
+
+ for i=1,10 do
+  if is_bigger_long(score,highscores[i]) then
+   score.c=10
+   add(highscores,score,i)
+   del(highscores,#highscores)
+   write_highscores()
+   got_highscore=i
+   return
+  end
+ end
 end
 
 function update_game_over()
@@ -35,8 +46,9 @@ function update_game_over()
 end
 
 function draw_game_over()
+ local _fc = get_frame({10,7,12,7},f,10)
  draw_table()
- draw_headboard(get_frame({10,7,12,7},f,10))
+ draw_headboard(_fc)
  
  if f>10000 then
   f=0
@@ -47,7 +59,11 @@ function draw_game_over()
 
  print("game over!",84,42,10)
 
- draw_menu_items(55)
+ draw_menu_items(90,55)
+ if got_highscore>0 then
+  print("new #"..got_highscore,84,114,_fc)
+  print("highscore!",84,120,_fc)
+ end
  clip()
 end
 
