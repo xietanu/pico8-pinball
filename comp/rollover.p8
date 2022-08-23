@@ -2,11 +2,11 @@ function init_rollovers()
  -- initialize rollovers
  top_rollovers={
   elements={
-   create_rollover(28,19),
-   create_rollover(34,17),
-   create_rollover(40,16),
-   create_rollover(46,17),
-   create_rollover(52,19)
+   create_rollover(28,15),
+   create_rollover(34,15),
+   create_rollover(40,15),
+   create_rollover(46,15),
+   create_rollover(52,15)
   },
   update=update_elem_group,
   all_lit_action=increase_multi,
@@ -14,10 +14,10 @@ function init_rollovers()
  }
  bottom_rollovers={
   elements={
-   create_rollover(14,95,light_refuel_lights),
-   create_rollover(20,97,light_refuel_lights),
-   create_rollover(65,95,light_refuel_lights),
-   create_rollover(59,97,light_refuel_lights)
+   create_rollover(14,95,hit_refuel_rollover),
+   create_rollover(20,97,hit_refuel_rollover),
+   create_rollover(65,95,hit_refuel_rollover),
+   create_rollover(59,97,hit_refuel_rollover)
   },
   all_lit_action=rollovers_all_lit
  }
@@ -60,7 +60,7 @@ function set_light(_r,_lit)
  _r.lit=_lit
 end
 
-function check_collision_with_rollover(_r)
+function check_collision_with_rollover(_r,_pin)
  -- action to trigger when box
  -- collider is triggered
  if _r.deactivated then
@@ -75,7 +75,7 @@ function check_collision_with_rollover(_r)
  add_to_queue(reactivate,20,{_r})
  increase_score(rollover_points)
  if _r.action != nil then
-   _r.action()
+   _r.action(_r,_pin)
  end
 end
 
@@ -85,6 +85,12 @@ function rollovers_all_lit(_rg)
  increase_score(rollover_grp_points,1)
  for _r in all(_rg.elements) do
   set_light(_r,false)
+ end
+end
+
+function hit_refuel_rollover(_r,_pin)
+ if _pin.spd.y > 0 then
+  light_refuel_lights()
  end
 end
 

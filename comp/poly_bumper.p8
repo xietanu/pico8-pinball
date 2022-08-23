@@ -1,12 +1,21 @@
 function init_poly_bumpers()
  -- create polyginal bumpers
  spaceship = create_poly_bumper(
-  vec(40,60),
-  gen_polygon("0,-4,3,3,4,15,1,12,-1,12,-4,15,-3,3"),
-  vec(8,16),
-  7,16
+  vec(29,55),
+  {
+   vec(-1,3,1,250),
+   vec(6,0,1,250),
+   vec(17,-1),
+   vec(14,2),
+   vec(14,4),
+   vec(17,7),
+   vec(6,6)
+  },
+  vec(0,64),
+  16,7,
+  false,
+  vec(0,71)
  )
- spaceship.spr_off = vec(-3,-2)
 
  launch_block=init_wall(
   gen_polygon("75,27,72,34")
@@ -96,7 +105,7 @@ function init_poly_bumpers()
    ),
    -- right gutter pin
    create_poly_bumper(
-    vec(64,120),
+    vec(64.5,120),
     {
      vec(0,0,2.1,0,true),
      vec(2,0)
@@ -109,7 +118,7 @@ function init_poly_bumpers()
    ),
    -- left gutter pin
    create_poly_bumper(
-    vec(13,120),
+    vec(13.5,120),
     {
      vec(0,0,2.1,0,true),
      vec(2,0)
@@ -123,52 +132,46 @@ function init_poly_bumpers()
    init_wall(
     narrow_wall_col,
     true,
-    vec(25,21)
+    vec(31,15)
    ),
    init_wall(
     narrow_wall_col,
     true,
-    vec(31,17)
+    vec(37,15)
    ),
    init_wall(
     narrow_wall_col,
     true,
-    vec(37,16)
+    vec(43,15)
    ),
    init_wall(
     narrow_wall_col,
     true,
-    vec(43,16)
-   ),
-   init_wall(
-    narrow_wall_col,
-    true,
-    vec(49,17)
-   ),
-   init_wall(
-    narrow_wall_col,
-    true,
-    vec(55,21)
+    vec(49,15)
    ),
    --lower left floating corner
    init_wall(
-    gen_polygon("31,122,15,106,15,93,16,92,18,94,18,106,26,113,31,118"),
+    gen_polygon("31,122,15,106,15,93,16,92,18,94,18,106,26,113,31,117"),
     true
    ),
    --lower right floating corner
    init_wall(
-    gen_polygon("48,122,64,106,64,93,63,92,61,94,61,106,53,113,48,118"),
+    gen_polygon("48,122,64,106,64,93,63,92,61,94,61,106,53,113,48,117"),
     true
    ),
-   -- inner curve top
+   -- inner curve left
    init_wall(
     gen_polygon(
-     "21,18,26,13,32,9,38,9,42,11,42,7,35,6,29,8,19,16"
-    )
+     "24,43,18,37,14,28,14,25,17,18,22,13,24,12,24,16,26,16,26,19,20,25,20,33,25,43"
+    ),
+    true
    ),
-   -- inner curve bottom
+   --inner curve right
    init_wall(
-    gen_polygon("21,18,18,24,18,32,21,44,18,41,15,32,15,23,19,16")
+    gen_polygon(
+     "61,25,61,22,58,19,54,19,54,14,60,15,66,18,68,21,68,25,66,28,59,34,58,32"
+    ),
+    true
    )
  }
  for _pb in all(poly_bumpers) do
@@ -210,10 +213,12 @@ function create_poly_bumper(
 end
 
 function close_left_drain()
+ reset_drain(left_drain)
  add_to_queue(close_drain,30,{left_drain})
 end
 
 function close_right_drain()
+ reset_drain(right_drain)
  add_to_queue(close_drain,30,{right_drain})
 end
 

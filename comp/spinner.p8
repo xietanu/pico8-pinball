@@ -1,7 +1,7 @@
 function init_spinners()
  -- create spinner
  spinner={
-  origin=vec(35,4),
+  origin=vec(11,26),
   simple_collider={x1=-2,y1=-5,x2=2,y2=4},
   check_collision=check_collision_with_spinner,
   draw=draw_spinner,
@@ -21,10 +21,13 @@ end
 
 function check_collision_with_spinner(_s,_pin)
  -- check collision with spinner
- _s.to_score = max(_s.to_score,flr(min(6.123,magnitude(_pin.spd))*5000))
- captures[2].bonus_enabled=true
- flash(captures[2],-99,true)
- add_to_queue(disable_bonus,90,{captures[2]})
+ _s.to_score = max(_s.to_score,flr(min(6.123,abs(_pin.spd.y))*5000))
+ if _pin.spd.y < 0 and not captures[2].bonus_enabled then
+  captures[2].bonus_enabled=true
+  flash(captures[2],-99,true)
+  add_to_queue(disable_bonus,180,{captures[2]})
+  cycle_lights(spinner_lights,1,3,flr(60/#spinner_lights))
+ end
 end
 
 function update_spinner(_s)

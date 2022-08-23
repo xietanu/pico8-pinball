@@ -1,46 +1,172 @@
 function init_lights()
  -- initialise decorative lights
- chevron_light_cofig = {
-   spr_coords=vec(32,9),
-   unlit_col=4,
-   spr_w=3,
-   spr_h=3,
-   hit=0
-  }
+ chevron_light_spr = create_light_spr(
+  vec(32,9),3,3
+ )
+ up_chevron_light_spr = create_light_spr(
+  vec(32,9),3,3,false,true
+ )
+ h_chevron_light_spr = create_light_spr(
+  vec(35,9),3,3
+ )
+ small_up_right_chevron_spr = create_light_spr(
+  vec(33,12),2,2
+ )
+ big_up_right_chevron_spr = create_light_spr(
+  vec(32,12),3,3
+ )
+
+ terra_lights = {
+  create_light(
+   vec(30,93),
+   "t",
+   draw_letter_light
+  ),
+  create_light(
+   vec(34,93),
+   "e",
+   draw_letter_light
+  ),
+  create_light(
+   vec(38,93),
+   "r",
+   draw_letter_light
+  ),
+  create_light(
+   vec(42,93),
+   "r",
+   draw_letter_light
+  ),
+  create_light(
+   vec(46,93),
+   "a",
+   draw_letter_light
+  ),
+ }
+
+ for _l in all(
+  terra_lights
+ ) do
+  add(static_under,_l)
+ end
+
+ nova_lights = {
+  create_light(
+   vec(32,99),
+   "n",
+   draw_letter_light
+  ),
+  create_light(
+   vec(36,99),
+   "o",
+   draw_letter_light
+  ),
+  create_light(
+   vec(40,99),
+   "v",
+   draw_letter_light
+  ),
+  create_light(
+   vec(44,99),
+   "a",
+   draw_letter_light
+  ),
+ }
+
+ for _l in all(
+  nova_lights
+ ) do
+  add(static_under,_l)
+ end
+
  left_drain_light = create_light(
   vec(13,108),
-  chevron_light_cofig,
+  chevron_light_spr,
   draw_spr
  )
  left_drain_light.lit=true
  add(static_under,left_drain_light)
  right_drain_light = create_light(
   vec(64,108),
-  chevron_light_cofig,
+  chevron_light_spr,
   draw_spr
  )
  right_drain_light.lit=true
  add(static_under,right_drain_light)
 
+ spinner_lights={
+  create_light(
+   vec(20,36),
+   vec(20,37),
+   draw_line_light
+  ),
+  create_light(
+   vec(19,34),
+   vec(19,35),
+   draw_line_light
+  ),
+  create_light(
+   vec(18,32),
+   vec(18,33),
+   draw_line_light
+  ),
+  create_light(
+   vec(17,30),
+   vec(17,31),
+   draw_line_light
+  ),
+  create_light(
+   vec(16,27),
+   up_chevron_light_spr,
+   draw_spr
+  ),
+  create_light(
+   vec(16,24),
+   up_chevron_light_spr,
+   draw_spr
+  ),
+  create_light(
+   vec(17,22),
+   small_up_right_chevron_spr,
+   draw_spr
+  ),
+  create_light(
+   vec(18,20),
+   big_up_right_chevron_spr,
+   draw_spr
+  ),
+  create_light(
+   vec(20,18),
+   big_up_right_chevron_spr,
+   draw_spr
+  )
+ }
+
+ for _l in all(
+  spinner_lights
+ ) do
+  add(static_under,_l)
+ end
+
  refuel_lights={
   create_light(
-   vec(39,76),
-   chevron_light_cofig,
+   vec(47,57),
+   h_chevron_light_spr,
    draw_spr
   ),
   create_light(
-   vec(39,79),
-   chevron_light_cofig,
+   vec(50,57),
+   h_chevron_light_spr,
    draw_spr
   ),
   create_light(
-   vec(39,82),
-   chevron_light_cofig,
+   vec(53,57),
+   h_chevron_light_spr,
    draw_spr
   ),
   create_light(
-   vec(39,85),
-   chevron_light_cofig,
+   vec(56,57),
+   h_chevron_light_spr,
    draw_spr
   )
  }
@@ -62,8 +188,8 @@ function create_light(
  local _l = {
   origin=_origin,
   config=_config,
-  off_col=_off_col,
-  lit_col=_lit_col,
+  off_col=_off_col or 4,
+  lit_col=_lit_col or 10,
   draw=_draw,
   lit=false,
   spr_off=vec(0,0)
@@ -78,8 +204,6 @@ end
 
 function draw_line_light(_l)
  -- draw a line-like light
- -- args:
- -- _l (table): the light
  local _c = _l.off_col
  if _l.lit then
   _c=_l.lit_col
@@ -91,6 +215,50 @@ function draw_line_light(_l)
   _l.config.y,
   _c
  )
+end
+
+function draw_letter_light(_l)
+ local _c = _l.off_col
+ if _l.lit then
+  _c=_l.lit_col
+ end
+ print(
+  _l.config,
+  _l.origin.x,
+  _l.origin.y,
+  _c
+ )
+end
+
+function draw_dot_light(_l)
+ local _c = _l.off_col
+ if _l.lit then
+  _c=_l.lit_col
+ end
+ rect(
+  _l.origin.x,
+  _l.origin.y,
+  _l.origin.x+1,
+  _l.origin.y+1,
+  _c
+ )
+end
+
+function create_light_spr(
+ _spr_coord,
+ _w,_h,
+ _flip_x,
+ _flip_y
+)
+ return {
+  spr_coords=_spr_coord,
+  unlit_col=4,
+  spr_w=_w,
+  spr_h=_h,
+  hit=0,
+  flip_x=_flip_x,
+  flip_y=_flip_y
+ }
 end
 
 function light_refuel_lights()
@@ -112,4 +280,15 @@ function light_refuel_lights()
    return
   end
  end
+end
+
+function cycle_lights(_group,_next_index,_times,_delay)
+ _group[mod(_next_index-1,#_group)].lit = false
+
+ if _next_index > #_group*_times then
+  return
+ end
+
+ _group[mod(_next_index,#_group)].lit = true
+ add_to_queue(cycle_lights,_delay,{_group,_next_index+1,_times,_delay})
 end

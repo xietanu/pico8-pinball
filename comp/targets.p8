@@ -1,7 +1,7 @@
 function init_targets()
  -- initialize targets
  skillshot_target=create_target(
-  vec(42,7),
+  vec(24,13),
   gen_polygon("-1,0,2.5,0,2.5,2,-1,4"),
   vec(40,0),
   2,4
@@ -25,13 +25,13 @@ function init_targets()
     3,5
    ),
    create_target(
-    vec(14,68),
+    vec(13,70),
     left_col,
     vec(32,0),
     3,5
    ),
    create_target(
-    vec(16,60),
+    vec(14,63),
     left_col,
     vec(32,0),
     3,5
@@ -45,21 +45,21 @@ function init_targets()
   add(static_over,_t)
  end
 
+ right_target_poly = gen_polygon(
+  "3,5,1.5,5,-0.5,1,1,-1"
+ )
+
  right_targets={
   elements={
    create_target(
-    vec(56,55),
-    gen_polygon(
-     "-1,-1,1,-1,5,3,5,5,2,5,-1,2"
-    ),
-    vec(0,56),
-    5,5
+    vec(55,50),
+    right_target_poly,
+    vec(42,18),
+    3,5
    ),
    create_target(
     vec(64,74),
-    gen_polygon(
-     "3,5,1.5,5,-0.5,1,1,-1"
-    ),
+    right_target_poly,
     vec(42,18),
     3,5
    )
@@ -68,6 +68,34 @@ function init_targets()
  }
  for _t in all(right_targets.elements) do
   _t.group = right_targets
+  add(static_colliders,_t)
+  add(static_over,_t)
+ end
+
+ h_target_poly = gen_polygon(
+  "-1,-1,5,-1,4,3,-1,2"
+ )
+
+ rocket_targets={
+  elements={
+   create_target(
+    vec(38,61),
+    h_target_poly,
+    vec(0,48),
+    5,3
+   ),
+   create_target(
+    vec(32,60),
+    h_target_poly,
+    vec(0,48),
+    5,3
+   )
+  },
+  all_lit_action=pass
+ }
+
+ for _t in all(rocket_targets.elements) do
+  _t.group = rocket_targets
   add(static_colliders,_t)
   add(static_over,_t)
  end
@@ -113,9 +141,9 @@ end
 function update_skillshot_target(_t)
  _t.reset_timer=max(0,_t.reset_timer-1)
  if _t.reset_timer%30>15 then
-  _t.spr_i=_t.lit_spr
+  _t.lit=true
  else
-  _t.spr_i=_t.unlit_spr
+  _t.lit=false
  end
 end
 
