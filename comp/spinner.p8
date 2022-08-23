@@ -26,6 +26,7 @@ function check_collision_with_spinner(_s,_pin)
   captures[2].bonus_enabled=true
   flash(captures[2],-99,true)
   add_to_queue(disable_bonus,180,{captures[2]})
+  cycle_lights(spinner_lights,1,3,flr(60/#spinner_lights))
  end
 end
 
