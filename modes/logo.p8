@@ -41,7 +41,7 @@ function draw_logo()
   return
  end
  
- spr(128,29,56,2,2)
+ spr(130,29,56,2,2)
  
  print_shadow("spaghettieis",47,59,7,8)
  print_shadow("games",47,65,7,8)
