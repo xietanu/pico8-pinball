@@ -52,18 +52,36 @@ function _init()
    init=init_launch,
    update=update_launch,
    draw=draw_game
+  },
+  game_over={
+   init=init_game_over,
+   update=update_game_over,
+   draw=draw_game_over
+  },
+  logo={
+   init=init_logo,
+   update=update_title,
+   draw=draw_logo
   }
  }
- mode = modes.title
+ mode = modes.logo
  mode.init()
 end
 
 function _update60()
  f+=1
 
+ if transitioning then
+  update_transition()
+ end
+
  mode.update()
 end
 
 function _draw()
+ if transitioning then
+  draw_transition()
+ end
  mode.draw()
+ pal()
 end

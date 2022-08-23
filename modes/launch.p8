@@ -4,6 +4,7 @@ function init_launch()
   pinballs,
   cur_pinball
  )
+ balls-=1
  add(ongoing_msgs,launch_msg)
  released=false
  del(always_colliders,launch_block)
