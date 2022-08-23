@@ -138,6 +138,7 @@ function empty_fuel_action(_cap)
  if _cnt==5 then
   flash(terra_lights[3],3,true)
   blastoff_mode = true
+  reset_light.lit = true
   add(ongoing_msgs,blastoff_msg)
   flash(_cap,-99,false)
   for _l in all(
@@ -173,6 +174,7 @@ function end_blastoff_mode()
   return
  end
  blastoff_mode = false
+ reset_light.lit = false
  reactivate(_cap)
  del(ongoing_msgs,blastoff_msg)
  end_flash(_cap,false)

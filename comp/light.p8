@@ -159,6 +159,11 @@ function init_lights()
   )
  }
  add_group_to_board(refuel_lights,{static_under})
+
+ reset_light = create_light(
+  vec(39,125),nil,draw_dot_light
+ )
+ add(static_under,reset_light)
 end
 
 function create_light(
@@ -250,7 +255,7 @@ function light_refuel_lights()
  -- lighting of refuel lights.
  -- lights a light each time
  -- it's triggered.
- if blastoff_mode then
+ if blastoff_mode or #pinballs > 1 then
   return
  end
  for i = 1,#refuel_lights do

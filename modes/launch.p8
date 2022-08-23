@@ -1,7 +1,13 @@
 function init_launch()
  cur_pinball=create_pinball(vec(74,75))
  
- balls-=1
+ if reset_light.lit then
+  reset_light.lit = false
+  add(msgs,{"free reset",t=90})
+ else
+  balls-=1
+  reset_light.lit = true
+ end
  add(ongoing_msgs,launch_msg)
  released=false
  del(always_colliders,launch_block)

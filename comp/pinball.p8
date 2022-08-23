@@ -110,7 +110,7 @@ end
 function check_collision_with_pinball(_pin1,_pin2)
  if dist_between_vectors(_pin1.origin, _pin2.origin)<=3 then
   local normalized_perp_vec = _pin1.origin:minus(_pin2.origin):normalize()
-  while dist_between_vectors(_pin1.origin, _pin2.origin)<=3 do
+  while dist_between_vectors(_pin1.origin, _pin2.origin)<=3 and #_pin1.prev > 0 and #_pin2.prev > 0 do
    if not _pin1.captured then
     rollback_pinball_pos(_pin1)
    end
