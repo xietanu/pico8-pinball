@@ -53,3 +53,11 @@ function shift_light_right(_r)
  end
  set_light(_r[1],_last_l)
 end
+
+function add_group_to_board(_grp,_layers)
+ for _el in all(_grp) do
+  for _l in all(_layers) do
+   add(_l,_el)
+  end
+ end
+end

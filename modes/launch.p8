@@ -1,9 +1,6 @@
 function init_launch()
- cur_pinball=create_pinball(74,75)
- add(
-  pinballs,
-  cur_pinball
- )
+ cur_pinball=create_pinball(vec(74,75))
+ 
  balls-=1
  add(ongoing_msgs,launch_msg)
  released=false

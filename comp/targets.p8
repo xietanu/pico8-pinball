@@ -39,11 +39,7 @@ function init_targets()
   },
   all_lit_action=left_targets_lit
  }
- for _t in all(left_targets.elements) do
-  _t.group = left_targets
-  add(static_colliders,_t)
-  add(static_over,_t)
- end
+ add_target_group_to_board(left_targets)
 
  right_target_poly = gen_polygon(
   "3,5,1.5,5,-0.5,1,1,-1"
@@ -66,11 +62,7 @@ function init_targets()
   },
   all_lit_action=right_targets_lit
  }
- for _t in all(right_targets.elements) do
-  _t.group = right_targets
-  add(static_colliders,_t)
-  add(static_over,_t)
- end
+ add_target_group_to_board(right_targets)
 
  h_target_poly = gen_polygon(
   "-1,-1,5,-1,4,3,-1,2"
@@ -93,11 +85,15 @@ function init_targets()
   },
   all_lit_action=pass
  }
+ add_target_group_to_board(rocket_targets)
+ 
+end
 
- for _t in all(rocket_targets.elements) do
-  _t.group = rocket_targets
+function add_target_group_to_board(_grp,_draw_layer)
+ for _t in all(_grp.elements) do
+  _t.group = _grp
   add(static_colliders,_t)
-  add(static_over,_t)
+  add(_draw_layer or static_over,_t)
  end
 end
 

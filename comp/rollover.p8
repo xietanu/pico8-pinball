@@ -21,16 +21,8 @@ function init_rollovers()
   },
   all_lit_action=rollovers_all_lit
  }
- for _r in all(top_rollovers.elements) do
-  _r.group = top_rollovers
-  add(static_under,_r)
-  add(static_colliders,_r)
- end
- for _r in all(bottom_rollovers.elements) do
-  _r.group = bottom_rollovers
-  add(static_under,_r)
-  add(static_colliders,_r)
- end
+ add_target_group_to_board(top_rollovers,static_under)
+ add_target_group_to_board(bottom_rollovers,static_under)
  
  add(to_update,top_rollovers)
 end

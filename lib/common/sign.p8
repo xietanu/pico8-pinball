@@ -1,4 +1,4 @@
 function sign(_val)
- if _val==0 then return 0 end
+ if (_val==0) return 0
  return sgn(_val)
 end

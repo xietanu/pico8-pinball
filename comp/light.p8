@@ -44,11 +44,7 @@ function init_lights()
   ),
  }
 
- for _l in all(
-  terra_lights
- ) do
-  add(static_under,_l)
- end
+ add_group_to_board(terra_lights,{static_under})
 
  nova_lights = {
   create_light(
@@ -73,11 +69,7 @@ function init_lights()
   ),
  }
 
- for _l in all(
-  nova_lights
- ) do
-  add(static_under,_l)
- end
+ add_group_to_board(nova_lights,{static_under})
 
  left_drain_light = create_light(
   vec(13,108),
@@ -142,11 +134,7 @@ function init_lights()
   )
  }
 
- for _l in all(
-  spinner_lights
- ) do
-  add(static_under,_l)
- end
+ add_group_to_board(spinner_lights,{static_under})
 
  refuel_lights={
   create_light(
@@ -170,11 +158,7 @@ function init_lights()
    draw_spr
   )
  }
- for _l in all(
-  refuel_lights
- ) do
-  add(static_under,_l)
- end
+ add_group_to_board(refuel_lights,{static_under})
 end
 
 function create_light(

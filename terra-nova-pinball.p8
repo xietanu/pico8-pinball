@@ -6,7 +6,7 @@ __lua__
 #include main.p8
 
 --draw
-#include draw/draw_collider.p8
+--#include draw/draw_collider.p8
 #include draw/draw_spr.p8
 #include draw/print_shadow.p8
 

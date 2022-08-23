@@ -114,8 +114,6 @@ function check_collision_with_flipper(_f,_pin)
   update_flipper_collider(_f)
   _f.moving=0
   update_pinball_pos(_pin,dt)
-  impact_pnt=_pin.origin
-  dir_pnt=_pin.origin:plus(_pin.spd)
  end
 end
 
@@ -145,9 +143,9 @@ function draw_flipper(_f)
   )
  )
  
- if draw_outlines then
-  draw_collider(_f)
- end
+ -- if draw_outlines then
+ --  draw_collider(_f)
+ -- end
 
  sspr(
   16,

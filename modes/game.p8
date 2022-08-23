@@ -1,4 +1,5 @@
 function init_game()
+ show_stars = false
  balls=3
 
  msg=""
@@ -18,18 +19,15 @@ function init_game()
  score=init_long(3)
 
  --TODO: Delete these debug variables
- debug_flippers=false
- draw_outlines=false
- impact_pnt=nil
- dir_pnt=nil
+ -- draw_outlines=false
 end
 
 function update_game()
- if pc_option==1 then
-  if btnp(❎) then
-   draw_outlines=not draw_outlines
-  end
- end
+ -- if pc_option==1 then
+ --  if btnp(❎) then
+ --   draw_outlines=not draw_outlines
+ --  end
+ -- end
 
  for _s in all(static_colliders) do
   _s.c=6
@@ -96,8 +94,6 @@ function update_game()
 end
 
 function draw_game()
- cls(0)
-
  draw_headboard()
 
  draw_table()
@@ -116,12 +112,6 @@ function draw_game()
 
  circ(124,124,2,10)
  pset(124.5+sin(f/(16*60))*2.5,124.5+cos(f/(16*60))*2.5,8)
-
-
- if impact_pnt and debug_flippers then
-  circ(impact_pnt.x,impact_pnt.y,2,8)
-  line(impact_pnt.x,impact_pnt.y,dir_pnt.x,dir_pnt.y,10)
- end
 end
 
 function pass()

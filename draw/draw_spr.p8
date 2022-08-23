@@ -1,8 +1,8 @@
 function draw_spr(_obj)
  local _spr=_obj.spr_coords
- if draw_outlines and _obj.collider!=nil then
-  draw_collider(_obj)
- end
+ -- if draw_outlines and _obj.collider!=nil then
+ --  draw_collider(_obj)
+ -- end
  if _obj.hit > 0 and not transitioning then
   _spr=_obj.hit_spr_coords or _spr
   pal(_obj.unlit_col or 8,9)

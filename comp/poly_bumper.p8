@@ -128,56 +128,19 @@ function init_poly_bumpers()
     false,
     nil,
     close_left_drain
-   ),
-   init_wall(
-    narrow_wall_col,
-    true,
-    vec(31,15)
-   ),
-   init_wall(
-    narrow_wall_col,
-    true,
-    vec(37,15)
-   ),
-   init_wall(
-    narrow_wall_col,
-    true,
-    vec(43,15)
-   ),
-   init_wall(
-    narrow_wall_col,
-    true,
-    vec(49,15)
-   ),
-   --lower left floating corner
-   init_wall(
-    gen_polygon("31,122,15,106,15,93,16,92,18,94,18,106,26,113,31,117"),
-    true
-   ),
-   --lower right floating corner
-   init_wall(
-    gen_polygon("48,122,64,106,64,93,63,92,61,94,61,106,53,113,48,117"),
-    true
-   ),
-   -- inner curve left
-   init_wall(
-    gen_polygon(
-     "24,43,18,37,14,28,14,25,17,18,22,13,24,12,24,16,26,16,26,19,20,25,20,33,25,43"
-    ),
-    true
-   ),
-   --inner curve right
-   init_wall(
-    gen_polygon(
-     "61,25,61,22,58,19,54,19,54,14,60,15,66,18,68,21,68,25,66,28,59,34,58,32"
-    ),
-    true
    )
  }
- for _pb in all(poly_bumpers) do
-  add(static_colliders,_pb)
-  add(static_over,_pb)
+ for _o in all({vec(31,15),vec(37,15),vec(43,15),vec(49,15)}) do
+  add(
+   poly_bumpers,
+   init_wall(
+    narrow_wall_col,
+    true,
+    _o
+   )
+  )
  end
+ add_group_to_board(poly_bumpers,{static_colliders,static_over})
 end
 
 function create_poly_bumper(

@@ -79,6 +79,15 @@ function _update60()
 end
 
 function _draw()
+ cls()
+ if show_stars then
+  for _s in all(stars) do
+   pset(_s.x,_s.y,_s.c)
+  end
+ end
+ if show_credits then
+  print_version_credits()
+ end
  if transitioning then
   draw_transition()
  end

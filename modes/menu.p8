@@ -1,20 +1,21 @@
 function init_menu()
+ show_credits = false
  f_base=f
  off_y=0
  options={
   {func=function()
    init_transition(modes.game)
   end,
-  text="start",
+  text={"start"},
   base_y=75
   },
   {
-   text="highscores",
+   text={"highscores"},
    base_y=85,
    func=function()end
   },
   {
-   text="paddle controls:",
+   text={"paddle controls:"},
    base_y=95,
    func=function()
    pc_option=mod(
@@ -57,18 +58,10 @@ function update_menu()
 end
 
 function draw_menu()
- draw_title(off_y)
+ draw_title()
+ print_version_credits()
 
- for i=1,#options do
-  local _o=options[i]
-  local _y = _o.base_y+(28+off_y)*(i+1)
-  if selected_option == i then
-   print(chr(23),25.5+sin(f/60),_y,8)
-   print_shadow(_o.text,32,_y,7,8)
-  else
-   print(_o.text,32,_y,7)
-  end
- end
+ draw_menu_items(32,28+off_y,true)
 
  sspr(
   16,44,

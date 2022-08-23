@@ -1,5 +1,6 @@
 function init_title()
  f = 0
+ off_y=0
 end
 
 function update_title()
@@ -13,16 +14,30 @@ function update_title()
  end
 end
 
-function draw_title(_off_y)
- _off_y = _off_y or 0
+function draw_title()
+ draw_title_foreground(off_y)
 
- cls(0)
- for _s in all(stars) do
-  pset(_s.x,_s.y+_off_y/2.5,_s.c)
+ if off_y==0 then
+  print("⬇️",60,110,7)
  end
+end
 
- even_circ(63,63+_off_y,24,1)
- even_circ(63,63+_off_y,23,12)
+function even_circ(_x,_y,_r,_c)
+ for i=0,1 do
+  for j=0,1 do
+   circfill(
+    _x+i,
+    _y+j,
+    _r,
+    _c
+   )
+  end
+ end
+end
+
+function draw_title_foreground(_y_off)
+ even_circ(63,63+_y_off,24,1)
+ even_circ(63,63+_y_off,23,12)
 
  if f==25 then
   sfx(16)
@@ -32,34 +47,16 @@ function draw_title(_off_y)
    for angle=0,0.07,0.001 do
    line(
     64-sin(-0.125-angle-base_angle)*23.5,
-    64-cos(-0.125-angle-base_angle)*23.5+_off_y,
+    64-cos(-0.125-angle-base_angle)*23.5+_y_off,
     64-sin(-0.125+angle+base_angle)*23.5,
-    64-cos(-0.125+angle+base_angle)*23.5+_off_y,
+    64-cos(-0.125+angle+base_angle)*23.5+_y_off,
     7
    )
   end
  end
 
- spr(160,40,40+_off_y,6,6)
+ spr(160,40,40+_y_off,6,6)
 
- print_shadow("terra nova",44,31+_off_y,7,1)
- print_shadow("pinball",50,92+_off_y,7,1)
-
- if f%60>25 and _off_y==0 then
-  print("⬇️",60,110,7)
- end
- print_version_credits(_off_y)
+ print_shadow("terra nova",44,31+_y_off,7,1)
+ print_shadow("pinball",50,92+_y_off,7,1)
 end
-
-function even_circ(_x,_y,_r,_c)
-  for i=0,1 do
-   for j=0,1 do
-    circfill(
-     _x+i,
-     _y+j,
-     _r,
-     _c
-    )
-   end
-  end
- end

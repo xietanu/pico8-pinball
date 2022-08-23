@@ -28,10 +28,7 @@ function init_captures()
    empty_fuel_action
   )
  }
- for _r in all(captures) do
-  add(static_under,_r)
-  add(static_colliders,_r)
- end
+ add_group_to_board(captures,{static_under,static_colliders})
 end
 
 function create_capture(
@@ -166,8 +163,7 @@ function add_blastoff_ball()
  end
  _cap.deactivated=true
  add_to_queue(reactivate,30,{_cap})
- _p = create_pinball(_cap.origin.x,_cap.origin.y)
- add(pinballs,_p)
+ _p = create_pinball(_cap.origin:copy())
  _p.spd=_cap.output_vector:copy()
 end
 
