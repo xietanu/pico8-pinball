@@ -8,9 +8,7 @@ function init_rollovers()
    create_rollover(46,15),
    create_rollover(52,15)
   },
-  update=update_elem_group,
-  all_lit_action=increase_multi,
-  rotatable=true
+  all_lit_action=increase_multi
  }
  bottom_rollovers={
   elements={
@@ -23,8 +21,6 @@ function init_rollovers()
  }
  add_target_group_to_board(top_rollovers,static_under)
  add_target_group_to_board(bottom_rollovers,static_under)
- 
- add(to_update,top_rollovers)
 end
 
 function create_rollover(_x,_y,_action)

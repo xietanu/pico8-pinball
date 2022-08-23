@@ -1,4 +1,5 @@
 function init_menu()
+ show_stars = true
  show_credits = false
  f_base=f
  off_y=0
@@ -12,7 +13,9 @@ function init_menu()
   {
    text={"highscores"},
    base_y=85,
-   func=function()end
+   func=function()
+    init_transition(modes.highscores)
+   end
   },
   {
    text={"paddle controls:"},
@@ -32,7 +35,7 @@ end
 function update_menu()
  off_y=max(-28,-(f-f_base))
 
- stars=rotate_pnts(stars,vec(64,150+off_y/2.5),-0.00025)
+ rotate_stars(-0.00025)
 
  if mode==modes.transition then
   return

@@ -2,6 +2,11 @@ function _init()
  f=0
 
  version="0.1.0a"
+ cartdata("xietanu_terranovapinball_v1")
+ if dget(0) == 0 then
+  gen_highscores()
+ end
+ read_highscores()
 
  paddle_controls={
   {
@@ -62,6 +67,11 @@ function _init()
    init=init_logo,
    update=update_title,
    draw=draw_logo
+  },
+  highscores={
+   init=pass,
+   update=update_highscores,
+   draw=draw_highscores
   }
  }
  mode = modes.logo
@@ -93,4 +103,37 @@ function _draw()
  end
  mode.draw()
  pal()
+end
+
+function gen_highscores()
+ dset(0,1)
+ for i=1,40 do
+  if i%4==0 then
+   dset(i,13)
+  else
+   dset(i,0)
+  end
+ end
+ for i=0,2 do
+  dset(3+i*4,3-i)
+ end
+ for i=0,6 do
+  dset(14+i*4,900-i*100)
+ end
+end
+
+function read_highscores()
+ highscores={}
+ for i = 0,36,4 do
+  add(highscores,{dget(1+i),dget(2+i),dget(3+i),c=dget(4+i)})
+ end
+end
+
+function write_highscores()
+ for i=0,9 do
+  for j=1,3 do
+   dset(i*4+j,highscores[i+1][j])
+  end
+  dset(i*4+4,highscores[i+1].c)
+ end
 end

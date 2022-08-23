@@ -43,7 +43,6 @@ function create_capture(
    -1.5,-1.5,
    1.5,1.5
   ),
-  captured_pinball=nil,
   output_vector=_eject_vector,
   draw=draw_capture,
   check_collision=check_collision_with_capture,

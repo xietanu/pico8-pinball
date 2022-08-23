@@ -4,12 +4,14 @@ function init_flippers()
   create_flipper(
    vec(29.5,118.5),
    pad_con.l,
-   false
+   false,
+   shift_light_left
   ),
   create_flipper(
    vec(50.5,118.5),
    pad_con.r,
-   true
+   true,
+   shift_light_right
   )
  }
 end
@@ -17,7 +19,8 @@ end
 function create_flipper(
  _origin,
  _button,
- _flip_x
+ _flip_x,
+ _shift_light
 )
  -- create a flipper
  local _flip=1
@@ -49,7 +52,8 @@ function create_flipper(
   c=12,
   flip_x=_flip_x,
   flip=_flip,
-  complete=true
+  complete=true,
+  shift_light=_shift_light
  }
  _f.collider = _f.collider_base
  
@@ -71,6 +75,9 @@ function update_flipper(_f)
 			_f.moving=0
 		end
 	end
+
+ if (btnp(_f.button)) _f.shift_light(top_rollovers.elements)
+
  return ceil(_f.moving*flipper_update_per_frame)
 end
 

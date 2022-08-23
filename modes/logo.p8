@@ -9,9 +9,6 @@ function init_logo()
   add(stars,star)
  end
 
- logo_cols={0,0,0,2,2,4,8,14,15,6,7}
- logo_cols_off={0,0,0,0,0,0,0,0,0,0,2,4,8,14,15,6,7}
-
  show_stars=true
  show_credits=true
 
