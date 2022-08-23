@@ -3,8 +3,7 @@ function init_menu()
  off_y=0
  options={
   {func=function()
-   mode=modes.game
-   mode.init()
+   init_transition(modes.game)
   end,
   text="start",
   base_y=75
@@ -33,6 +32,10 @@ function update_menu()
  off_y=max(-28,-(f-f_base))
 
  stars=rotate_pnts(stars,vec(64,150+off_y/2.5),-0.00025)
+
+ if mode==modes.transition then
+  return
+ end
 
  selected_option=mod(
   selected_option+tonum(btnp(⬇️))-tonum(btnp(⬆️)),

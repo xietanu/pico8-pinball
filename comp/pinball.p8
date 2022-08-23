@@ -83,7 +83,12 @@ function update_pinball_pos(_pin,_dt)
    add_tracker(_pin)
   end
  end
+end
 
+function add_tracker(pinball)
+ add(pinball.trackers,{
+   x=pinball.origin.x,y=pinball.origin.y,l=7
+  })
 end
 
 function rollback_pinball_pos(_pin)

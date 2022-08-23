@@ -1,18 +1,13 @@
 function init_title()
- stars={}
- for i=1,400 do
-  local star=vec(
-   flr(rnd(400))-136,
-   flr(rnd(400))-66
-  )
-  star.c=rnd({12,7,6,5,13,15,1})
-  add(stars,star)
- end
+ f = 0
 end
 
 function update_title()
  stars=rotate_pnts(stars,vec(64,150),-0.0005)
  if btnp(⬇️) or btnp(❎) or btnp(🅾️) then
+  if mode == modes.logo then
+   f=20
+  end
   mode=modes.menu
   mode.init()
  end
@@ -37,14 +32,13 @@ function draw_title(_off_y)
  cls(0)
  for _s in all(stars) do
   pset(_s.x,_s.y+_off_y/2.5,_s.c)
-  --line(64,150+_off_y/2.5,_s.x,_s.y,5)
  end
 
  even_circ(63,63,24,1)
  even_circ(63,63,23,12)
 
  if f==25 then
-  music(0)
+  sfx(16)
  end
  if f>30 and f<88 then
   base_angle=(f-30)/120
@@ -67,7 +61,7 @@ function draw_title(_off_y)
  if f%60>25 and _off_y==0 then
   print("⬇️",60,110,7)
  end
- print("v "..version,2,2+_off_y,13)
- print("by matt sutton",71,2+_off_y,13)
- print("@xietanu",95,10+_off_y,13)
+ print("v "..version,2,2+min(_off_y,0),13)
+ print("by matt sutton",71,2+min(_off_y,0),13)
+ print("@xietanu",95,10+min(_off_y,0),13)
 end
