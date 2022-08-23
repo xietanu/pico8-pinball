@@ -45,21 +45,21 @@ function init_targets()
   add(static_over,_t)
  end
 
+ right_target_poly = gen_polygon(
+  "3,5,1.5,5,-0.5,1,1,-1"
+ )
+
  right_targets={
   elements={
    create_target(
     vec(55,50),
-    gen_polygon(
-     "3,5,1.5,5,-0.5,1,1,-1"
-    ),
+    right_target_poly,
     vec(42,18),
     3,5
    ),
    create_target(
     vec(64,74),
-    gen_polygon(
-     "3,5,1.5,5,-0.5,1,1,-1"
-    ),
+    right_target_poly,
     vec(42,18),
     3,5
    )
@@ -68,6 +68,34 @@ function init_targets()
  }
  for _t in all(right_targets.elements) do
   _t.group = right_targets
+  add(static_colliders,_t)
+  add(static_over,_t)
+ end
+
+ h_target_poly = gen_polygon(
+  "-1,-1,5,-1,4,3,-1,2"
+ )
+
+ rocket_targets={
+  elements={
+   create_target(
+    vec(38,61),
+    h_target_poly,
+    vec(0,48),
+    5,3
+   ),
+   create_target(
+    vec(32,60),
+    h_target_poly,
+    vec(0,48),
+    5,3
+   )
+  },
+  all_lit_action=pass
+ }
+
+ for _t in all(rocket_targets.elements) do
+  _t.group = rocket_targets
   add(static_colliders,_t)
   add(static_over,_t)
  end

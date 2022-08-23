@@ -18,21 +18,33 @@ end
 function draw_logo()
  cls(0)
  for _s in all(stars) do
-  pset(_s.x,_s.y+127/2.5,_s.c)
+  pset(_s.x,_s.y,_s.c)
  end
+ print_version_credits()
 
- if f < 100 then
-  local max_col=min(11,flr(f/3)+1)
-  for i=1,11 do
-   pal(logo_cols[i],logo_cols[min(max_col,i)])
+ local max_col = 0
+
+ if f < 90 then
+  max_col=limit(flr(f/4)+1,0,6)
+ elseif f < 125 then
+  max_col=limit(5-flr((f-90)/4),0,6)
+ elseif f < 140 then
+  max_col=limit(flr((f-125)/4)+1,0,6)
+  for grad in all(col_grads) do
+   for i=1,6 do
+    pal(grad[i],grad[min(i,max_col)])
+   end
   end
- elseif f < 135 then
-  local max_col=max(1,7-flr((f-120)/3))
-  for i=1,11 do
-   pal(logo_cols[i],logo_cols[min(max_col,i)])
-  end
- elseif f < 177 then
-  draw_title(max(0,127-(f-135)*3))
+
+  even_circ(63,63,24,1)
+  even_circ(63,63,23,12)
+
+  spr(160,40,40,6,6)
+
+  print_shadow("terra nova",44,31,7,1)
+  print_shadow("pinball",50,92,7,1)
+
+  pal()
   return
  else
   mode = modes.title
@@ -40,14 +52,23 @@ function draw_logo()
   mode.draw()
   return
  end
+
+ for grad in all(col_grads) do
+  for i=1,6 do
+   pal(grad[i],grad[min(i,max_col)])
+  end
+ end
  
  spr(130,29,56,2,2)
  
  print_shadow("spaghettieis",47,59,7,8)
  print_shadow("games",47,65,7,8)
- print("v "..version,2,2,13)
- print("by matt sutton",71,2,13)
- print("@xietanu",95,10,13)
-
  pal()
+end
+
+function print_version_credits(_y_off)
+ _y_off = _y_off or 0
+ print("v "..version,2,2+_y_off,13)
+ print("by matt sutton",71,2+_y_off,13)
+ print("@xietanu",95,10+_y_off,13)
 end

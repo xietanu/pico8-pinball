@@ -16,6 +16,69 @@ function init_lights()
   vec(32,12),3,3
  )
 
+ terra_lights = {
+  create_light(
+   vec(30,93),
+   "t",
+   draw_letter_light
+  ),
+  create_light(
+   vec(34,93),
+   "e",
+   draw_letter_light
+  ),
+  create_light(
+   vec(38,93),
+   "r",
+   draw_letter_light
+  ),
+  create_light(
+   vec(42,93),
+   "r",
+   draw_letter_light
+  ),
+  create_light(
+   vec(46,93),
+   "a",
+   draw_letter_light
+  ),
+ }
+
+ for _l in all(
+  terra_lights
+ ) do
+  add(static_under,_l)
+ end
+
+ nova_lights = {
+  create_light(
+   vec(32,99),
+   "n",
+   draw_letter_light
+  ),
+  create_light(
+   vec(36,99),
+   "o",
+   draw_letter_light
+  ),
+  create_light(
+   vec(40,99),
+   "v",
+   draw_letter_light
+  ),
+  create_light(
+   vec(44,99),
+   "a",
+   draw_letter_light
+  ),
+ }
+
+ for _l in all(
+  nova_lights
+ ) do
+  add(static_under,_l)
+ end
+
  left_drain_light = create_light(
   vec(13,108),
   chevron_light_spr,
@@ -141,8 +204,6 @@ end
 
 function draw_line_light(_l)
  -- draw a line-like light
- -- args:
- -- _l (table): the light
  local _c = _l.off_col
  if _l.lit then
   _c=_l.lit_col
@@ -152,6 +213,33 @@ function draw_line_light(_l)
   _l.origin.y,
   _l.config.x,
   _l.config.y,
+  _c
+ )
+end
+
+function draw_letter_light(_l)
+ local _c = _l.off_col
+ if _l.lit then
+  _c=_l.lit_col
+ end
+ print(
+  _l.config,
+  _l.origin.x,
+  _l.origin.y,
+  _c
+ )
+end
+
+function draw_dot_light(_l)
+ local _c = _l.off_col
+ if _l.lit then
+  _c=_l.lit_col
+ end
+ rect(
+  _l.origin.x,
+  _l.origin.y,
+  _l.origin.x+1,
+  _l.origin.y+1,
   _c
  )
 end

@@ -162,14 +162,14 @@ function init_poly_bumpers()
    -- inner curve left
    init_wall(
     gen_polygon(
-     "24,43,18,37,14,28,14,25,17,18,22,13,24,12,24,16,26,16,26,19,22,23,21,29,21,33"
+     "24,43,18,37,14,28,14,25,17,18,22,13,24,12,24,16,26,16,26,19,20,25,20,33,25,43"
     ),
     true
    ),
    --inner curve right
    init_wall(
     gen_polygon(
-     "56,35,58,27,58,22,54,18,54,14,58,14,66,18,68,21,68,25,66,28,59,34"
+     "61,25,61,22,58,19,54,19,54,14,60,15,66,18,68,21,68,25,66,28,59,34,58,32"
     ),
     true
    )
@@ -213,10 +213,12 @@ function create_poly_bumper(
 end
 
 function close_left_drain()
+ reset_drain(left_drain)
  add_to_queue(close_drain,30,{left_drain})
 end
 
 function close_right_drain()
+ reset_drain(right_drain)
  add_to_queue(close_drain,30,{right_drain})
 end
 

@@ -26,7 +26,7 @@ function update_launch()
  modes.game.update()
 
  if released then
-  launcher.origin.y=min(cur_pinball.origin.y+0.51,80)
+  launcher.origin.y=max(cur_pinball.origin.y+0.51,80)
   if launcher.origin.y<=80 then
    released=false
   end
@@ -42,7 +42,9 @@ function update_launch()
   end
   if btnp(🅾️) or btnp(❎) then
    released=true
-   cur_pinball.spd.y=-sqrt((launcher.origin.y-80))
+   if cur_pinball.origin.y >=80 then
+    cur_pinball.spd.y=-sqrt((launcher.origin.y-80))
+   end
   end
  end
 end

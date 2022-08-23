@@ -5,7 +5,7 @@ function init_captures()
  -- initialise the capture
  -- elements on the board.
  refuel_msg = {"rocket","fully","fueled!"}
- blastoff_msg = {"blast-off!","multiball!","2X bonus!"}
+ blastoff_msg = {"blast-off!","multiball!"}
 
  captures = {
   -- right capture
@@ -23,7 +23,7 @@ function init_captures()
   -- rocket fuel capture
   create_capture(
    vec(45,58),
-   vec(0.5,0.2),
+   vec(0.4,0.4),
    0,
    empty_fuel_action
   )
@@ -139,6 +139,7 @@ function empty_fuel_action(_cap)
  )
  del(ongoing_msgs,refuel_msg)
  if _cnt==5 then
+  flash(terra_lights[3],3,true)
   blastoff_mode = true
   add(ongoing_msgs,blastoff_msg)
   flash(_cap,-99,false)
@@ -170,7 +171,8 @@ function add_blastoff_ball()
  _p.spd=_cap.output_vector:copy()
 end
 
-function end_blastoff_mode(_cap)
+function end_blastoff_mode()
+ local _cap = captures[2]
  if not blastoff_mode then
   return
  end

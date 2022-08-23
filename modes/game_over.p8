@@ -39,6 +39,9 @@ function draw_game_over()
  draw_table()
  draw_headboard(get_frame({10,7,12,7},f,10))
  
+ if f>10000 then
+  f=0
+ end
  clip(82,40,45,min(87,f*2))
 
  rectfill(82,40,126,126,0)
@@ -63,6 +66,7 @@ function draw_game_over()
    end
   end
  end
+ clip()
 end
 
 function quick_restart()

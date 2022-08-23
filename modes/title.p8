@@ -16,26 +16,13 @@ end
 function draw_title(_off_y)
  _off_y = _off_y or 0
 
- function even_circ(_x,_y,_r,_c)
-  for i=0,1 do
-   for j=0,1 do
-    circfill(
-     _x+i,
-     _y+j+_off_y,
-     _r,
-     _c
-    )
-   end
-  end
- end
-
  cls(0)
  for _s in all(stars) do
   pset(_s.x,_s.y+_off_y/2.5,_s.c)
  end
 
- even_circ(63,63,24,1)
- even_circ(63,63,23,12)
+ even_circ(63,63+_off_y,24,1)
+ even_circ(63,63+_off_y,23,12)
 
  if f==25 then
   sfx(16)
@@ -61,7 +48,18 @@ function draw_title(_off_y)
  if f%60>25 and _off_y==0 then
   print("⬇️",60,110,7)
  end
- print("v "..version,2,2+min(_off_y,0),13)
- print("by matt sutton",71,2+min(_off_y,0),13)
- print("@xietanu",95,10+min(_off_y,0),13)
+ print_version_credits(_off_y)
 end
+
+function even_circ(_x,_y,_r,_c)
+  for i=0,1 do
+   for j=0,1 do
+    circfill(
+     _x+i,
+     _y+j,
+     _r,
+     _c
+    )
+   end
+  end
+ end
