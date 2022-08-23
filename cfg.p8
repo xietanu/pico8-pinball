@@ -14,3 +14,5 @@ rollover_grp_points = 150 -- * 1000
 skillshot_points = 200 -- * 1000
 
 max_spd = 4
+
+tracker_cols={5,13}
