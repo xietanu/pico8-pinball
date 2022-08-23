@@ -19,7 +19,7 @@ function init_rollovers()
    create_rollover(65,95,hit_refuel_rollover),
    create_rollover(59,97,hit_refuel_rollover)
   },
-  all_lit_action=rollovers_all_lit
+  all_lit_action=lower_rollovers_all_lit
  }
  add_target_group_to_board(top_rollovers,static_under)
  add_target_group_to_board(bottom_rollovers,static_under)
@@ -71,6 +71,11 @@ function check_collision_with_rollover(_r,_pin)
  end
 end
 
+function lower_rollovers_all_lit(_rg)
+ flash(terra_lights[5],3,true)
+ rollovers_all_lit(_rg)
+end
+
 function rollovers_all_lit(_rg)
  -- action for when rollover
  -- group's lights all lit.
@@ -87,6 +92,7 @@ function hit_refuel_rollover(_r,_pin)
 end
 
 function increase_multi(_rg)
+ flash(terra_lights[4],3,true)
  if multiplier<4 then
   add(msgs,{"multiplier","increased!",t=120})
  end
