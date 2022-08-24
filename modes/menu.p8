@@ -66,22 +66,24 @@ function draw_menu()
 
  draw_menu_items(32,28+off_y,true)
 
+ local _off_y_m4=off_y*4
+
  sspr(
   16,44,
   11,11,
-  51,214+off_y*4
+  51,214+_off_y_m4
  )
  sspr(
   16,44,
   11,11,
-  66,214+off_y*4,
+  66,214+_off_y_m4,
   11,11,
   true
  )
- print_shadow(pad_con.ls,52,228+off_y*4,pad_con.lc,1)
- print_shadow(pad_con.rs,68,228+off_y*4,pad_con.rc,1)
+ print_shadow(pad_con.ls,52,228+_off_y_m4,pad_con.lc,1)
+ print_shadow(pad_con.rs,68,228+_off_y_m4,pad_con.rc,1)
  if selected_option == 3 then
-  print(chr(22),40.5+sin(f/60),222.5+off_y*4+cos(f/143),7)
-  print(chr(23),84.5+sin(f/60),222.5+off_y*4+cos(f/143),7)
+  print(chr(22),40.5+sin(f/60),222.5+_off_y_m4+cos(f/143),7)
+  print(chr(23),84.5+sin(f/60),222.5+_off_y_m4+cos(f/143),7)
  end
 end

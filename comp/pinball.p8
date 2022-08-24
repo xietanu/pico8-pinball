@@ -22,8 +22,8 @@ function create_pinball(_pos)
 end
 
 function update_pinball_spd_acc(_pin)
- _pin.spd=_pin.spd:multiplied_by(1-pinball_friction)
- _pin.spd.y+=gravity_accel
+ _pin.spd=_pin.spd:multiplied_by(0.995)
+ _pin.spd.y+=0.03
  _pin.spd_mag=_pin.spd:magnitude()
 
  local _dt = min(
@@ -43,7 +43,7 @@ function update_pinball_pos(_pin,_dt)
 
  add(_pin.prev,_pin.origin:copy())
 
- while #(_pin.prev) > 30 do
+ while #(_pin.prev) > 100 do
   del(_pin.prev,_pin.prev[1])
  end
 
@@ -63,19 +63,11 @@ function update_pinball_pos(_pin,_dt)
    add_blastoff_ball()
   end
  else
-  local _col_region = collision_regions[flr(_pin.origin.x/16)+1][flr(_pin.origin.y/16)+1]
-  for _sc in all(_col_region) do
-   check_collision(_pin,_sc)
-  end
-  for _a in all(always_colliders) do
-   check_collision(_pin,_a)
-  end
-  for _f in all(flippers) do
-   check_collision(_pin,_f)
-  end
-  for _p in all(pinballs) do
-   if _pin != _p then
-    check_collision(_pin,_p)
+  for _col_grp in all({collision_regions[flr(_pin.origin.x/16)+1][flr(_pin.origin.y/16)+1],always_colliders,flippers,pinballs}) do
+   for _sc in all(_col_grp) do
+    if _pin != _sc then
+     check_collision(_pin,_sc)
+    end
    end
   end
   if #_pin.trackers==0 then

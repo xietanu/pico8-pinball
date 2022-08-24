@@ -4,15 +4,16 @@ __lua__
 function init_captures()
  -- initialise the capture
  -- elements on the board.
- refuel_msg = {"rocket","fully","fueled!"}
  blastoff_msg = {"blast-off!","multiball!"}
+ target_hunt_msg = {"calibrate","lasers!","hit targets!"}
 
  captures = {
   -- right capture
   create_capture(
    vec(68,58),
    vec(-1,1),
-   capture_points
+   capture_points,
+   start_target_hunt
   ),
   -- escape velocity capture
   create_capture(
@@ -113,7 +114,8 @@ end
 function escape_velocity_action(_cap)
  if (not _cap.bonus_enabled) return
  increase_score(10,1)
- add(msgs,{"escape","velocity!",t=90})
+ add(msgs,{"slingshot!",t=90})
+ light_terra(5)
 end
 
 function empty_fuel_action(_cap)
@@ -124,42 +126,25 @@ function empty_fuel_action(_cap)
   return
  end
  
- local _cnt, _pnts = 1, {
-  111,555,2800,14,70,350
- }
- for _l in all(
-  refuel_lights
- ) do
-  if _l.lit then
-   _cnt+=1
-   flash(_l,3,false)
-  end
- end
- 
+ local _cnt = flash_table(refuel_lights,3,false,true)
+
  increase_score(
-  _pnts[_cnt],
-  max(0,min(1,_cnt-3))
+  (_cnt+1)^_cnt,
+  1
  )
- del(ongoing_msgs,refuel_msg)
- if _cnt==5 then
-  flash(terra_lights[3],3,true)
+ if _cnt==4 then
+  light_terra(3)
   blastoff_mode = true
   reset_light.lit = true
   add(ongoing_msgs,blastoff_msg)
   flash(_cap,-99,false)
-  for _l in all(
-   refuel_lights
-  ) do
-   flash(_l,-99,false)
-  end
+  flash_table(refuel_lights,-99,false)
   add_blastoff_ball()
   add_to_queue(add_blastoff_ball,60,{})
   add_to_queue(end_blastoff_mode,1400,{})
- elseif _cnt>1 then
+ elseif _cnt>0 then
   add(msgs,{"partial","refuel",t=90})
   flash(_cap,3,false)
- else
-  add(msgs,{"no fuel","ready!",t=90})
  end
 end
 
@@ -167,6 +152,7 @@ function add_blastoff_ball()
  local _cap = captures[2]
  if _cap.captured_pinball != nil or _cap.deactivated then
   add_to_queue(add_blastoff_ball,30,{})
+  return
  end
  _cap.deactivated=true
  add_to_queue(reactivate,30,{_cap})
@@ -184,9 +170,45 @@ function end_blastoff_mode()
  reactivate(_cap)
  del(ongoing_msgs,blastoff_msg)
  end_flash(_cap,false)
- for _l in all(
-  refuel_lights
- ) do
-  end_flash(_l,false)
+ end_flash_table(refuel_lights,false)
+end
+
+function start_target_hunt()
+ add_to_queue(end_target_hunt,1800,{})
+ if not target_hunt then
+  add(ongoing_msgs,target_hunt_msg)
+  flash_rnd_target()
+  target_hunt = true
+  target_hunt_cnt = 0
+ end
+end
+
+function flash_rnd_target()
+ local _rn = flr(rnd(3))
+ if _rn==0 then
+  flash(rnd(left_targets.elements).light,-99)
+ elseif _rn == 1 then
+  flash(rnd(right_targets.elements).light,-99)
+ else
+  flash(rnd(rocket_targets.elements).light,-99)
+ end
+end
+
+function end_target_hunt()
+ if not target_hunt then
+  return
+ end
+ del(ongoing_msgs,target_hunt_msg)
+ target_hunt = false
+ target_hunt_cnt = 0
+ update_target_hunt_lights()
+ for _t in all(left_targets.elements) do
+  end_flash(_t.light)
+ end
+ for _t in all(right_targets.elements) do
+  end_flash(_t.light)
+ end
+ for _t in all(rocket_targets.elements) do
+  end_flash(_t.light)
  end
 end

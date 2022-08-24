@@ -13,47 +13,30 @@ function init_walls()
   --lower right floating corner
   "48,122,64,106,64,93,63,92,61,94,61,106,53,113,48,117,48,122",
   --lower left floating corner
-  "31,122,15,106,15,93,16,92,18,94,18,106,26,113,31,117,31,122"
+  "31,122,15,106,15,93,16,92,18,94,18,106,26,113,31,117,31,122",
+  --narrow walls
+  "30,15,31,14,32,15,32,18,31,19,30,18,30,15",
+  "36,15,37,14,38,15,38,18,37,19,36,18,36,15",
+  "42,15,43,14,44,15,44,18,43,19,42,18,42,15",
+  "48,15,49,14,50,15,50,18,49,19,48,18,48,15"
  }
  for wall_group in all(wall_groups) do
-  for wall_col in all(create_walls(wall_group)) do
-   local wall = init_wall(wall_col)
-   add(static_colliders,wall)
-   add(static_over,wall)
+  local _pnts = gen_polygon(wall_group)
+  local _wall_list = {}
+  for i=2,#_pnts do
+   local _poly={_pnts[i-1],_pnts[i]}
+   add(_wall_list,_poly)
+  end
+  for wall_col in all(_wall_list) do
+   add(
+    static_colliders,
+    {
+     origin=vec(0.5,0.5),
+     collider=wall_col,
+     simple_collider=gen_simple_collider(wall_col),
+     check_collision=check_collision_with_collider
+    }
+   )
   end
  end
-end
-
-function init_wall(
- _collider,
- _complete,
- _origin
-)
- -- create a wall
-_origin=_origin or vec(0.5,0.5)
-return {
-  draw=draw_wall,
-  origin=_origin,
-  collider=_collider,
-  simple_collider=gen_simple_collider(_collider),
-  check_collision=check_collision_with_collider,
-  c=7,
-  complete=_complete
- }
-end
-
-function create_walls(str_input)
- local _pnts = gen_polygon(str_input)
- local _wall_list = {}
- for i=2,#_pnts do
-  local _poly={_pnts[i-1],_pnts[i]}
-  add(_wall_list,_poly)
- end
- return _wall_list
-end
-
-function draw_wall(wall)
- -- if draw_outlines then
- --  draw_collider(wall)
- -- end
 end

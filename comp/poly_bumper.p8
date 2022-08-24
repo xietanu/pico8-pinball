@@ -11,15 +11,20 @@ function init_poly_bumpers()
    vec(17,7),
    vec(6,6)
   },
-  vec(0,64),
+  vec(0,48),
   16,7,
   false,
-  vec(0,71)
+  vec(0,55)
  )
 
- launch_block=init_wall(
-  gen_polygon("75,27,72,34")
- )
+ local _wall_col = gen_polygon("75,27,72,34")
+ launch_block={
+  origin=vec(0.5,0.5),
+  collider=_wall_col,
+  simple_collider=gen_simple_collider(_wall_col),
+  check_collision=check_collision_with_collider
+ }
+
 
  left_drain_block = create_poly_bumper(
   vec(16,110),
@@ -64,9 +69,7 @@ function init_poly_bumpers()
  right_drain.light = right_drain_light
  right_drain.block = right_drain_block
 
- local narrow_wall_col=gen_polygon(
-  "0,-1,1,0,1,3,0,4,-1,3,-1,0"
- )
+ 
  
  poly_bumpers={
    -- spaceship
@@ -118,16 +121,7 @@ function init_poly_bumpers()
  }
  poly_bumpers[2].collider[5] = vec(-1,13,1,250)
  poly_bumpers[3].collider[1] = vec(5,1,1,250)
- for _o in all({vec(31,15),vec(37,15),vec(43,15),vec(49,15)}) do
-  add(
-   poly_bumpers,
-   init_wall(
-    narrow_wall_col,
-    true,
-    _o
-   )
-  )
- end
+
  add_group_to_board(poly_bumpers,{static_colliders,static_over})
 end
 

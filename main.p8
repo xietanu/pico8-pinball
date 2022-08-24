@@ -1,7 +1,7 @@
 function _init()
  f=0
 
- version="0.1.0a"
+ version="0.2.0a"
  cartdata("xietanu_terranovapinball_v1")
  if dget(0) == 0 then
   gen_highscores()
@@ -114,11 +114,9 @@ function gen_highscores()
    dset(i,0)
   end
  end
- for i=0,2 do
-  dset(3+i*4,3-i)
- end
- for i=0,6 do
-  dset(14+i*4,900-i*100)
+ dset(3,1)
+ for i=0,9 do
+  dset(6+i*4,900-i*100)
  end
 end
 

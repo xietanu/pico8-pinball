@@ -21,7 +21,7 @@ function init_table()
  init_flippers()
 
  collision_regions=gen_collision_regions(
-  static_colliders,0,0,79,127,16
+  0,0,79,127,16
  )
 end
 

@@ -13,16 +13,15 @@ function point_collides_poly(
   )
  end
 	
-	local _collides=true
-	
 	for i=1,#_pnts do
 		local j=mod(i+1,#_pnts)
-		_collides=_collides and
-			below_line(
+		if not below_line(
 				_p,_pnts[i],_pnts[j]
-			)
+			) then
+   return false
+  end
 	end
- return _collides
+ return true
 end
 
 
@@ -36,21 +35,6 @@ function below_line(_p,_l1,_l2)
 		_l1,_l2
 	)
 	return sgn(_m*_p.x-_p.y+_c)==sgn(_l1.x-_l2.x)
-end
-
-function crossed_line(
-	_p1,_p2,_l1,_l2
-)
- if _l1.x==_l2.x then
-  return sgn(_p1.x-_l1.x)!=sgn(_p2.x-_l1.x)
- end
-
-	local _m,_c=calc_m_c(_l1,_l2)
-	return sgn(
-		_m*_p1.x-_p1.y+_c
-	)!=sgn(
-		_m*_p2.x-_p2.y+_c
-	)
 end
 
 function calc_m_c(_p1,_p2)

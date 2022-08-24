@@ -1,9 +1,4 @@
-flipper_spd=.07
-flipper_update_per_frame=5
 flipper_angle_adjust=.035
-
-pinball_friction=0.005
-gravity_accel=0.03
 
 pinball_updates_per_pixel=1
 

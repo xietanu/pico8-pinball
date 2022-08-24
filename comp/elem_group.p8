@@ -7,9 +7,8 @@ function group_elem_lit(_grp)
    return
   end
  end
- for _r in all(_grp.elements) do
-  flash(_r,2,false)
- end
+
+ flash_table(_grp.elements,2,false)
 
  _grp.deactivated = true
  add_to_queue(reactivate,65,{_grp})

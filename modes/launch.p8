@@ -1,7 +1,5 @@
 function init_launch()
  cur_pinball=create_pinball(vec(74,75))
-
- planet_lights_lit=0
  
  if reset_light.lit then
   reset_light.lit = false
@@ -14,13 +12,11 @@ function init_launch()
  released=false
  del(always_colliders,launch_block)
 
- for _l in all(refuel_lights) do
-  end_flash(_l,false)
- end
+ end_flash_table(refuel_lights)
+
  disable_bonus(captures[2])
  disable_bonus(captures[3])
  end_blastoff_mode(captures[3])
- del(ongoing_msgs,refuel_msg)
 
  reset_drain(left_drain)
  reset_drain(right_drain)

@@ -67,13 +67,11 @@ end
 function set_planet_lights()
  if planet_lights_lit>=10 then
   add(ongoing_msgs,planet_msg)
-  flash(terra_lights[2],3,true)
+  light_terra(2)
   add(msgs,{"star system","mapping","complete!",t=120})
   increase_score(250,1)
-  planet_lights_lit=0
-  for i=1,10 do
-   flash(planet_lights[i],2,false)
-  end
+  planet_lights_lit=0.75
+  flash_table(planet_lights,2,false)
   return
  end
  for i=1,10 do

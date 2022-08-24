@@ -45,7 +45,7 @@ function create_flipper(
   angle=0,
   angle_max=0.09,
   angle_min=-0.09,
-  angle_inc=flipper_spd,
+  angle_inc=0.07,
   button=_button,
   moving=0,
   bounce_frames=0,
@@ -78,7 +78,7 @@ function update_flipper(_f)
 
  if (btnp(_f.button)) _f.shift_light(top_rollovers.elements)
 
- return ceil(_f.moving*flipper_update_per_frame)
+ return ceil(_f.moving*5)
 end
 
 function update_flipper_pos(_f,_dt)

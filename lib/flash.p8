@@ -23,3 +23,20 @@ function end_flash(_o,_state)
  _o.flashing = false
  set_light(_o,_state)
 end
+
+function flash_table(_t,_times,_next_state,_cur_lit)
+ local _cnt = 0
+ for _o in all(_t) do
+  if _o.lit or not _cur_lit then
+   flash(_o,_times,_next_state)
+   _cnt+=1
+  end
+ end
+ return _cnt
+end
+
+function end_flash_table(_t,_state)
+ for _o in all(_t) do
+  end_flash(_o)
+ end
+end

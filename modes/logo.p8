@@ -5,7 +5,7 @@ function init_logo()
    flr(rnd(400))-136,
    flr(rnd(400))-66
   )
-  star.c=rnd({12,7,6,5,13,15,1})
+  star.c=rnd(split("12,7,6,5,13,15,1"))
   add(stars,star)
  end
 
@@ -30,7 +30,7 @@ function draw_logo()
   end
  end
 
- spr(130,29,56,2,2)
+ spr(68,29,56,2,2)
  
  print_shadow("spaghettieis",47,59,7,8)
  print_shadow("games",47,65,7,8)

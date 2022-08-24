@@ -46,9 +46,8 @@ function check_collision_with_collider(_obj,_pin)
    increase_score(_pnts)
    _obj.hit = 7
   end
-  local _action = _crossed_line.action or _obj.action
-  if _action!=nil then
-   _action(_obj)
+  if _obj.action!=nil then
+   _obj:action()
   end
   rollback_pinball_pos(_pin)
   bounce_off_line(_pin,_crossed_line)

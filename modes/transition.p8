@@ -16,11 +16,7 @@ function update_transition()
   return
  end
 
- if t<30 then
-  max_col=limit(flr((30-t)/4)+1,0,6)
- else
-  max_col=limit(flr((t-30)/4)+1,0,6)
- end
+ max_col=limit(flr(abs(30-t)/4),0,6)
 end
 
 function draw_transition()

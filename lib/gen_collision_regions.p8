@@ -1,5 +1,4 @@
 function gen_collision_regions(
- _collider_objs,
  _x1,_y1,
  _x2,_y2,
  _side_length
@@ -13,7 +12,7 @@ function gen_collision_regions(
    local _r_y1=j-1
    local _r_y2=j+_side_length+1
    local _col_row={}
-   for _obj in all(_collider_objs) do
+   for _obj in all(static_colliders) do
     local _col = _obj.simple_collider
     local _org = _obj.origin
     if (_r_x1 <= _col.x2+_org.x and _r_x2 >= _col.x1+_org.x and

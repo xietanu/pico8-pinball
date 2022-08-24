@@ -4,7 +4,7 @@ function init_lights()
   vec(32,9)
  )
  up_chevron_light_spr = create_light_spr(
-  vec(32,9),3,3,false,true
+  vec(35,12)
  )
  h_chevron_light_spr = create_light_spr(
   vec(35,9)
@@ -16,70 +16,31 @@ function init_lights()
   vec(32,12)
  )
  terra_lights = {}
- for i=0,4 do
+ for i=1,5 do
   add(
    terra_lights,
    create_light(
-    vec(30+i*4,93),
-    sub("terra",i+1,i+1),
+    vec(26+i*4,93),
+    sub("terra",i,i),
     draw_letter_light
    )
   )
  end
- -- terra_lights = {
- --  create_light(
- --   vec(30,93),
- --   "t",
- --   draw_letter_light
- --  ),
- --  create_light(
- --   vec(34,93),
- --   "e",
- --   draw_letter_light
- --  ),
- --  create_light(
- --   vec(38,93),
- --   "r",
- --   draw_letter_light
- --  ),
- --  create_light(
- --   vec(42,93),
- --   "r",
- --   draw_letter_light
- --  ),
- --  create_light(
- --   vec(46,93),
- --   "a",
- --   draw_letter_light
- --  ),
- -- }
 
  add_group_to_board(terra_lights,{static_under})
 
- -- nova_lights = {
- --  create_light(
- --   vec(32,99),
- --   "n",
- --   draw_letter_light
- --  ),
- --  create_light(
- --   vec(36,99),
- --   "o",
- --   draw_letter_light
- --  ),
- --  create_light(
- --   vec(40,99),
- --   "v",
- --   draw_letter_light
- --  ),
- --  create_light(
- --   vec(44,99),
- --   "a",
- --   draw_letter_light
- --  ),
- -- }
-
- -- add_group_to_board(nova_lights,{static_under})
+ pent_lights={}
+ for i=0,0.8,0.2 do
+  add(
+   pent_lights,
+   create_light(
+    vec(64.5-sin(i)*4,49.5-cos(i)*4),
+    nil,
+    draw_dot_light
+   )
+  )
+ end
+ add_group_to_board(pent_lights,{static_under})
 
  left_drain_light = create_light(
   vec(13,108),
@@ -97,26 +58,6 @@ function init_lights()
  add(static_under,right_drain_light)
 
  spinner_lights={
-  create_light(
-   vec(20,36),
-   vec(20,37),
-   draw_line_light
-  ),
-  create_light(
-   vec(19,34),
-   vec(19,35),
-   draw_line_light
-  ),
-  create_light(
-   vec(18,32),
-   vec(18,33),
-   draw_line_light
-  ),
-  create_light(
-   vec(17,30),
-   vec(17,31),
-   draw_line_light
-  ),
   create_light(
    vec(16,27),
    up_chevron_light_spr,
@@ -143,31 +84,31 @@ function init_lights()
    draw_spr
   )
  }
+ for i=0,3 do
+  add(
+   spinner_lights,
+    create_light(
+    vec(20-i,36-i*2),
+    vec(20-i,37-i*2),
+    draw_line_light
+   ),
+   i+1
+  )
+ end
 
  add_group_to_board(spinner_lights,{static_under})
 
- refuel_lights={
-  create_light(
-   vec(47,57),
-   h_chevron_light_spr,
-   draw_spr
-  ),
-  create_light(
-   vec(50,57),
-   h_chevron_light_spr,
-   draw_spr
-  ),
-  create_light(
-   vec(53,57),
-   h_chevron_light_spr,
-   draw_spr
-  ),
-  create_light(
-   vec(56,57),
-   h_chevron_light_spr,
-   draw_spr
+ refuel_lights={}
+ for i=0,3 do
+  add(
+   refuel_lights,
+   create_light(
+    vec(47+i*3,57),
+    h_chevron_light_spr,
+    draw_spr
+   )
   )
- }
+ end
  add_group_to_board(refuel_lights,{static_under})
 
  reset_light = create_light(
@@ -259,18 +200,14 @@ end
 
 function create_light_spr(
  _spr_coord,
- _w,_h,
- _flip_x,
- _flip_y
+ _w,_h
 )
  return {
   spr_coords=_spr_coord,
   unlit_col=4,
   spr_w=_w or 3,
   spr_h=_h or 3,
-  hit=0,
-  flip_x=_flip_x,
-  flip_y=_flip_y
+  hit=0
  }
 end
 
@@ -288,10 +225,15 @@ function light_refuel_lights()
    _l.lit = true
    if i == 4 then
     flash(captures[3],-99,true)
-    add(ongoing_msgs,refuel_msg)
    end
    return
   end
+ end
+end
+
+function update_target_hunt_lights()
+ for i = 1,5 do
+  pent_lights[i].lit=target_hunt_cnt>=i
  end
 end
 
@@ -304,4 +246,20 @@ function cycle_lights(_group,_next_index,_times,_delay)
 
  _group[mod(_next_index,#_group)].lit = true
  add_to_queue(cycle_lights,_delay,{_group,_next_index+1,_times,_delay})
+end
+
+function light_terra(i)
+ terra_lights[i].lit=true
+ local _cnt = 0
+ for _l in all(terra_lights) do
+  _cnt+=tonum(_l.lit)
+ end
+ if _cnt==5 then
+  add(msgs,{"explorer","bonus!","extra ball!"})
+  increase_score(1,2)
+  balls+=1
+  flash_table(terra_lights,3,false)
+ else
+  flash(terra_lights[i],3,true)
+ end
 end

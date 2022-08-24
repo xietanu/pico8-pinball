@@ -15,7 +15,7 @@ end
 
 function draw_spinner(_s)
  -- draw spinner animation frame
- local spr_i = 36+16*flr((_s.to_score/150)%4)
+ local spr_i = 33+16*flr((_s.to_score/150)%4)
  spr(spr_i,_s.origin.x-3,_s.origin.y-4)
 end
 

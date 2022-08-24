@@ -53,13 +53,17 @@ function draw_game_over()
  if f>10000 then
   f=0
  end
- clip(82,40,45,min(87,f*2))
 
- rectfill(82,40,126,126,0)
+ local _lb = min(94,f*2)
+ 
+ clip(81,33,47,_lb)
 
- print("game over!",84,42,10)
+ rect(81,33,127,33+_lb,5)
+ rectfill(82,34,126,126,0)
 
- draw_menu_items(90,55)
+ print("game over!",84,36,10)
+
+ draw_menu_items(90,48)
  if got_highscore>0 then
   print("new #"..got_highscore,84,114,_fc)
   print("highscore!",84,120,_fc)

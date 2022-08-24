@@ -2,6 +2,7 @@ function init_game()
  show_stars = false
  got_highscore = 0
  balls=3
+ planet_lights_lit=0.75
 
  msg=""
 
@@ -77,7 +78,8 @@ function update_game()
  end
  
  if #pinballs==0 then
-  if balls == 0 then
+  if balls == 0 and not reset_light.lit then
+   end_target_hunt()
    mode = modes.game_over
    mode.init()
    return
@@ -93,7 +95,7 @@ function update_game()
   end
  end
 
- planet_lights_lit=max(planet_lights_lit-0.005,0)
+ planet_lights_lit=max(planet_lights_lit-0.0025,0.75)
  set_planet_lights()
 end
 
@@ -105,17 +107,15 @@ function draw_game()
  if #msgs > 0 then
   local _m=msgs[1]
   for i=1,#_m do
-   print(_m[i],83,34+i*8,get_frame({10,7,12,7},_m.t,15))
+   print(_m[i],83,28+i*8,get_frame({10,7,12,7},_m.t,15))
   end
  elseif #ongoing_msgs > 0 then
   local _m=ongoing_msgs[#ongoing_msgs]
   for i=1,#_m do
-   print(_m[i],83,34+i*8,10)
+   print(_m[i],83,28+i*8,10)
   end
  end
 
- circ(124,124,2,10)
- pset(124.5+sin(f/(16*60))*2.5,124.5+cos(f/(16*60))*2.5,8)
 end
 
 function pass()
@@ -123,16 +123,24 @@ end
 
 function draw_headboard(_score_col)
  _score_col = _score_col or 10
- rectfill(81,0,127,127,1)
+ fillp(0b1101000010110000.1)
+ rectfill(81,0,127,127,5)
+ fillp()
 
- print_shadow("terra nova",85,5,7,8)
- print_shadow("pinball",89,11,7,8)
+ rectfill(81,16,127,47,1)
+ print_shadow("terra nova",85,19,7,8)
+ print_shadow("pinball",91,25,7,8)
  
  rect(81,0,127,127,5)
- rectfill(82,20,126,33,0)
- rectfill(82,40,126,64,0)
+ rect(81,0,127,15,5)
+ rect(81,33,127,59,5)
+ rectfill(82,1,126,14,0)
+ rectfill(82,34,126,58,0)
 
- print_long(score,84,21,5,_score_col)
- print("balls:",84,28,10)
- print(balls,122,28,10)
+ sspr(1,80,47,48,82,70)
+ sspr(1,80,47,48,81,70)
+
+ print_long(score,84,2,5,_score_col)
+ print("balls:",84,9,10)
+ print(balls,122,9,10)
 end
