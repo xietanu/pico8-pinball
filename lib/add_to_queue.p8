@@ -1,10 +1,9 @@
 function add_to_queue(_func,_delay,_args)
  for _a in all(action_queue) do
-  if _a.func == _func and _a.args == _args then
-   _a.delay = _delay
-  elseif _func == flash and _a.func == flash and _a.args[1] == _args[1] then
+  if _a.func == _func and _a.args[1] == _args[1] then
    _a.delay = _delay
    _a.args = _args
+   return
   end
  end
  add(

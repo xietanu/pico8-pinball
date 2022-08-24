@@ -1,5 +1,7 @@
 function init_launch()
  cur_pinball=create_pinball(vec(74,75))
+
+ planet_lights_lit=0
  
  if reset_light.lit then
   reset_light.lit = false

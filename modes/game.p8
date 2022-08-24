@@ -92,6 +92,9 @@ function update_game()
    del(msgs,msgs[1])
   end
  end
+
+ planet_lights_lit=max(planet_lights_lit-0.005,0)
+ set_planet_lights()
 end
 
 function draw_game()

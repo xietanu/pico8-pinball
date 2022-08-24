@@ -18,7 +18,8 @@ function init_captures()
   create_capture(
    vec(11,58),
    vec(1,0),
-   capture_points
+   capture_points,
+   escape_velocity_action
   ),
   -- rocket fuel capture
   create_capture(
@@ -109,6 +110,12 @@ function draw_capture(_cap)
  )
 end
 
+function escape_velocity_action(_cap)
+ if (not _cap.bonus_enabled) return
+ increase_score(10,1)
+ add(msgs,{"escape","velocity!",t=90})
+end
+
 function empty_fuel_action(_cap)
  -- action for when fuel capture
  -- triggered.
@@ -145,8 +152,8 @@ function empty_fuel_action(_cap)
   ) do
    flash(_l,-99,false)
   end
-  add_to_queue(add_blastoff_ball,120,{})
-  add_to_queue(add_blastoff_ball,180,{})
+  add_blastoff_ball()
+  add_to_queue(add_blastoff_ball,60,{})
   add_to_queue(end_blastoff_mode,1400,{})
  elseif _cnt>1 then
   add(msgs,{"partial","refuel",t=90})

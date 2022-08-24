@@ -23,13 +23,13 @@ function init_poly_bumpers()
 
  left_drain_block = create_poly_bumper(
   vec(16,110),
-  gen_polygon("-1,-4,-1,5"),
+  gen_polygon("-1,-5,-1,6"),
   vec(36,5),
   1,3
  )
  right_drain_block = create_poly_bumper(
   vec(63,110),
-  gen_polygon("1,-4,1,5"),
+  gen_polygon("1,-5,1,6"),
   vec(36,5),
   1,3
  )
@@ -74,14 +74,7 @@ function init_poly_bumpers()
    -- left bumper
    create_poly_bumper(
     vec(51,95),
-    {
-     vec(4,-1),
-     vec(6,1),
-     vec(6,11),
-     vec(1,14),
-     vec(-1,13,1,250),
-     vec(2,1)
-    },
+    gen_polygon("4,-1,6,1,6,11,1,14,-1,13,2,1"),
     vec(8,0),
     8,14,
     false,
@@ -90,14 +83,7 @@ function init_poly_bumpers()
    -- right bumper
    create_poly_bumper(
     vec(21,95),
-    {
-     vec(5,1,1,250),
-     vec(8,13),
-     vec(6,14),
-     vec(1,11),
-     vec(1,1),
-     vec(3,-1)
-    },
+    gen_polygon("5,1,8,13,6,14,1,11,1,1,3,-1"),
     vec(8,0),
     8,14,
     true,
@@ -130,6 +116,8 @@ function init_poly_bumpers()
     close_left_drain
    )
  }
+ poly_bumpers[2].collider[5] = vec(-1,13,1,250)
+ poly_bumpers[3].collider[1] = vec(5,1,1,250)
  for _o in all({vec(31,15),vec(37,15),vec(43,15),vec(49,15)}) do
   add(
    poly_bumpers,
@@ -189,6 +177,8 @@ function close_drain(
  _d
 )
  if _d.light.lit then
+  del(static_over,_d)
+  del(always_colliders,_d)
   add(static_over,_d)
   add(always_colliders,_d)
   del(static_over,_d.block)
@@ -201,6 +191,8 @@ function reset_drain(_d)
  if not _d.light.lit then
   del(static_over,_d)
   del(always_colliders,_d)
+  del(static_over,_d.block)
+  del(always_colliders,_d.block)
   add(static_over,_d.block)
   add(always_colliders,_d.block)
   _d.light.lit = true

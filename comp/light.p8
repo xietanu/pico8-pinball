@@ -1,75 +1,85 @@
 function init_lights()
  -- initialise decorative lights
  chevron_light_spr = create_light_spr(
-  vec(32,9),3,3
+  vec(32,9)
  )
  up_chevron_light_spr = create_light_spr(
   vec(32,9),3,3,false,true
  )
  h_chevron_light_spr = create_light_spr(
-  vec(35,9),3,3
+  vec(35,9)
  )
  small_up_right_chevron_spr = create_light_spr(
   vec(33,12),2,2
  )
  big_up_right_chevron_spr = create_light_spr(
-  vec(32,12),3,3
+  vec(32,12)
  )
-
- terra_lights = {
-  create_light(
-   vec(30,93),
-   "t",
-   draw_letter_light
-  ),
-  create_light(
-   vec(34,93),
-   "e",
-   draw_letter_light
-  ),
-  create_light(
-   vec(38,93),
-   "r",
-   draw_letter_light
-  ),
-  create_light(
-   vec(42,93),
-   "r",
-   draw_letter_light
-  ),
-  create_light(
-   vec(46,93),
-   "a",
-   draw_letter_light
-  ),
- }
+ terra_lights = {}
+ for i=0,4 do
+  add(
+   terra_lights,
+   create_light(
+    vec(30+i*4,93),
+    sub("terra",i+1,i+1),
+    draw_letter_light
+   )
+  )
+ end
+ -- terra_lights = {
+ --  create_light(
+ --   vec(30,93),
+ --   "t",
+ --   draw_letter_light
+ --  ),
+ --  create_light(
+ --   vec(34,93),
+ --   "e",
+ --   draw_letter_light
+ --  ),
+ --  create_light(
+ --   vec(38,93),
+ --   "r",
+ --   draw_letter_light
+ --  ),
+ --  create_light(
+ --   vec(42,93),
+ --   "r",
+ --   draw_letter_light
+ --  ),
+ --  create_light(
+ --   vec(46,93),
+ --   "a",
+ --   draw_letter_light
+ --  ),
+ -- }
 
  add_group_to_board(terra_lights,{static_under})
 
- nova_lights = {
-  create_light(
-   vec(32,99),
-   "n",
-   draw_letter_light
-  ),
-  create_light(
-   vec(36,99),
-   "o",
-   draw_letter_light
-  ),
-  create_light(
-   vec(40,99),
-   "v",
-   draw_letter_light
-  ),
-  create_light(
-   vec(44,99),
-   "a",
-   draw_letter_light
-  ),
- }
+ -- nova_lights = {
+ --  create_light(
+ --   vec(32,99),
+ --   "n",
+ --   draw_letter_light
+ --  ),
+ --  create_light(
+ --   vec(36,99),
+ --   "o",
+ --   draw_letter_light
+ --  ),
+ --  create_light(
+ --   vec(40,99),
+ --   "v",
+ --   draw_letter_light
+ --  ),
+ --  create_light(
+ --   vec(44,99),
+ --   "a",
+ --   draw_letter_light
+ --  ),
+ -- }
 
- add_group_to_board(nova_lights,{static_under})
+ -- add_group_to_board(nova_lights,{static_under})
 
  left_drain_light = create_light(
   vec(13,108),
@@ -164,6 +174,20 @@ function init_lights()
   vec(39,125),nil,draw_dot_light
  )
  add(static_under,reset_light)
+
+ planet_lights={}
+ for i=1,10 do
+  local _x = 65-abs(5.5-i)/2
+  add(
+   planet_lights,
+   create_light(
+    vec(_x,29-i),
+    vec(_x+1,29-i),
+    draw_line_light
+   )
+  )
+ end
+ add_group_to_board(planet_lights,{static_under})
 end
 
 function create_light(
@@ -242,8 +266,8 @@ function create_light_spr(
  return {
   spr_coords=_spr_coord,
   unlit_col=4,
-  spr_w=_w,
-  spr_h=_h,
+  spr_w=_w or 3,
+  spr_h=_h or 3,
   hit=0,
   flip_x=_flip_x,
   flip_y=_flip_y

@@ -15,7 +15,7 @@ end
 
 function draw_spinner(_s)
  -- draw spinner animation frame
- local spr_i = 36+16*flr((_s.to_score/400)%4)
+ local spr_i = 36+16*flr((_s.to_score/150)%4)
  spr(spr_i,_s.origin.x-3,_s.origin.y-4)
 end
 
@@ -33,7 +33,7 @@ end
 function update_spinner(_s)
  -- update spinner each frame
  if _s.to_score > 0 then
-  local scr_change = min(_s.to_score,max(25,flr(_s.to_score*0.02)))
+  local scr_change = min(_s.to_score,max(10,flr(_s.to_score*0.02)))
   _s.to_score-=scr_change
   increase_score(scr_change)
  end
