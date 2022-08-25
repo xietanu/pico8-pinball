@@ -3,7 +3,7 @@ version 36
 __lua__
 -- terra nova pinball
 
--- Terra Nova Pinball by Matt Sutton is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
+-- terra nova pinball by matt sutton is licensed under a creative commons attribution-noncommercial 4.0 international license.
 -- https://creativecommons.org/licenses/by-nc/4.0/legalcode
 
 -- main
