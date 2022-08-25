@@ -23,9 +23,7 @@ function check_collision_with_spinner(_s,_pin)
  -- check collision with spinner
  _s.to_score = max(_s.to_score,flr(min(6.123,abs(_pin.spd.y))*1000))
  if _pin.spd.y < 0 and not captures[2].bonus_enabled then
-  captures[2].bonus_enabled=true
-  flash(captures[2],-99,true)
-  add_to_queue(disable_bonus,180,{captures[2]})
+  enable_bonus(captures[2],180)
   cycle_lights(spinner_lights,1,3,flr(60/#spinner_lights))
  end
 end

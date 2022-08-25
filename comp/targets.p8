@@ -8,12 +8,9 @@ function init_targets()
   2,4
  )
  skillshot_target.p=nil
- skillshot_target.reset_timer=0
- skillshot_target.update=update_skillshot_target
  skillshot_target.check_collision=check_collision_with_skillshot
  add(static_colliders,skillshot_target)
  add(static_over,skillshot_target)
- add(to_update,skillshot_target)
  local left_col=gen_polygon(
   "0,-1,3,0,2,5,-1,5"
  )
@@ -168,21 +165,12 @@ function check_collision_with_target(_obj,_pin)
  end
 end
 
-function update_skillshot_target(_t)
- _t.reset_timer=max(0,_t.reset_timer-1)
- if _t.reset_timer%30>15 then
-  _t.lit=true
- else
-  _t.lit=false
- end
-end
-
 function check_collision_with_skillshot(_t,_pin)
  if check_collision_with_collider(_t,_pin) then
-  if _t.reset_timer > 0 then
+  if _t.bonus_enabled then
    increase_score(skillshot_points,1)
    add(msgs,{"skillshot!",t=90})
-   _t.reset_timer=0
+   disable_bonus(_t)
    _t.hit = 7
   end
  end

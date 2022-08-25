@@ -1,15 +1,12 @@
 function init_rollovers()
  -- initialize rollovers
  top_rollovers={
-  elements={
-   create_rollover(28,15),
-   create_rollover(34,15),
-   create_rollover(40,15),
-   create_rollover(46,15),
-   create_rollover(52,15)
-  },
+  elements={},
   all_lit_action=increase_multi
  }
+ for i=0,4 do
+  add(top_rollovers.elements,create_rollover(28+6*i,15)
+ end
  bottom_rollovers={
   elements={
    create_rollover(14,95,hit_refuel_rollover),
@@ -34,11 +31,8 @@ function create_rollover(_x,_y,_action)
   spr_w=3,
   spr_h=8,
   spr_off=vec(-1,0),
-  lit=false,
   unlit_col=4,
-  reset_timer=0,
   hit=0,
-  c=7,
   action=_action
  }
 end

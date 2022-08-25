@@ -35,7 +35,9 @@ function exit_launch_mode(_l)
  mode=modes.game
  add(always_colliders,launch_block)
  del(ongoing_msgs,launch_msg)
- if (reset_light.lit) skillshot_target.reset_timer=80
+ if reset_light.lit then
+  enable_bonus(skillshot_target,80)
+ end
  add_to_queue(set_light,900,{reset_light,false})
 end
 
