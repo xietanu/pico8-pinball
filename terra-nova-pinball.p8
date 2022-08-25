@@ -1,6 +1,11 @@
 pico-8 cartridge // http://www.pico-8.com
 version 36
 __lua__
+-- terra nova pinball
+
+-- Terra Nova Pinball by Matt Sutton is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
+-- https://creativecommons.org/licenses/by-nc/4.0/legalcode
+
 -- main
 #include cfg.p8
 #include main.p8
