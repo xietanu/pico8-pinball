@@ -76,7 +76,10 @@ function update_flipper(_f)
 		end
 	end
 
- if (btnp(_f.button)) _f.shift_light(top_rollovers.elements)
+ if btnp(_f.button) then
+  _f.shift_light(top_rollovers.elements)
+  sfx(0)
+ end
 
  return ceil(_f.moving*5)
 end
