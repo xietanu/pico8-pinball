@@ -8,7 +8,7 @@ function init_captures()
  target_hunt_msg = {"calibrate","lasers!","hit targets!"}
 
  captures = {
-  -- right capture
+  -- target hunt capture
   create_capture(
    vec(68,58),
    vec(-1,1),
@@ -115,7 +115,7 @@ function escape_velocity_action(_cap)
  if (not _cap.bonus_enabled) return
  increase_score(10,1)
  add(msgs,{"slingshot!",t=90})
- light_terra(5)
+ light_orbit(5)
 end
 
 function empty_fuel_action(_cap)
@@ -133,7 +133,7 @@ function empty_fuel_action(_cap)
   1
  )
  if _cnt==4 then
-  light_terra(3)
+  light_orbit(3)
   blastoff_mode = true
   reset_light.lit = true
   add(ongoing_msgs,blastoff_msg)

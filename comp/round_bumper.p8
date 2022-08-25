@@ -53,6 +53,7 @@ function check_collision_with_r_bumper(_b,_pin)
  if dist_between_vectors(_b.origin, _pin.origin)<=_b.r then
   increase_score(_b.p)
   planet_lights_lit+=0.5
+  sfx(planet_lights_lit)
   _b.hit = 8
   local normalized_perp_vec = _pin.origin:minus(_b.origin):normalize()
   rollback_pinball_pos(_pin)
@@ -67,7 +68,7 @@ end
 function set_planet_lights()
  if planet_lights_lit>=10 then
   add(ongoing_msgs,planet_msg)
-  light_terra(2)
+  light_orbit(2)
   add(msgs,{"star system","mapping","complete!",t=120})
   increase_score(250,1)
   planet_lights_lit=0.75

@@ -15,19 +15,19 @@ function init_lights()
  big_up_right_chevron_spr = create_light_spr(
   vec(32,12)
  )
- terra_lights = {}
+ orbit_lights = {}
  for i=1,5 do
   add(
-   terra_lights,
+   orbit_lights,
    create_light(
-    vec(26+i*4,93),
-    sub("terra",i,i),
+    vec(27+i*4,93),
+    sub("orbit",i,i),
     draw_letter_light
    )
   )
  end
 
- add_group_to_board(terra_lights,{static_under})
+ add_group_to_board(orbit_lights,{static_under})
 
  pent_lights={}
  for i=0,0.8,0.2 do
@@ -248,18 +248,18 @@ function cycle_lights(_group,_next_index,_times,_delay)
  add_to_queue(cycle_lights,_delay,{_group,_next_index+1,_times,_delay})
 end
 
-function light_terra(i)
- terra_lights[i].lit=true
+function light_orbit(i)
+ orbit_lights[i].lit=true
  local _cnt = 0
- for _l in all(terra_lights) do
+ for _l in all(orbit_lights) do
   _cnt+=tonum(_l.lit)
  end
  if _cnt==5 then
   add(msgs,{"explorer","bonus!","extra ball!"})
   increase_score(1,2)
   balls+=1
-  flash_table(terra_lights,3,false)
+  flash_table(orbit_lights,3,false)
  else
-  flash(terra_lights[i],3,true)
+  flash(orbit_lights[i],3,true)
  end
 end

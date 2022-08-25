@@ -83,7 +83,7 @@ function hit_refuel_rollover(_r,_pin)
 end
 
 function increase_multi(_rg)
- light_terra(4)
+ light_orbit(4)
  if multiplier<4 then
   add(msgs,{"multiplier","increased!",t=120})
  end
