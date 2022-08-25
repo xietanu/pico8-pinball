@@ -1,13 +1,13 @@
 pico-8 cartridge // http://www.pico-8.com
 version 36
 __lua__
-function init_captures()
+function init_kickouts()
  -- initialise the capture
  -- elements on the board.
  blastoff_msg = {"blast-off!","multiball!"}
  target_hunt_msg = {"calibrate","lasers!","hit targets!"}
 
- captures = {
+ kickouts = {
   -- target hunt capture
   create_capture(
    vec(68,58),
@@ -30,7 +30,7 @@ function init_captures()
    empty_fuel_action
   )
  }
- add_group_to_board(captures,{static_under,static_colliders})
+ add_group_to_board(kickouts,{static_under,static_colliders})
 end
 
 function create_capture(
@@ -115,7 +115,7 @@ function escape_velocity_action(_cap)
  if (not _cap.bonus_enabled) return
  increase_score(10,1)
  add(msgs,{"slingshot!",t=90})
- light_orbit(5)
+ light_orbit(1)
 end
 
 function empty_fuel_action(_cap)
@@ -132,13 +132,14 @@ function empty_fuel_action(_cap)
   (_cnt+1)^_cnt,
   1
  )
- if _cnt==4 then
-  light_orbit(3)
+ if _cnt==#refuel_lights then
+  light_orbit(2)
   blastoff_mode = true
+  kickouts[2].deactivated=true
   reset_light.lit = true
   add(ongoing_msgs,blastoff_msg)
   flash(_cap,-99,false)
-  flash_table(refuel_lights,-99,false)
+  cycle_lights(refuel_lights,1,23,12)
   add_blastoff_ball()
   add_to_queue(add_blastoff_ball,60,{})
   add_to_queue(end_blastoff_mode,1400,{})
@@ -149,19 +150,13 @@ function empty_fuel_action(_cap)
 end
 
 function add_blastoff_ball()
- local _cap = captures[2]
- if _cap.captured_pinball != nil or _cap.deactivated then
-  add_to_queue(add_blastoff_ball,30,{})
-  return
- end
- _cap.deactivated=true
- add_to_queue(reactivate,30,{_cap})
+ local _cap = kickouts[2]
  _p = create_pinball(_cap.origin:copy())
  _p.spd=_cap.output_vector:copy()
 end
 
 function end_blastoff_mode()
- local _cap = captures[2]
+ local _cap = kickouts[2]
  if not blastoff_mode then
   return
  end

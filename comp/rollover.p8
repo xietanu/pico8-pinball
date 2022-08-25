@@ -5,7 +5,7 @@ function init_rollovers()
   all_lit_action=increase_multi
  }
  for i=0,4 do
-  add(top_rollovers.elements,create_rollover(28+6*i,15)
+  add(top_rollovers.elements,create_rollover(28+6*i,15))
  end
  bottom_rollovers={
   elements={
@@ -77,7 +77,7 @@ function hit_refuel_rollover(_r,_pin)
 end
 
 function increase_multi(_rg)
- light_orbit(4)
+ light_orbit(3)
  if multiplier<4 then
   add(msgs,{"multiplier","increased!",t=120})
  end

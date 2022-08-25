@@ -100,19 +100,19 @@ function update_game()
 end
 
 function draw_game()
- draw_headboard()
+ draw_backboard()
 
  draw_table()
 
  if #msgs > 0 then
   local _m=msgs[1]
   for i=1,#_m do
-   print(_m[i],83,28+i*8,get_frame({10,7,12,7},_m.t,15))
+   print(_m[i],83,31+i*8,get_frame({10,7,12,7},_m.t,15))
   end
  elseif #ongoing_msgs > 0 then
   local _m=ongoing_msgs[#ongoing_msgs]
   for i=1,#_m do
-   print(_m[i],83,28+i*8,10)
+   print(_m[i],83,31+i*8,10)
   end
  end
 
@@ -121,24 +121,23 @@ end
 function pass()
 end
 
-function draw_headboard(_score_col)
+function draw_backboard(_score_col)
  _score_col = _score_col or 10
  fillp(0b1101000010110000.1)
  rectfill(81,0,127,127,5)
  fillp()
 
  rectfill(81,16,127,47,1)
- print_shadow("terra nova",85,19,7,8)
- print_shadow("pinball",91,25,7,8)
+ spr(112,80,18,6,2)
  
  rect(81,0,127,127,5)
  rect(81,0,127,15,5)
- rect(81,33,127,59,5)
+ rect(81,36,127,63,5)
  rectfill(82,1,126,14,0)
- rectfill(82,34,126,58,0)
+ rectfill(82,37,126,62,0)
 
- sspr(1,80,47,48,82,70)
- sspr(1,80,47,48,81,70)
+ sspr(1,80,47,48,82,72)
+ sspr(1,80,47,48,81,72)
 
  print_long(score,84,2,5,_score_col)
  print("balls:",84,9,10)

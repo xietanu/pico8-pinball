@@ -48,7 +48,7 @@ end
 function draw_game_over()
  local _fc = get_frame({10,7,12,7},f,10)
  draw_table()
- draw_headboard(_fc)
+ draw_backboard(_fc)
  
  if f>10000 then
   f=0
@@ -56,14 +56,14 @@ function draw_game_over()
 
  local _lb = min(94,f*2)
  
- clip(81,33,47,_lb)
+ clip(81,36,47,_lb)
 
- rect(81,33,127,33+_lb,5)
- rectfill(82,34,126,126,0)
+ rect(81,36,127,36+_lb,5)
+ rectfill(82,37,126,126,0)
 
- print("game over!",84,36,10)
+ print("game over!",84,39,10)
 
- draw_menu_items(90,48)
+ draw_menu_items(90,51)
  if got_highscore>0 then
   print("new #"..got_highscore,84,114,_fc)
   print("highscore!",84,120,_fc)

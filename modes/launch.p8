@@ -14,9 +14,9 @@ function init_launch()
 
  end_flash_table(refuel_lights)
 
- disable_bonus(captures[2])
- disable_bonus(captures[3])
- end_blastoff_mode(captures[3])
+ disable_bonus(kickouts[2])
+ disable_bonus(kickouts[3])
+ end_blastoff_mode(kickouts[3])
 
  reset_drain(left_drain)
  reset_drain(right_drain)

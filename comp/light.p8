@@ -34,7 +34,7 @@ function init_lights()
   add(
    pent_lights,
    create_light(
-    vec(64.5-sin(i)*4,49.5-cos(i)*4),
+    vec(64.5-sin(i)*4,48.5-cos(i)*4),
     nil,
     draw_dot_light
    )
@@ -99,11 +99,11 @@ function init_lights()
  add_group_to_board(spinner_lights,{static_under})
 
  refuel_lights={}
- for i=0,3 do
+ for i=0,4 do
   add(
    refuel_lights,
    create_light(
-    vec(47+i*3,57),
+    vec(47+i*2,57),
     h_chevron_light_spr,
     draw_spr
    )
@@ -223,8 +223,8 @@ function light_refuel_lights()
   local _l=refuel_lights[i]
   if not _l.lit then
    _l.lit = true
-   if i == 4 then
-    flash(captures[3],-99,true)
+   if i == #refuel_lights then
+    flash(kickouts[3],-99,true)
    end
    return
   end
@@ -237,15 +237,18 @@ function update_target_hunt_lights()
  end
 end
 
-function cycle_lights(_group,_next_index,_times,_delay)
- _group[mod(_next_index-1,#_group)].lit = false
+function cycle_lights(_group,_next_index,_times,_delay,_rep)
+ if not _rep then
+  end_flash_table(_group,false)
+ end
 
- if _next_index > #_group*_times then
+ if _next_index > #_group*_times or not _group[mod(_next_index,#_group)].flashing then
+  end_flash_table(_group,false)
   return
  end
 
  _group[mod(_next_index,#_group)].lit = true
- add_to_queue(cycle_lights,_delay,{_group,_next_index+1,_times,_delay})
+ add_to_queue(cycle_lights,_delay,{_group,_next_index+1,_times,_delay, true})
 end
 
 function light_orbit(i)
@@ -255,7 +258,7 @@ function light_orbit(i)
   _cnt+=tonum(_l.lit)
  end
  if _cnt==5 then
-  add(msgs,{"explorer","bonus!","extra ball!"})
+  add(msgs,{"orbit","achieved!","extra ball!",t=120})
   increase_score(1,2)
   balls+=1
   flash_table(orbit_lights,3,false)

@@ -157,7 +157,7 @@ function check_collision_with_target(_obj,_pin)
    if target_hunt_cnt>=5 then
     end_target_hunt()
     increase_score(200,1)
-    light_orbit(1)
+    light_orbit(5)
    else
     flash_rnd_target()
    end
