@@ -13,3 +13,6 @@ Explore a distant, alien world in this Pico-8 pinball table.
 - 🅾️: Add a new pinball to the table.
 - ❎: Show/hide the colliders
 
+[![Creative Commons Licence](https://i.creativecommons.org/l/by-nc/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc/4.0/)
+
+Terra Nova Pinball by Matt Sutton is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/).
