@@ -76,6 +76,8 @@ function _init()
  }
  mode = modes.logo
  mode.init()
+ music(3)
+ menuitem(4,"music on",toggle_music)
 end
 
 function _update60()
@@ -134,4 +136,18 @@ function write_highscores()
   end
   dset(i*4+4,highscores[i+1].c)
  end
+end
+
+function toggle_music()
+ local music_option
+ music_off=not music_off
+ if music_off then
+  music_option="music off"
+  music(-1,1000)
+ else
+  music_option="music on"
+  music(3)
+ end
+ menuitem(4)
+ menuitem(4,music_option,toggle_music)
 end
