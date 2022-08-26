@@ -45,10 +45,7 @@ function init_poly_bumpers()
 
  left_drain = create_poly_bumper(
   vec(13,112),
-  {
-   vec(0,-1),
-   vec(2,1)
-  },
+  gen_polygon("0,-1,2,1"),
   vec(32,5),
   3,4,
   true
@@ -58,10 +55,7 @@ function init_poly_bumpers()
 
  right_drain = create_poly_bumper(
   vec(64,112),
-  {
-   vec(2,-1),
-   vec(0,1)
-  },
+  gen_polygon("2,-1,0,1"),
   vec(32,5),
   3,4,
   false

@@ -2,7 +2,6 @@ function init_menu()
  show_stars = true
  show_credits = false
  f_base=f
- off_y=0
  options={
   {func=function()
    init_transition(modes.game)

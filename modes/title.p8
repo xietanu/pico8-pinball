@@ -8,7 +8,6 @@ end
 function update_title()
  rotate_stars()
  if btnp(⬇️) or btnp(❎) or btnp(🅾️) then
-  if (mode == modes.logo) f=20
   mode=modes.menu
   mode.init()
  end
