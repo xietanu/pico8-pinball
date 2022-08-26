@@ -10,21 +10,21 @@ function init_kickouts()
  kickouts = {
   -- target hunt capture
   create_capture(
-   vec(68,58),
+   vec(68.5,58.5),
    vec(-1,1),
    capture_points,
    start_target_hunt
   ),
   -- escape velocity capture
   create_capture(
-   vec(11,58),
+   vec(11.5,56.5),
    vec(1,0),
    capture_points,
    escape_velocity_action
   ),
   -- rocket fuel capture
   create_capture(
-   vec(45,58),
+   vec(45.5,58.5),
    vec(0.4,0.4),
    0,
    empty_fuel_action

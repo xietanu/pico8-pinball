@@ -1,7 +1,7 @@
 function init_targets()
  -- initialize targets
  skillshot_target=create_target(
-  vec(24,13),
+  vec(24.5,13.5),
   gen_polygon("-1,-0.5,2.5,0.5,2.5,4,-1,4"),
   nil,
   vec(40,0),
@@ -19,21 +19,21 @@ function init_targets()
  left_targets={
   elements={
    create_target(
-    vec(12,76),
+    vec(12.5,76.5),
     left_col,
     left_light_offset,
     vec(32,0),
     3,5
    ),
    create_target(
-    vec(13,70),
+    vec(13.5,70.5),
     left_col,
     left_light_offset,
     vec(32,0),
     3,5
    ),
    create_target(
-    vec(15,63),
+    vec(15.5,63.5),
     left_col,
     left_light_offset,
     vec(32,0),
@@ -53,14 +53,14 @@ function init_targets()
  right_targets={
   elements={
    create_target(
-    vec(55,50),
+    vec(55.5,50.5),
     right_target_poly,
     right_light_offset,
     vec(42,18),
     3,5
    ),
    create_target(
-    vec(64,74),
+    vec(64.5,74.5),
     right_target_poly,
     right_light_offset,
     vec(42,18),
@@ -80,14 +80,14 @@ function init_targets()
  rocket_targets={
   elements={
    create_target(
-    vec(38,61),
+    vec(38.5,61.5),
     h_target_poly,
     h_light_offset,
     vec(32,18),
     5,3
    ),
    create_target(
-    vec(32,60),
+    vec(32.5,60.5),
     h_target_poly,
     h_light_offset,
     vec(32,18),

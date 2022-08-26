@@ -6,14 +6,14 @@ function init_rollovers()
   sfx=25
  }
  for i=0,4 do
-  add(top_rollovers.elements,create_rollover(28+6*i,15))
+  add(top_rollovers.elements,create_rollover(28.5+6*i,15.5))
  end
  bottom_rollovers={
   elements={
-   create_rollover(14,95,hit_refuel_rollover),
-   create_rollover(20,97,hit_refuel_rollover),
-   create_rollover(65,95,hit_refuel_rollover),
-   create_rollover(59,97,hit_refuel_rollover)
+   create_rollover(14.5,95.5,hit_refuel_rollover),
+   create_rollover(20.5,97.5,hit_refuel_rollover),
+   create_rollover(65.5,95.5,hit_refuel_rollover),
+   create_rollover(59.5,97.5,hit_refuel_rollover)
   },
   all_lit_action=rollovers_all_lit,
   sfx=27

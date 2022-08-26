@@ -44,7 +44,7 @@ function init_poly_bumpers()
  add(static_over,right_drain_block)
 
  left_drain = create_poly_bumper(
-  vec(13,112),
+  vec(13.5,112.5),
   gen_polygon("0,-1,2,1"),
   vec(32,5),
   3,4,
@@ -54,7 +54,7 @@ function init_poly_bumpers()
  left_drain.block = left_drain_block
 
  right_drain = create_poly_bumper(
-  vec(64,112),
+  vec(64.5,112.5),
   gen_polygon("2,-1,0,1"),
   vec(32,5),
   3,4,
@@ -70,7 +70,7 @@ function init_poly_bumpers()
    spaceship,
    -- left bumper
    create_poly_bumper(
-    vec(51,95),
+    vec(51.5,95.5),
     gen_polygon("4,-1,6,1,6,11,1,14,-1,13,2,1"),
     vec(8,0),
     8,14,
@@ -79,7 +79,7 @@ function init_poly_bumpers()
    ),
    -- right bumper
    create_poly_bumper(
-    vec(21,95),
+    vec(21.5,95.5),
     gen_polygon("5,1,8,13,6,14,1,11,1,1,3,-1"),
     vec(8,0),
     8,14,
@@ -88,7 +88,7 @@ function init_poly_bumpers()
    ),
    -- right gutter pin
    create_poly_bumper(
-    vec(64.5,120),
+    vec(64.5,120.5),
     {
      vec(0,0,2.1,0,true,13),
      vec(2,0)
@@ -101,7 +101,7 @@ function init_poly_bumpers()
    ),
    -- left gutter pin
    create_poly_bumper(
-    vec(13.5,120),
+    vec(13.5,120.5),
     {
      vec(0,0,2.1,0,true,13),
      vec(2,0)
