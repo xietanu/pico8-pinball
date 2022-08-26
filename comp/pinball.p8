@@ -2,7 +2,7 @@ function create_pinball(_pos)
  -- create a pinball
  local _p = {
    origin=_pos,
-   prev={},
+   last_pos=_pos:copy(),
    spd=vec(0,0),
    spd_mag=0,
    simple_collider=create_box_collider(
@@ -11,8 +11,7 @@ function create_pinball(_pos)
    ),
    check_collision=check_collision_with_pinball,
    captured=false,
-   trackers={},
-   get_last_pos=(function(_pin) return _pin.prev[#_pin.prev] end)
+   trackers={}
   }
  add(
   pinballs,
@@ -41,11 +40,7 @@ function update_pinball_pos(_pin,_dt)
   return
  end
 
- add(_pin.prev,_pin.origin:copy())
-
- while #(_pin.prev) > 100 do
-  del(_pin.prev,_pin.prev[1])
- end
+ _pin.last_pos = _pin.origin:copy()
 
  if _pin.spd_mag > _dt then
   _pin.origin=_pin.origin:plus(
@@ -85,9 +80,7 @@ function add_tracker(pinball)
 end
 
 function rollback_pinball_pos(_pin)
- local _last_pos = _pin:get_last_pos()
- _pin.origin=_last_pos
- del(_pin.prev,_last_pos)
+ _pin.origin=_pin.last_pos
 end
 
 function draw_pinball(_pin)
@@ -102,22 +95,16 @@ end
 function check_collision_with_pinball(_pin1,_pin2)
  if dist_between_vectors(_pin1.origin, _pin2.origin)<=3 then
   local normalized_perp_vec = _pin1.origin:minus(_pin2.origin):normalize()
-  while dist_between_vectors(_pin1.origin, _pin2.origin)<=3 and #_pin1.prev > 0 and #_pin2.prev > 0 do
-   if not _pin1.captured then
+  if not _pin1.captured then
     rollback_pinball_pos(_pin1)
    end
    if not _pin2.captured then
     rollback_pinball_pos(_pin2)
    end
-  end
-  _pin1.spd = calc_reflection_vector(
-   _pin1.spd,
-   normalized_perp_vec
-  )
-  normalized_perp_vec=normalized_perp_vec:multiplied_by(-1)
-  _pin2.spd = calc_reflection_vector(
-   _pin2.spd,
-   normalized_perp_vec
-  )
+  local _pin1_ref,_pin2_ref=calc_bounce_vector(_pin1.spd,normalized_perp_vec),calc_bounce_vector(_pin2.spd,normalized_perp_vec:multiplied_by(-1))
+  local _pinref_size=(_pin1_ref:magnitude()+_pin2_ref:magnitude())/2
+
+  _pin1.spd = _pin1.spd:minus(_pin1_ref:normalize():multiplied_by(_pinref_size))
+  _pin2.spd = _pin1.spd:minus(_pin2_ref:normalize():multiplied_by(_pinref_size))
  end
 end

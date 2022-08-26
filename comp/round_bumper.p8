@@ -48,7 +48,7 @@ function check_collision_with_r_bumper(_b,_pin)
  -- check for collision with the
  -- bumper
  if dist_between_vectors(_b.origin, _pin.origin)<=4.5 then
-  increase_score(500)
+  increase_score(751)
   planet_lights_lit+=0.35
   sfx(planet_lights_lit)
   _b.hit = 8
@@ -67,7 +67,7 @@ function set_planet_lights()
   add(ongoing_msgs,planet_msg)
   light_orbit(4)
   add(msgs,{"star system","mapping","complete!",t=120})
-  increase_score(250,1)
+  increase_score(500,1)
   planet_lights_lit=0.75
   flash_table(planet_lights,2,false)
   sfx(10)

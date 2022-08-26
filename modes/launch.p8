@@ -41,7 +41,7 @@ function update_launch()
   end
   if cur_pinball.origin.y>=launcher.origin.y then
    cur_pinball.origin.y=launcher.origin.y-0.51
-   cur_pinball:get_last_pos().y=launcher.origin.y-0.511
+   cur_pinball.last_pos.y=launcher.origin.y-0.511
   end
   if btnp(🅾️) or btnp(❎) then
    released=true

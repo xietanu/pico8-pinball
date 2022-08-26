@@ -3,8 +3,8 @@ function init_poly_bumpers()
  spaceship = create_poly_bumper(
   vec(29,55),
   {
-   vec(-1,3,1,250,false,13),
-   vec(6,0,1,250,false,13),
+   vec(-1,3,1,543,false,13),
+   vec(6,0,1,543,false,13),
    vec(17,-1),
    vec(14,2),
    vec(14,4),
@@ -113,8 +113,8 @@ function init_poly_bumpers()
     close_left_drain
    )
  }
- poly_bumpers[2].collider[5] = vec(-1,13,1,250,false,13)
- poly_bumpers[3].collider[1] = vec(5,1,1,250,false,13)
+ poly_bumpers[2].collider[5] = vec(-1,13,1,543,false,13)
+ poly_bumpers[3].collider[1] = vec(5,1,1,543,false,13)
 
  add_group_to_board(poly_bumpers,{static_colliders,static_over})
 end

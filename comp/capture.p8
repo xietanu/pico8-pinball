@@ -117,7 +117,7 @@ function escape_velocity_action(_cap)
   sfx(24)
   return
  end
- increase_score(10,1)
+ increase_score(50,1)
  add(msgs,{"slingshot!",t=90})
  light_orbit(1)
  sfx(10,3)
@@ -127,7 +127,8 @@ function empty_fuel_action(_cap)
  -- action for when fuel capture
  -- triggered.
  if blastoff_mode then
-  increase_score(5,1)
+  increase_score(50,1)
+  sfx(24)
   return
  end
 

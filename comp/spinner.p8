@@ -23,7 +23,7 @@ function check_collision_with_spinner(_s,_pin)
  if spinner.deactivated then
   return
  end
- spinner.to_score = max(spinner.to_score,flr(min(6.123,abs(_pin.spd.y))*1000))
+ spinner.to_score = max(spinner.to_score,flr(min(6.123,abs(_pin.spd.y))*2000))
  if _pin.spd.y < 0 and not kickouts[2].bonus_enabled then
   sfx(23,3)
   enable_bonus(kickouts[2],180)
@@ -36,10 +36,10 @@ end
 function update_spinner()
  -- update spinner each frame
  if spinner.to_score > 0 then
-  if f%ceil(5000/spinner.to_score)==0 then
+  if f%ceil(10000/spinner.to_score)==0 then
    sfx(22)
   end
-  local scr_change = min(spinner.to_score,max(10,flr(spinner.to_score*0.02)))
+  local scr_change = min(spinner.to_score,max(20,flr(spinner.to_score*0.02)))
   spinner.to_score-=scr_change
   increase_score(scr_change)
  end

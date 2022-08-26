@@ -2,7 +2,11 @@ function calc_reflection_vector(
  _v,
  _l
 )
-	return _v:minus(_l:multiplied_by(2*_v:dot(_l)))
+	return _v:minus(calc_bounce_vector(_v,_l))
+end
+
+function calc_bounce_vector(_v, _l)
+ return _l:multiplied_by(2*_v:dot(_l))
 end
 
 function bounce_off_line(_pin,_l)

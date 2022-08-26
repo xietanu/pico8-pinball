@@ -19,20 +19,22 @@ end
 
 function shift_light_left(_r)
  -- shift lit status to the left
- local _first_l = _r[1].lit
- for i=2,#_r do
-  set_light(_r[i-1],_r[i].lit)
+ shift_light(_r,-1)
+end
+
+function shift_light(_r,_dir)
+ local _cpy={}
+ for i in all(_r) do
+  add(_cpy,i.lit or false)
  end
- set_light(_r[#_r],_first_l)
+ for i = 1,#_r do
+  set_light(_r[mod(i+_dir,#_r)],_cpy[i])
+ end
 end
 
 function shift_light_right(_r)
  -- shift lit status to the right
- local _last_l = _r[#_r].lit
- for i=0,#_r-2 do
-  set_light(_r[#_r-i],_r[#_r-i-1].lit)
- end
- set_light(_r[1],_last_l)
+ shift_light(_r,1)
 end
 
 function add_group_to_board(_grp,_layers)

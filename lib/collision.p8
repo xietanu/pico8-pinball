@@ -71,7 +71,7 @@ function pin_entered_poly(_pin,_obj)
 		local j=i%#_pnts+1
 		if lines_cross(
     _pin.origin,
-    _pin:get_last_pos(),
+    _pin.last_pos,
 				_pnts[i]:plus(_origin),
 			 _pnts[j]:plus(_origin)
 			) then
