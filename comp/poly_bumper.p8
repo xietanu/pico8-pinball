@@ -3,8 +3,8 @@ function init_poly_bumpers()
  spaceship = create_poly_bumper(
   vec(29,55),
   {
-   vec(-1,3,1,250),
-   vec(6,0,1,250),
+   vec(-1,3,1,250,false,13),
+   vec(6,0,1,250,false,13),
    vec(17,-1),
    vec(14,2),
    vec(14,4),
@@ -90,7 +90,7 @@ function init_poly_bumpers()
    create_poly_bumper(
     vec(64.5,120),
     {
-     vec(0,0,2.1,0,true),
+     vec(0,0,2.1,0,true,13),
      vec(2,0)
     },
     vec(43,0),
@@ -103,7 +103,7 @@ function init_poly_bumpers()
    create_poly_bumper(
     vec(13.5,120),
     {
-     vec(0,0,2.1,0,true),
+     vec(0,0,2.1,0,true,13),
      vec(2,0)
     },
     vec(43,0),

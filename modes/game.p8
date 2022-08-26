@@ -65,9 +65,7 @@ function update_game()
   end
  end
 
- for _obj in all(to_update) do
-  _obj:update()
- end
+ update_spinner()
 
  for _action in all(action_queue) do
   _action.delay -= 1

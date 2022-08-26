@@ -39,10 +39,13 @@ end
 function check_collision_with_collider(_obj,_pin)
  local _crossed_line = pin_entered_poly(_pin,_obj)
  if _crossed_line != nil then
-  if _pin.spd_mag > 2 then
-   sfx(_crossed_line.sfx or _obj.sfx or 12)
+  local _sfx = _crossed_line.sfx or _obj.sfx
+  if _sfx then
+   sfx(_sfx)
+  elseif _pin.spd_mag > 2 then
+   sfx(12)
   elseif _pin.spd_mag > 0.5 then
-   sfx(_crossed_line.sfx or _obj.sfx or 11)
+   sfx(11)
   end
   local _pnts = _crossed_line.p or _obj.p or 0
   if _pnts > 0 then

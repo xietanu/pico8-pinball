@@ -8,6 +8,7 @@ end
 function update_title()
  rotate_stars()
  if btnp(⬇️) or btnp(❎) or btnp(🅾️) then
+  sfx(16)
   mode=modes.menu
   mode.init()
  end
@@ -26,14 +27,6 @@ function draw_title()
 end
 
 function draw_title_foreground(_y_off)
-
- if f==25 then
-  sfx(16)
- end
-
  spr(112,40,30+_y_off,6,2)
  spr(160,40,48+_y_off,6,6)
-
- -- print_shadow("terra nova",44,31+_y_off,7,1)
- -- print_shadow("pinball",50,92+_y_off,7,1)
 end

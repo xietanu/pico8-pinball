@@ -6,7 +6,6 @@ function init_table()
  always_colliders={}
  static_over={}
  static_under={}
- to_update={}
 
  init_walls()
  init_lights()

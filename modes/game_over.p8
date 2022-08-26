@@ -1,21 +1,15 @@
 function init_game_over()
- for _sc in all(static_over) do
-  _sc.lit = false
- end
- for _sc in all(static_under) do
-  _sc.lit = false
- end
- f=0
-
+ end_flash_table(static_over)
+ end_flash_table(static_under)
  options = {
   {
    text={"play","again"},
-   action=quick_restart,
+   func=quick_restart,
    base_y = 0
   },
   {
    text={"menu"},
-   action=game_over_to_menu,
+   func=game_over_to_menu,
    base_y = 20
   }
  }
@@ -32,17 +26,15 @@ function init_game_over()
    return
   end
  end
+ if got_highscore > 0 then
+  sfx(16)
+ else
+  sfx(31)
+ end
 end
 
 function update_game_over()
- selected_option=mod(
-  selected_option+tonum(btnp(⬇️))-tonum(btnp(⬆️)),
-  #options
- )
-
- if btnp(🅾️) or btnp(❎) then
-  options[selected_option].action()
- end
+ update_menu_items()
 end
 
 function draw_game_over()

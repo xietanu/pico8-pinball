@@ -1,4 +1,5 @@
 function add_to_queue(_func,_delay,_args)
+ _args = _args or {}
  for _a in all(action_queue) do
   if _a.func == _func and _a.args[1] == _args[1] then
    _a.delay = _delay

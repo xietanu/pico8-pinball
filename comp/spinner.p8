@@ -10,29 +10,37 @@ function init_spinners()
  }
  add(static_colliders,spinner)
  add(static_over,spinner)
- add(to_update,spinner)
 end
 
-function draw_spinner(_s)
+function draw_spinner()
  -- draw spinner animation frame
- local spr_i = 33+16*flr((_s.to_score/150)%4)
- spr(spr_i,_s.origin.x-3,_s.origin.y-4)
+ local spr_i = 33+16*flr((spinner.to_score/50)%4)
+ spr(spr_i,spinner.origin.x-3,spinner.origin.y-4)
 end
 
 function check_collision_with_spinner(_s,_pin)
  -- check collision with spinner
- _s.to_score = max(_s.to_score,flr(min(6.123,abs(_pin.spd.y))*1000))
+ if spinner.deactivated then
+  return
+ end
+ spinner.to_score = max(spinner.to_score,flr(min(6.123,abs(_pin.spd.y))*1000))
  if _pin.spd.y < 0 and not kickouts[2].bonus_enabled then
+  sfx(23,3)
   enable_bonus(kickouts[2],180)
   cycle_lights(spinner_lights,1,3,flr(60/#spinner_lights))
  end
+ spinner.deactivated = true
+ add_to_queue(reactivate,30,{spinner})
 end
 
-function update_spinner(_s)
+function update_spinner()
  -- update spinner each frame
- if _s.to_score > 0 then
-  local scr_change = min(_s.to_score,max(10,flr(_s.to_score*0.02)))
-  _s.to_score-=scr_change
+ if spinner.to_score > 0 then
+  if f%ceil(5000/spinner.to_score)==0 then
+   sfx(22)
+  end
+  local scr_change = min(spinner.to_score,max(10,flr(spinner.to_score*0.02)))
+  spinner.to_score-=scr_change
   increase_score(scr_change)
  end
 end

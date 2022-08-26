@@ -7,6 +7,7 @@ function group_elem_lit(_grp)
    return
   end
  end
+ sfx(_grp.sfx)
 
  flash_table(_grp.elements,2,false)
 

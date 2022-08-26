@@ -76,7 +76,7 @@ function _init()
  }
  mode = modes.logo
  mode.init()
- music(3)
+ music(3,0,1)
  menuitem(4,"music on",toggle_music)
 end
 
@@ -146,7 +146,7 @@ function toggle_music()
   music(-1,1000)
  else
   music_option="music on"
-  music(3)
+  music(3,0,1)
  end
  menuitem(4)
  menuitem(4,music_option,toggle_music)

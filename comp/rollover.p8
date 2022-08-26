@@ -2,7 +2,8 @@ function init_rollovers()
  -- initialize rollovers
  top_rollovers={
   elements={},
-  all_lit_action=increase_multi
+  all_lit_action=increase_multi,
+  sfx=25
  }
  for i=0,4 do
   add(top_rollovers.elements,create_rollover(28+6*i,15))
@@ -14,7 +15,8 @@ function init_rollovers()
    create_rollover(65,95,hit_refuel_rollover),
    create_rollover(59,97,hit_refuel_rollover)
   },
-  all_lit_action=rollovers_all_lit
+  all_lit_action=rollovers_all_lit,
+  sfx=27
  }
  add_target_group_to_board(top_rollovers,static_under)
  add_target_group_to_board(bottom_rollovers,static_under)
@@ -47,6 +49,9 @@ function check_collision_with_rollover(_r,_pin)
  -- collider is triggered
  if _r.deactivated then
   return
+ end
+ if not _r.lit then
+  sfx(26)
  end
  set_light(_r,true)
  if _r.group then
