@@ -1,14 +1,10 @@
 function init_launch_triggers()
  launch_triggers={
   create_trigger_area(
-   vec(0,0),
-   create_box_collider(71,22,78,27),
-   exit_launch_mode
+   create_box_collider(71,22,78,27)
   ),
   create_trigger_area(
-   vec(0,0),
-   create_box_collider(65,22,71,37),
-   exit_launch_mode
+   create_box_collider(65,22,71,37)
   )
  }
  for _l in all(launch_triggers) do
@@ -17,14 +13,12 @@ function init_launch_triggers()
 end
 
 function create_trigger_area(
- _origin,
- _simple_collider,
- _action
+ _simple_collider
 )
  return {
-  origin=_origin,
+  origin=vec(0,0),
   simple_collider=_simple_collider,
-  check_collision=_action
+  check_collision=exit_launch_mode
  }
 end
 
@@ -35,7 +29,9 @@ function exit_launch_mode(_l)
  mode=modes.game
  add(always_colliders,launch_block)
  del(ongoing_msgs,launch_msg)
- if (reset_light.lit) skillshot_target.reset_timer=80
+ if reset_light.lit then
+  enable_bonus(skillshot_target,80)
+ end
  add_to_queue(set_light,900,{reset_light,false})
 end
 

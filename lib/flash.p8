@@ -24,19 +24,16 @@ function end_flash(_o,_state)
  set_light(_o,_state)
 end
 
-function flash_table(_t,_times,_next_state,_cur_lit)
- local _cnt = 0
+function flash_table(_t,_times,_next_state,_if_lit)
  for _o in all(_t) do
-  if _o.lit or not _cur_lit then
+  if not _if_lit or _o.lit then
    flash(_o,_times,_next_state)
-   _cnt+=1
   end
  end
- return _cnt
 end
 
 function end_flash_table(_t,_state)
  for _o in all(_t) do
-  end_flash(_o)
+  end_flash(_o,_state)
  end
 end

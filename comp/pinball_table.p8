@@ -6,7 +6,6 @@ function init_table()
  always_colliders={}
  static_over={}
  static_under={}
- to_update={}
 
  init_walls()
  init_lights()
@@ -15,7 +14,7 @@ function init_table()
  init_targets()
  init_spinners()
  init_rollovers()
- init_captures()
+ init_kickouts()
  init_launcher()
  init_launch_triggers()
  init_flippers()

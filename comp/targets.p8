@@ -8,12 +8,10 @@ function init_targets()
   2,4
  )
  skillshot_target.p=nil
- skillshot_target.reset_timer=0
- skillshot_target.update=update_skillshot_target
+ skillshot_target.sfx=nil
  skillshot_target.check_collision=check_collision_with_skillshot
  add(static_colliders,skillshot_target)
  add(static_over,skillshot_target)
- add(to_update,skillshot_target)
  local left_col=gen_polygon(
   "0,-1,3,0,2,5,-1,5"
  )
@@ -42,7 +40,8 @@ function init_targets()
     3,5
    ),
   },
-  all_lit_action=left_targets_lit
+  all_lit_action=left_targets_lit,
+  sfx=15
  }
  add_target_group_to_board(left_targets)
 
@@ -68,7 +67,8 @@ function init_targets()
     3,5
    )
   },
-  all_lit_action=right_targets_lit
+  all_lit_action=right_targets_lit,
+  sfx=15
  }
  add_target_group_to_board(right_targets)
 
@@ -94,7 +94,8 @@ function init_targets()
     5,3
    )
   },
-  all_lit_action=pass
+  all_lit_action=pass,
+  sfx=15
  }
  add_target_group_to_board(rocket_targets)
  
@@ -131,7 +132,8 @@ function create_target(
   spr_off=vec(0,0),
   spr_w=_spr_w,
   spr_h=_spr_h,
-  p=target_pnts
+  p=target_pnts,
+  sfx=14
  }
  if _light_offset then
   _l.light = create_light(
@@ -153,14 +155,15 @@ function check_collision_with_target(_obj,_pin)
    group_elem_lit(_obj.group)
   end
   if _obj.light.flashing then
+   cur_target.sfx=14
    target_hunt_cnt += 1
-   update_target_hunt_lights()
-   add_to_queue(end_target_hunt,1800,{})
+   update_prog_light_group(pent_lights,target_hunt_cnt)
+   add_to_queue(end_target_hunt,1800,{true})
    end_flash(_obj.light)
    if target_hunt_cnt>=5 then
     end_target_hunt()
     increase_score(200,1)
-    light_terra(1)
+    light_orbit(5)
    else
     flash_rnd_target()
    end
@@ -168,32 +171,24 @@ function check_collision_with_target(_obj,_pin)
  end
 end
 
-function update_skillshot_target(_t)
- _t.reset_timer=max(0,_t.reset_timer-1)
- if _t.reset_timer%30>15 then
-  _t.lit=true
- else
-  _t.lit=false
- end
-end
-
 function check_collision_with_skillshot(_t,_pin)
- if check_collision_with_collider(_t,_pin) then
-  if _t.reset_timer > 0 then
-   increase_score(skillshot_points,1)
-   add(msgs,{"skillshot!",t=90})
-   _t.reset_timer=0
-   _t.hit = 7
-  end
+ if check_collision_with_collider(_t,_pin) and _t.bonus_enabled then
+  increase_score(skillshot_points,1)
+  add(msgs,{"skillshot!",t=90})
+  disable_bonus(_t)
+  _t.hit = 7
+  sfx(10)
  end
 end
 
 function left_targets_lit(_g)
  reset_drain(left_drain)
  rollovers_all_lit(_g)
+ sfx(15)
 end
 
 function right_targets_lit(_g)
  reset_drain(right_drain)
  rollovers_all_lit(_g)
+ sfx(15)
 end

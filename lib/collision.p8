@@ -37,10 +37,16 @@ function calc_inf_line_abc(_l1,_l2)
 end
 
 function check_collision_with_collider(_obj,_pin)
- _obj.c=10
  local _crossed_line = pin_entered_poly(_pin,_obj)
  if _crossed_line != nil then
-  _obj.c=8
+  local _sfx = _crossed_line.sfx or _obj.sfx
+  if _sfx then
+   sfx(_sfx)
+  elseif _pin.spd_mag > 2 then
+   sfx(12)
+  elseif _pin.spd_mag > 0.5 then
+   sfx(11)
+  end
   local _pnts = _crossed_line.p or _obj.p or 0
   if _pnts > 0 then
    increase_score(_pnts)
@@ -73,6 +79,7 @@ function pin_entered_poly(_pin,_obj)
    output.p=_pnts[i].p
    output.ref_spd=_pnts[i].ref_spd
    output.only_ref=_pnts[i].only_ref
+   output.sfx=_pnts[i].sfx
    return output
 		end
 	end

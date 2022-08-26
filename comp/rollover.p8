@@ -1,15 +1,13 @@
 function init_rollovers()
  -- initialize rollovers
  top_rollovers={
-  elements={
-   create_rollover(28,15),
-   create_rollover(34,15),
-   create_rollover(40,15),
-   create_rollover(46,15),
-   create_rollover(52,15)
-  },
-  all_lit_action=increase_multi
+  elements={},
+  all_lit_action=increase_multi,
+  sfx=25
  }
+ for i=0,4 do
+  add(top_rollovers.elements,create_rollover(28+6*i,15))
+ end
  bottom_rollovers={
   elements={
    create_rollover(14,95,hit_refuel_rollover),
@@ -17,7 +15,8 @@ function init_rollovers()
    create_rollover(65,95,hit_refuel_rollover),
    create_rollover(59,97,hit_refuel_rollover)
   },
-  all_lit_action=rollovers_all_lit
+  all_lit_action=rollovers_all_lit,
+  sfx=27
  }
  add_target_group_to_board(top_rollovers,static_under)
  add_target_group_to_board(bottom_rollovers,static_under)
@@ -34,11 +33,8 @@ function create_rollover(_x,_y,_action)
   spr_w=3,
   spr_h=8,
   spr_off=vec(-1,0),
-  lit=false,
   unlit_col=4,
-  reset_timer=0,
   hit=0,
-  c=7,
   action=_action
  }
 end
@@ -53,6 +49,9 @@ function check_collision_with_rollover(_r,_pin)
  -- collider is triggered
  if _r.deactivated then
   return
+ end
+ if not _r.lit then
+  sfx(26)
  end
  set_light(_r,true)
  if _r.group then
@@ -83,7 +82,7 @@ function hit_refuel_rollover(_r,_pin)
 end
 
 function increase_multi(_rg)
- light_terra(4)
+ light_orbit(3)
  if multiplier<4 then
   add(msgs,{"multiplier","increased!",t=120})
  end

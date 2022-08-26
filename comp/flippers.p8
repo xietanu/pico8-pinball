@@ -43,8 +43,6 @@ function create_flipper(
   check_collision=check_collision_with_flipper,
   spr_off=_spr_off,
   angle=0,
-  angle_max=0.09,
-  angle_min=-0.09,
   angle_inc=0.07,
   button=_button,
   moving=0,
@@ -63,20 +61,23 @@ end
 function update_flipper(_f)
  -- update flipper each frame
  if btn(_f.button) then
-		if _f.angle<_f.angle_max then
+		if _f.angle<0.09 then
 			_f.moving=1
 		else
 			_f.moving=0
 		end
 	else
-		if _f.angle>_f.angle_min then
+		if _f.angle> -0.09 then
 			_f.moving=-1/3
 		else
 			_f.moving=0
 		end
 	end
 
- if (btnp(_f.button)) _f.shift_light(top_rollovers.elements)
+ if btnp(_f.button) then
+  _f.shift_light(top_rollovers.elements)
+  sfx(0)
+ end
 
  return ceil(_f.moving*5)
 end
@@ -88,8 +89,8 @@ function update_flipper_pos(_f,_dt)
  if _f.moving!=0 then
   _f.angle=limit(
    _f.angle+_f.moving*_f.angle_inc/_dt,
-   _f.angle_min,
-   _f.angle_max
+   -0.09,
+   0.09
   )
   update_flipper_collider(_f)
  end
@@ -114,8 +115,8 @@ function check_collision_with_flipper(_f,_pin)
   rollback_pinball_pos(_pin)
   _f.angle=limit(
    _f.angle-_f.moving*_f.angle_inc/dt,
-   _f.angle_min,
-   _f.angle_max
+   -0.09,
+   0.09
   )
   _pin.spd=_pin.spd:plus(_flp_spd_vec)
   update_flipper_collider(_f)
@@ -144,10 +145,8 @@ function draw_flipper(_f)
  -- draw a flipper
  local i=4-flr(
   4.99*(
-   _f.angle-_f.angle_min
-  )/(
-   _f.angle_max-_f.angle_min
-  )
+   _f.angle+0.09
+  )/0.18
  )
  
  -- if draw_outlines then

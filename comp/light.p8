@@ -1,5 +1,7 @@
 function init_lights()
  -- initialise decorative lights
+ refuel_lights_lit=0
+
  chevron_light_spr = create_light_spr(
   vec(32,9)
  )
@@ -15,26 +17,26 @@ function init_lights()
  big_up_right_chevron_spr = create_light_spr(
   vec(32,12)
  )
- terra_lights = {}
+ orbit_lights = {}
  for i=1,5 do
   add(
-   terra_lights,
+   orbit_lights,
    create_light(
-    vec(26+i*4,93),
-    sub("terra",i,i),
+    vec(27+i*4,93),
+    sub("orbit",i,i),
     draw_letter_light
    )
   )
  end
 
- add_group_to_board(terra_lights,{static_under})
+ add_group_to_board(orbit_lights,{static_under})
 
  pent_lights={}
  for i=0,0.8,0.2 do
   add(
    pent_lights,
    create_light(
-    vec(64.5-sin(i)*4,49.5-cos(i)*4),
+    vec(64.5-sin(i)*4,48.5-cos(i)*4),
     nil,
     draw_dot_light
    )
@@ -99,11 +101,11 @@ function init_lights()
  add_group_to_board(spinner_lights,{static_under})
 
  refuel_lights={}
- for i=0,3 do
+ for i=0,4 do
   add(
    refuel_lights,
    create_light(
-    vec(47+i*3,57),
+    vec(47+i*2,57),
     h_chevron_light_spr,
     draw_spr
    )
@@ -216,50 +218,51 @@ function light_refuel_lights()
  -- lighting of refuel lights.
  -- lights a light each time
  -- it's triggered.
- if blastoff_mode or #pinballs > 1 then
+ if #pinballs > 1 then
   return
  end
- for i = 1,#refuel_lights do
-  local _l=refuel_lights[i]
-  if not _l.lit then
-   _l.lit = true
-   if i == 4 then
-    flash(captures[3],-99,true)
-   end
-   return
-  end
+ refuel_lights_lit+=1
+ if refuel_lights_lit >= #refuel_lights then
+  flash(kickouts[3],-99,true)
  end
+ update_prog_light_group(refuel_lights,refuel_lights_lit)
 end
 
-function update_target_hunt_lights()
+function update_prog_light_group(_grp,_n)
  for i = 1,5 do
-  pent_lights[i].lit=target_hunt_cnt>=i
+  _grp[i].lit=_n>=i
  end
 end
 
-function cycle_lights(_group,_next_index,_times,_delay)
- _group[mod(_next_index-1,#_group)].lit = false
+function cycle_lights(_group,_next_index,_times,_delay,_rev)
+ _group[mod(_next_index-1,#_group)].lit = _rev
 
  if _next_index > #_group*_times then
+  if _rev then
+   cycle_lights(_group,2,1,_delay)
+  else
+   end_flash_table(_group)
+  end
   return
  end
 
- _group[mod(_next_index,#_group)].lit = true
- add_to_queue(cycle_lights,_delay,{_group,_next_index+1,_times,_delay})
+ _group[mod(_next_index,#_group)].lit = not _rev
+ add_to_queue(cycle_lights,_delay,{_group,_next_index+1,_times,_delay,_rev})
 end
 
-function light_terra(i)
- terra_lights[i].lit=true
+function light_orbit(i)
+ flash(orbit_lights[i],3,true)
  local _cnt = 0
- for _l in all(terra_lights) do
-  _cnt+=tonum(_l.lit)
+ for _l in all(orbit_lights) do
+  if _l.lit or _l.flashing then
+   _cnt+=1
+  end
  end
  if _cnt==5 then
-  add(msgs,{"explorer","bonus!","extra ball!"})
+  add(msgs,{"orbit","achieved!","extra ball!",t=120})
+  sfx(16)
   increase_score(1,2)
   balls+=1
-  flash_table(terra_lights,3,false)
- else
-  flash(terra_lights[i],3,true)
+  flash_table(orbit_lights,3,false)
  end
 end

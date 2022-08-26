@@ -3,8 +3,8 @@ function init_poly_bumpers()
  spaceship = create_poly_bumper(
   vec(29,55),
   {
-   vec(-1,3,1,250),
-   vec(6,0,1,250),
+   vec(-1,3,1,250,false,13),
+   vec(6,0,1,250,false,13),
    vec(17,-1),
    vec(14,2),
    vec(14,4),
@@ -14,7 +14,7 @@ function init_poly_bumpers()
   vec(0,48),
   16,7,
   false,
-  vec(0,55)
+  vec(32,48)
  )
 
  local _wall_col = gen_polygon("75,27,72,34")
@@ -27,13 +27,13 @@ function init_poly_bumpers()
 
 
  left_drain_block = create_poly_bumper(
-  vec(16,110),
+  vec(16.5,110.5),
   gen_polygon("-1,-5,-1,6"),
   vec(36,5),
   1,3
  )
  right_drain_block = create_poly_bumper(
-  vec(63,110),
+  vec(63.5,110.5),
   gen_polygon("1,-5,1,6"),
   vec(36,5),
   1,3
@@ -45,10 +45,7 @@ function init_poly_bumpers()
 
  left_drain = create_poly_bumper(
   vec(13,112),
-  {
-   vec(0,-1),
-   vec(2,1)
-  },
+  gen_polygon("0,-1,2,1"),
   vec(32,5),
   3,4,
   true
@@ -58,10 +55,7 @@ function init_poly_bumpers()
 
  right_drain = create_poly_bumper(
   vec(64,112),
-  {
-   vec(2,-1),
-   vec(0,1)
-  },
+  gen_polygon("2,-1,0,1"),
   vec(32,5),
   3,4,
   false
@@ -96,7 +90,7 @@ function init_poly_bumpers()
    create_poly_bumper(
     vec(64.5,120),
     {
-     vec(0,0,2.1,0,true),
+     vec(0,0,2.1,0,true,13),
      vec(2,0)
     },
     vec(43,0),
@@ -109,7 +103,7 @@ function init_poly_bumpers()
    create_poly_bumper(
     vec(13.5,120),
     {
-     vec(0,0,2.1,0,true),
+     vec(0,0,2.1,0,true,13),
      vec(2,0)
     },
     vec(43,0),
@@ -119,8 +113,8 @@ function init_poly_bumpers()
     close_left_drain
    )
  }
- poly_bumpers[2].collider[5] = vec(-1,13,1,250)
- poly_bumpers[3].collider[1] = vec(5,1,1,250)
+ poly_bumpers[2].collider[5] = vec(-1,13,1,250,false,13)
+ poly_bumpers[3].collider[1] = vec(5,1,1,250,false,13)
 
  add_group_to_board(poly_bumpers,{static_colliders,static_over})
 end
@@ -171,8 +165,6 @@ function close_drain(
  _d
 )
  if _d.light.lit then
-  del(static_over,_d)
-  del(always_colliders,_d)
   add(static_over,_d)
   add(always_colliders,_d)
   del(static_over,_d.block)
@@ -185,8 +177,6 @@ function reset_drain(_d)
  if not _d.light.lit then
   del(static_over,_d)
   del(always_colliders,_d)
-  del(static_over,_d.block)
-  del(always_colliders,_d.block)
   add(static_over,_d.block)
   add(always_colliders,_d.block)
   _d.light.lit = true

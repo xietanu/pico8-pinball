@@ -2,7 +2,6 @@ function init_menu()
  show_stars = true
  show_credits = false
  f_base=f
- off_y=0
  options={
   {func=function()
    init_transition(modes.game)
@@ -41,14 +40,7 @@ function update_menu()
   return
  end
 
- selected_option=mod(
-  selected_option+tonum(btnp(⬇️))-tonum(btnp(⬆️)),
-  #options
- )
-
- if btnp(🅾️) or btnp(❎) then
-  options[selected_option].func()
- end
+ update_menu_items()
 
  if selected_option == 3 then
   pc_option=mod(
@@ -58,6 +50,21 @@ function update_menu()
  end
 
  pad_con=paddle_controls[pc_option]
+end
+
+function update_menu_items()
+ if btnp(⬇️) or btnp(⬆️) then
+  selected_option=mod(
+   selected_option+tonum(btnp(⬇️))-tonum(btnp(⬆️)),
+   #options
+  )
+  sfx(0)
+ end
+
+ if btnp(🅾️) or btnp(❎) then
+  options[selected_option].func()
+  sfx(13)
+ end
 end
 
 function draw_menu()

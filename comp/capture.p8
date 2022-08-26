@@ -1,14 +1,14 @@
 pico-8 cartridge // http://www.pico-8.com
 version 36
 __lua__
-function init_captures()
+function init_kickouts()
  -- initialise the capture
  -- elements on the board.
  blastoff_msg = {"blast-off!","multiball!"}
  target_hunt_msg = {"calibrate","lasers!","hit targets!"}
 
- captures = {
-  -- right capture
+ kickouts = {
+  -- target hunt capture
   create_capture(
    vec(68,58),
    vec(-1,1),
@@ -30,7 +30,7 @@ function init_captures()
    empty_fuel_action
   )
  }
- add_group_to_board(captures,{static_under,static_colliders})
+ add_group_to_board(kickouts,{static_under,static_colliders})
 end
 
 function create_capture(
@@ -68,6 +68,7 @@ function check_collision_with_capture(
   _cap.origin.x,
   _cap.origin.y
  )
+ 
  _pin.spd=vec(0,0)
  _cap.captured_pinball=_pin
  _cap.deactivated=true
@@ -112,10 +113,14 @@ function draw_capture(_cap)
 end
 
 function escape_velocity_action(_cap)
- if (not _cap.bonus_enabled) return
+ if not _cap.bonus_enabled then
+  sfx(24)
+  return
+ end
  increase_score(10,1)
  add(msgs,{"slingshot!",t=90})
- light_terra(5)
+ light_orbit(1)
+ sfx(10,3)
 end
 
 function empty_fuel_action(_cap)
@@ -125,43 +130,40 @@ function empty_fuel_action(_cap)
   increase_score(5,1)
   return
  end
- 
- local _cnt = flash_table(refuel_lights,3,false,true)
 
  increase_score(
-  (_cnt+1)^_cnt,
+  3^min(5,refuel_lights_lit),
   1
  )
- if _cnt==4 then
-  light_terra(3)
+ if refuel_lights_lit>=#refuel_lights then
+  light_orbit(2)
   blastoff_mode = true
+  kickouts[2].deactivated=true
   reset_light.lit = true
   add(ongoing_msgs,blastoff_msg)
+  sfx(29,1)
   flash(_cap,-99,false)
-  flash_table(refuel_lights,-99,false)
+  cycle_lights(refuel_lights,1,46,6,true)
   add_blastoff_ball()
-  add_to_queue(add_blastoff_ball,60,{})
-  add_to_queue(end_blastoff_mode,1400,{})
- elseif _cnt>0 then
+  add_to_queue(add_blastoff_ball,60)
+  add_to_queue(end_blastoff_mode,1400)
+ elseif refuel_lights_lit>0 then
   add(msgs,{"partial","refuel",t=90})
+  sfx(24)
   flash(_cap,3,false)
+  flash_table(refuel_lights,3,false,true)
  end
+ refuel_lights_lit=0
 end
 
 function add_blastoff_ball()
- local _cap = captures[2]
- if _cap.captured_pinball != nil or _cap.deactivated then
-  add_to_queue(add_blastoff_ball,30,{})
-  return
- end
- _cap.deactivated=true
- add_to_queue(reactivate,30,{_cap})
+ local _cap = kickouts[2]
  _p = create_pinball(_cap.origin:copy())
  _p.spd=_cap.output_vector:copy()
 end
 
 function end_blastoff_mode()
- local _cap = captures[2]
+ local _cap = kickouts[2]
  if not blastoff_mode then
   return
  end
@@ -174,7 +176,8 @@ function end_blastoff_mode()
 end
 
 function start_target_hunt()
- add_to_queue(end_target_hunt,1800,{})
+ add_to_queue(end_target_hunt,1800,{true})
+ sfx(28)
  if not target_hunt then
   add(ongoing_msgs,target_hunt_msg)
   flash_rnd_target()
@@ -185,30 +188,32 @@ end
 
 function flash_rnd_target()
  local _rn = flr(rnd(3))
+ local _t = nil
  if _rn==0 then
-  flash(rnd(left_targets.elements).light,-99)
+  _t=rnd(left_targets.elements)
  elseif _rn == 1 then
-  flash(rnd(right_targets.elements).light,-99)
+  _t=rnd(right_targets.elements)
  else
-  flash(rnd(rocket_targets.elements).light,-99)
+  _t=rnd(rocket_targets.elements)
  end
+ flash(_t.light,-99)
+ _t.sfx = 28
+ cur_target=_t
 end
 
-function end_target_hunt()
+function end_target_hunt(_timeout)
  if not target_hunt then
   return
  end
  del(ongoing_msgs,target_hunt_msg)
  target_hunt = false
+ if _timeout then
+  sfx(30,2)
+ end
  target_hunt_cnt = 0
- update_target_hunt_lights()
- for _t in all(left_targets.elements) do
-  end_flash(_t.light)
- end
- for _t in all(right_targets.elements) do
-  end_flash(_t.light)
- end
- for _t in all(rocket_targets.elements) do
-  end_flash(_t.light)
+ update_prog_light_group(pent_lights,target_hunt_cnt)
+ if cur_target then
+  end_flash(cur_target.light)
+  cur_target.sfx=14
  end
 end

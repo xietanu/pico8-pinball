@@ -1,4 +1,4 @@
-function vec(_x,_y,_ref_spd,_pnts,_only_ref)
+function vec(_x,_y,_ref_spd,_pnts,_only_ref, _sfx)
  -- Create a vector object
  return {
   x=_x,
@@ -13,7 +13,8 @@ function vec(_x,_y,_ref_spd,_pnts,_only_ref)
   magnitude=magnitude,
   multiplied_by=multiply_vector,
   normalize=normalize,
-  perpendicular=perpendicular
+  perpendicular=perpendicular,
+  sfx=_sfx
  }
 end
 
