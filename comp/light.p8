@@ -259,6 +259,7 @@ function light_orbit(i)
  end
  if _cnt==5 then
   add(msgs,{"orbit","achieved!","extra ball!",t=120})
+  sfx(16)
   increase_score(1,2)
   balls+=1
   flash_table(orbit_lights,3,false)
