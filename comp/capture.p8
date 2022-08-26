@@ -144,15 +144,17 @@ function empty_fuel_action(_cap)
   add(ongoing_msgs,blastoff_msg)
   sfx(29,1)
   flash(_cap,-99,false)
-  cycle_lights(refuel_lights,1,46,6,true)
+  cycle_lights(refuel_lights,1,40,6,true)
   add_blastoff_ball()
   add_to_queue(add_blastoff_ball,60)
-  add_to_queue(end_blastoff_mode,1400)
+  add_to_queue(end_blastoff_mode,1200)
  elseif refuel_lights_lit>0 then
   add(msgs,{"partial","refuel",t=90})
-  sfx(24)
   flash(_cap,3,false)
   flash_table(refuel_lights,3,false,true)
+  sfx(24)
+ else
+  sfx(24)
  end
  refuel_lights_lit=0
 end

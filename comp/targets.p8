@@ -164,6 +164,7 @@ function check_collision_with_target(_obj,_pin)
     end_target_hunt()
     increase_score(500,1)
     light_orbit(5)
+    cycle_lights(pent_lights,3,1,10,true)
    else
     flash_rnd_target()
    end

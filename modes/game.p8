@@ -19,18 +19,9 @@ function init_game()
  action_queue={}
 
  score=init_long(3)
-
- --TODO: Delete these debug variables
- -- draw_outlines=false
 end
 
 function update_game()
- -- if pc_option==1 then
- --  if btnp(❎) then
- --   draw_outlines=not draw_outlines
- --  end
- -- end
-
  for _s in all(static_colliders) do
   _s.c=6
  end
