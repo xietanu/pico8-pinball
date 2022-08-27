@@ -29,6 +29,10 @@ If your ball goes down the outer lane, it'll be kicked back up onto the field - 
 
 These lanes reset after the ball drains, or if you light all of the targets in the associated group (the leftmost 3 of the left lane, and the rightmost 2 for the right lane).
 
+## Minigames
+
+Completing the following minigames can help score big points - and achieve ORBIT...
+
 ### Slingshot
 
 Shoot the ball around the top, lighting up the spinner and landing in the left kick-out hole to score a **Slingshot!**
