@@ -109,8 +109,8 @@ function check_collision_with_flipper(_f,_pin)
    _f.origin,_pin.origin
    )*sin(-_f.angle_inc)
   local _flp_spd_vec = vec(
-   _f.flip*_flp_spd*sin(-_f.angle+flipper_angle_adjust),
-   _flp_spd*cos(_f.angle-flipper_angle_adjust)
+   _f.flip*_flp_spd*sin(-_f.angle+.035),
+   _flp_spd*cos(_f.angle-.035)
   )
   rollback_pinball_pos(_pin)
   _f.angle=limit(

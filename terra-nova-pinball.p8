@@ -2,7 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 36
 __lua__
 -- terra nova pinball
--- ricochet around an alien world.
+-- ricochet around an alien world
 
 -- terra nova pinball by matt sutton is licensed under a creative commons attribution-noncommercial 4.0 international license.
 -- https://creativecommons.org/licenses/by-nc/4.0/legalcode

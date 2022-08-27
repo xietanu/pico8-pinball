@@ -101,11 +101,11 @@ function init_lights()
  add_group_to_board(spinner_lights,{static_under})
 
  refuel_lights={}
- for i=0,4 do
+ for i=0,3 do
   add(
    refuel_lights,
    create_light(
-    vec(47+i*2,57),
+    vec(47+i*3,57),
     h_chevron_light_spr,
     draw_spr
    )
@@ -229,7 +229,7 @@ function light_refuel_lights()
 end
 
 function update_prog_light_group(_grp,_n)
- for i = 1,5 do
+ for i = 1,#_grp do
   _grp[i].lit=_n>=i
  end
 end

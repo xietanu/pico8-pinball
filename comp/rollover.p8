@@ -60,7 +60,7 @@ function check_collision_with_rollover(_r,_pin)
 
  _r.deactivated=true
  add_to_queue(reactivate,20,{_r})
- increase_score(rollover_points)
+ increase_score(1234)
  if _r.action != nil then
    _r.action(_r,_pin)
  end
@@ -69,7 +69,7 @@ end
 function rollovers_all_lit(_rg)
  -- action for when rollover
  -- group's lights all lit.
- increase_score(rollover_grp_points,1)
+ increase_score(50,1)
  for _r in all(_rg.elements) do
   set_light(_r,false)
  end

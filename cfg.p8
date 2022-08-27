@@ -1,15 +1,3 @@
-flipper_angle_adjust=.035
-
-pinball_updates_per_pixel=1
-
-target_pnts = 1212
-capture_points = 1111
-rollover_points = 1234
-rollover_grp_points = 50 -- * 1000
-skillshot_points = 250 -- * 1000
-
-max_spd = 4
-
 tracker_cols={5,13}
 
 col_grads={

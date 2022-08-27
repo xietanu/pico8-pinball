@@ -27,9 +27,9 @@ function update_pinball_spd_acc(_pin)
 
  local _dt = min(
   ceil(
-   _pin.spd_mag*pinball_updates_per_pixel
+   _pin.spd_mag
   ),
-  max_spd*pinball_updates_per_pixel
+  4
  )
 
  return _dt
@@ -94,17 +94,24 @@ end
 
 function check_collision_with_pinball(_pin1,_pin2)
  if dist_between_vectors(_pin1.origin, _pin2.origin)<=3 then
-  local normalized_perp_vec = _pin1.origin:minus(_pin2.origin):normalize()
   if not _pin1.captured then
-    rollback_pinball_pos(_pin1)
-   end
-   if not _pin2.captured then
-    rollback_pinball_pos(_pin2)
-   end
-  local _pin1_ref,_pin2_ref=calc_bounce_vector(_pin1.spd,normalized_perp_vec),calc_bounce_vector(_pin2.spd,normalized_perp_vec:multiplied_by(-1))
-  local _pinref_size=(_pin1_ref:magnitude()+_pin2_ref:magnitude())/2
+   rollback_pinball_pos(_pin1)
+  end
+  if not _pin2.captured then
+   rollback_pinball_pos(_pin2)
+  end
 
-  _pin1.spd = _pin1.spd:minus(_pin1_ref:normalize():multiplied_by(_pinref_size))
-  _pin2.spd = _pin1.spd:minus(_pin2_ref:normalize():multiplied_by(_pinref_size))
+  local perp_vec = _pin1.origin:minus(_pin2.origin):normalize()
+
+  local u1 = perp_vec:dot(_pin1.spd)
+  local u2 = perp_vec.x*_pin1.spd.y - perp_vec.y*_pin1.spd.x
+  local u3 = perp_vec:dot(_pin2.spd)
+  local u4 = perp_vec.x*_pin2.spd.y - perp_vec.y*_pin2.spd.x
+
+  _pin2.spd.x = perp_vec.x * u1 - perp_vec.y * u4
+  _pin2.spd.y = perp_vec.y * u1 + perp_vec.x * u4
+  _pin1.spd.x = perp_vec.x * u3 - perp_vec.y * u2
+  _pin1.spd.y = perp_vec.y * u3 + perp_vec.x * u2
+
  end
 end

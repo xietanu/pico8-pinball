@@ -2,20 +2,14 @@ function init_poly_bumpers()
  -- create polyginal bumpers
  spaceship = create_poly_bumper(
   vec(29,55),
-  {
-   vec(-1,3,1,543,false,13),
-   vec(6,0,1,543,false,13),
-   vec(17,-1),
-   vec(14,2),
-   vec(14,4),
-   vec(17,7),
-   vec(6,6)
-  },
+  gen_polygon("-1,3,6,0,17,-1,14,2,14,4,17,7,6,6"),
   vec(0,48),
   16,7,
   false,
   vec(32,48)
  )
+ spaceship.collider[1]=vec(-1,3,1,543,false,13)
+ spaceship.collider[2]=vec(6,0,1,543,false,13)
 
  local _wall_col = gen_polygon("75,27,72,34")
  launch_block={

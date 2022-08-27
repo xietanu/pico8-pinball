@@ -39,7 +39,7 @@ function update_spinner()
   if f%ceil(10000/spinner.to_score)==0 then
    sfx(22)
   end
-  local scr_change = min(spinner.to_score,max(20,flr(spinner.to_score*0.02)))
+  local scr_change = min(spinner.to_score,max(10,flr(spinner.to_score*0.02)))
   spinner.to_score-=scr_change
   increase_score(scr_change)
  end

@@ -12,14 +12,14 @@ function init_kickouts()
   create_capture(
    vec(68.5,58.5),
    vec(-1,1),
-   capture_points,
+   1111,
    start_target_hunt
   ),
   -- escape velocity capture
   create_capture(
    vec(11.5,56.5),
    vec(1,0),
-   capture_points,
+   1111,
    escape_velocity_action
   ),
   -- rocket fuel capture
@@ -190,6 +190,10 @@ function start_target_hunt()
 end
 
 function flash_rnd_target()
+ if cur_target then
+  end_flash(cur_target.light)
+  cur_target.sfx=14
+ end
  local _rn = flr(rnd(3))
  local _t = nil
  if _rn==0 then
@@ -212,11 +216,12 @@ function end_target_hunt(_timeout)
  target_hunt = false
  if _timeout then
   sfx(30,2)
+  target_hunt_cnt = 0
+  update_prog_light_group(pent_lights,target_hunt_cnt)
  end
- target_hunt_cnt = 0
- update_prog_light_group(pent_lights,target_hunt_cnt)
  if cur_target then
   end_flash(cur_target.light)
   cur_target.sfx=14
+  cur_target=nil
  end
 end

@@ -53,7 +53,7 @@ function init_targets()
  right_targets={
   elements={
    create_target(
-    vec(55.5,50.5),
+    vec(53.5,47.5),
     right_target_poly,
     right_light_offset,
     vec(42,18),
@@ -132,7 +132,7 @@ function create_target(
   spr_off=vec(0,0),
   spr_w=_spr_w,
   spr_h=_spr_h,
-  p=target_pnts,
+  p=1212,
   sfx=14
  }
  if _light_offset then
@@ -155,18 +155,18 @@ function check_collision_with_target(_obj,_pin)
    group_elem_lit(_obj.group)
   end
   if _obj.light.flashing then
-   cur_target.sfx=14
    target_hunt_cnt += 1
    update_prog_light_group(pent_lights,target_hunt_cnt)
    add_to_queue(end_target_hunt,1800,{true})
-   end_flash(_obj.light)
    if target_hunt_cnt>=5 then
     end_target_hunt()
     increase_score(500,1)
     light_orbit(5)
-    cycle_lights(pent_lights,3,1,10,true)
+    cycle_lights(pent_lights,1,3,10,true)
    else
-    flash_rnd_target()
+    repeat
+     flash_rnd_target()
+    until cur_target != _obj
    end
   end
  end
@@ -174,7 +174,7 @@ end
 
 function check_collision_with_skillshot(_t,_pin)
  if check_collision_with_collider(_t,_pin) and _t.bonus_enabled then
-  increase_score(skillshot_points,1)
+  increase_score(250,1)
   add(msgs,{"skillshot!",t=90})
   disable_bonus(_t)
   _t.hit = 7
