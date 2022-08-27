@@ -45,7 +45,7 @@ function update_menu()
  if selected_option == 3 then
   pc_option=mod(
   pc_option+tonum(btnp(➡️))-tonum(btnp(⬅️)),
-  #options
+  #paddle_controls
  )
  end
 
@@ -87,8 +87,8 @@ function draw_menu()
   11,11,
   true
  )
- print_shadow(pad_con.ls,52,228+_off_y_m4,pad_con.lc,1)
- print_shadow(pad_con.rs,68,228+_off_y_m4,pad_con.rc,1)
+ print_shadow(pad_con.ls,52,228+_off_y_m4,button_cols[pad_con.ls],1)
+ print_shadow(pad_con.rs,68,228+_off_y_m4,button_cols[pad_con.rs],1)
  if selected_option == 3 then
   print(chr(22),40.5+sin(f/60),222.5+_off_y_m4+cos(f/143),7)
   print(chr(23),84.5+sin(f/60),222.5+_off_y_m4+cos(f/143),7)

@@ -83,9 +83,14 @@ The letter will even reset - if you're skilled enough to light them all again.
 
 ## Version History
 
-### V1.0.0
+### V1.0.0 - 27/08/22
 
 Initial release
+
+### V1.1.0 - 27/08/22
+
+- FIX: Fixed an issue where the launcher would sometimes get stuck if released with 0 power.
+- FEATURE: Additional paddle options optimised for mobile player.
 
 ## License
 

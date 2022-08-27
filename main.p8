@@ -1,7 +1,7 @@
 function _init()
  f=0
 
- version="1.0.0"
+ version="1.0.1"
  cartdata("xietanu_terranovapinball_v1")
  if dget(0) == 0 then
   gen_highscores()
@@ -13,27 +13,39 @@ function _init()
    l=⬅️,
    r=➡️,
    ls="⬅️",
-   rs="➡️",
-   lc=12,
-   rc=12
+   rs="➡️"
+  },
+  {
+   l=⬅️,
+   r=🅾️,
+   ls="⬅️",
+   rs="🅾️"
+  },
+  {
+   l=❎,
+   r=🅾️,
+   ls="❎",
+   rs="🅾️"
   },
   {
    l=🅾️,
    r=❎,
    ls="🅾️",
-   rs="❎",
-   lc=9,
-   rc=8
+   rs="❎"
   },
   {
    l=🅾️,
    r=➡️,
    ls="🅾️",
-   rs="➡️",
-   lc=9,
-   rc=12
+   rs="➡️"
   }
  }
+
+ button_cols={}
+ button_cols["🅾️"]=9
+ button_cols["❎"]=8
+ button_cols["➡️"]=12
+ button_cols["⬅️"]=12
 
  pc_option=1
 
