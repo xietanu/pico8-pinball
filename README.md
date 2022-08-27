@@ -57,9 +57,9 @@ However, beware of orbital drift - the progress bar will drain over time, so you
 
 Each time the ball passes down over one of the rollovers in each of the lanes at the bottom of the board, the rocket will be partially refueled.
 
-Trigger these 5 times to fill the **rocket fuel gauge**, and then land your ball in the kick-out hole at the base of the rocket to ignite **Blast-off!**!
+Trigger these 4 times to fill the **rocket fuel gauge**, and then land your ball in the kick-out hole at the base of the rocket to ignite **Blast-off!**!
 
-![Multiball!](assets/multiball.gif)
+![Multi-ball!](assets/multiball.gif)
 
 This scores 243,000 points, unleashes 3 balls onto the board (which will be automatically replaced for 20 seconds!) and lights up the letter **'R' in ORBIT**.
 
@@ -78,6 +78,8 @@ Landing the ball in the kick-out hole while the target practice is ongoing will 
 Light all 5 letters in ORBIT and you'll score 3,000,000 points and gain a bonus ball.
 
 The letter will even reset - if you're skilled enough to light them all again. 
+
+![Achieving ORBIT](assets/orbit.gif)
 
 ## License
 
