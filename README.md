@@ -81,6 +81,12 @@ The letter will even reset - if you're skilled enough to light them all again.
 
 ![Achieving ORBIT](assets/orbit.gif)
 
+## Version History
+
+### V1.0.0
+
+Initial release
+
 ## License
 
 [![Creative Commons Licence](https://i.creativecommons.org/l/by-nc/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc/4.0/)
