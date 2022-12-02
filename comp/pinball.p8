@@ -52,7 +52,7 @@ function update_pinball_pos(_pin,_dt)
   )
  end
 
- if _pin.origin.y > 140 then
+ if _pin.origin.y > 140 or _pin.origin.y < 0 or _pin.origin.x < 2 or _pin.origin.x > 78 then
   del(pinballs,_pin)
   if blastoff_mode then
    add_blastoff_ball()
