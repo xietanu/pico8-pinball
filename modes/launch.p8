@@ -3,6 +3,7 @@ function init_launch()
  
  if reset_light.lit then
   add(msgs,{"relaunch",t=90})
+  cur_pinball.spd = vec(0,-3.5)
  else
   balls-=1
  end
