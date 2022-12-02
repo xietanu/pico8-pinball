@@ -77,7 +77,7 @@ Landing the ball in the kick-out hole while the target practice is ongoing will 
 
 Light all 5 letters in ORBIT and you'll score 3,000,000 points and gain a bonus ball.
 
-The letter will even reset - if you're skilled enough to light them all again. 
+The letters will even reset - if you're skilled enough to light them all again. 
 
 ![Achieving ORBIT](assets/orbit.gif)
 
@@ -91,6 +91,10 @@ Initial release
 
 - FIX: Fixed an issue where the launcher would sometimes get stuck if released with 0 power.
 - FEATURE: Additional paddle options optimised for mobile player.
+
+## V1.2.0 - 02/12/22
+​- FIX: Fixed a rare out-of-bounds error that could occur during multiball.
+- FEATURE: Relaunching of the ball is now automatic.
 
 ## License
 
