@@ -1,7 +1,7 @@
 function _init()
  f=0
 
- version="1.1.0"
+ version="1.2.0"
  cartdata("xietanu_terranovapinball_v1")
  if dget(0) == 0 then
   gen_highscores()
